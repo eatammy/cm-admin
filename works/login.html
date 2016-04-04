@@ -26,100 +26,7 @@
     <div class="login-container">
         <div class="row">
             <div class="col-sm-6">
-                <script type="text/javascript">
-                    jQuery(document).ready(function($)
-                        // Reveal Login form
-                        setTimeout(function(){ $(".fade-in-effect").addClass('in'); }, 1);
-                        // Validation and Ajax action
-                        $("form#login").validate({
-                            rules: {
-                                username: {
-                                    required: true
-                                },
 
-                                passwd: {
-                                    required: true
-                                }
-                            },
-                            messages: {
-                                username: {
-                                    required: '请输入您的用户名'
-                                },
-                                passwd: {
-                                    required: '请输入您的密码'
-                                }
-                            },
-
-                            // Form Processing via AJAX
-                            submitHandler: function(form)
-                            {
-                                show_loading_bar(100); // Fill progress bar to 70% (just a given value)
-
-                                var opts = {
-                                    "closeButton": true,
-                                    "debug": false,
-                                    "positionClass": "toast-top-full-width",
-                                    "onclick": null,
-                                    "showDuration": "300",
-                                    "hideDuration": "1000",
-                                    "timeOut": "5000",
-                                    "extendedTimeOut": "1000",
-                                    "showEasing": "swing",
-                                    "hideEasing": "linear",
-                                    "showMethod": "fadeIn",
-                                    "hideMethod": "fadeOut"
-                                };
-
-                                $.ajax({
-                                    url: "data/login-check.php",
-                                    method: 'POST',
-                                    dataType: 'json',
-                                    data: {
-                                        do_login: true,
-                                        username: $(form).find('#username').val(),
-                                        passwd: $(form).find('#passwd').val(),
-                                    },
-                                    success: function(resp)
-                                    {
-                                        show_loading_bar({
-                                            delay: .5,
-                                            pct: 100,
-                                            finish: function(){
-
-                                                // 成功请求到之后加载进度条
-                                                if(resp.accessGranted)
-                                                {
-                                                    window.location.href = 'dashboard-1.html';
-                                                }
-                                            }
-                                        });
-
-                                        // 移除警告框
-                                        $(".errors-container .alert").slideUp('fast');
-
-                                        // 展示错误
-                                        if(resp.accessGranted == false)
-                                        {
-                                            $(".errors-container").html('<div class="alert alert-danger">\
-												<button type="button" class="close" data-dismiss="alert">\
-													<span aria-hidden="true">&times;</span>\
-													<span class="sr-only">Close</span>\
-												</button>\
-												' + resp.errors + '\
-											</div>');
-
-                                            $(".errors-container .alert").hide().slideDown();
-                                            $(form).find('#passwd').select();
-                                        }
-                                    }
-                                });
-
-                            }
-                        });
-                        // Set Form focus
-                        $("form#login .form-group:has(.form-control):first .form-control").focus()
-                    })；
-                </script>
                 <div class="errors-container"></div>
                 <form action="#" method="post" role="form" id="login" class="login-form fade-in-effect">
                     <div class="login-header">
@@ -167,6 +74,101 @@
 
 
 <!-- Bottom Scripts -->
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+            // Reveal Login form
+            setTimeout(function(){ $(".fade-in-effect").addClass('in'); }, 1);
+            // Validation and Ajax action
+            $("form#login").validate({
+                rules: {
+                    username: {
+                        required: true
+                    },
+
+                    passwd: {
+                        required: true
+                    }
+                },
+                messages: {
+                    username: {
+                        required: '请输入您的用户名'
+                    },
+                    passwd: {
+                        required: '请输入您的密码'
+                    }
+                },
+
+                // Form Processing via AJAX
+                submitHandler: function(form)
+                {
+                    show_loading_bar(100); // Fill progress bar to 70% (just a given value)
+
+                    var opts = {
+                        "closeButton": true,
+                        "debug": false,
+                        "positionClass": "toast-top-full-width",
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+
+                    $.ajax({
+//                        url: "data/login-check.php",
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            do_login: true,
+                            username: $(form).find('#username').val(),
+                            passwd: $(form).find('#passwd').val(),
+                        },
+                        success: function(resp)
+                        {
+                            show_loading_bar({
+                                delay: .5,
+                                pct: 100,
+                                finish: function(){
+
+                                    // 成功请求到之后加载进度条
+                                    if(resp.accessGranted)
+                                    {
+                                        window.location.href = 'index.html';
+                                    }
+                                }
+                            });
+
+                            // 移除警告框
+                            $(".errors-container .alert").slideUp('fast');
+
+                            // 展示错误
+                            if(resp.accessGranted == false)
+                            {
+                                $(".errors-container").html('<div class="alert alert-danger">\
+												<button type="button" class="close" data-dismiss="alert">\
+													<span aria-hidden="true">&times;</span>\
+													<span class="sr-only">Close</span>\
+												</button>\
+												' + resp.errors + '\
+											</div>');
+
+                                $(".errors-container .alert").hide().slideDown();
+                                $(form).find('#passwd').select();
+                            }
+                        }
+                    });
+
+                }
+            });
+            // Set Form focus
+            $("form#login .form-group:has(.form-control):first .form-control").focus()
+        });
+    </script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/TweenMax.min.js"></script>
 <script src="assets/js/resizeable.js"></script>
