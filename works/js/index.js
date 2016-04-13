@@ -20,6 +20,10 @@ jQuery(function ($) {
 })
 var CMADMIN = avalon.define({
     $id: "CMADMIN",
+    htmlRoot: '/html',
+    current6Date: new Date(),
+
+    //
 });
 
 avalon.scan();
