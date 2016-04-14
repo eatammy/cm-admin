@@ -1,0 +1,66 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important, [ms-controller], [ms-important] {
+        visibility: hidden;
+    }
+</style>
+
+<!--标签区-->
+<div id="addTopMenu" ms-important="addTopMenu">
+    <div class="form">
+        <form id="addForm">
+            <div class=" user-edit ">
+                <div class="remark"> 注：带 * 号为必填项</div>
+                <table class="table_1" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th width="20%"><span>*</span>菜单名称：</th>
+                        <td width="30%"><input type="text" name="name"/></td>
+                        <th width="20%"><span>*</span> 创建时间：</th>
+                        <td width="30%">{{currentDate|date}}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span>*</span> 适用身份：</th>
+                        <td  width="30%">
+                            <label ms-repeat="userTypeData">
+                                <input type="checkbox" ms-attr-value="$key" name="userType"
+                                       ms-duplex-number="selected"/>{{$val}}
+                            </label>
+                        </td>
+                        <th width="20%"><span>*</span>打开方式：</th>
+                        <td width="30%">
+                            <input type="radio" value="0" name="isBlank" checked> 当前页面 &nbsp;
+                            <input type="radio" value="1" name="isBlank"> 新页面
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span>*</span>跳转地址：</th>
+                        <td colspan="3">
+                            <input type="text" name="url"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span>*</span>排序：</th>
+                        <td width="30%" style="border-right: none;">
+                            <input type="text" name="priority"/>
+                        </td>
+                        <td colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span></span>应用描述：</th>
+                        <td colspan="3">
+                            <textarea name="description"/>
+                        </td>
+                    </tr>
+                </table>
+                <div class="user-btn">
+                    <input type="button" value="保存" class="oper" ms-click="save"/>
+                    <input type="button" value="返回" class="oper" ms-click="back"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--脚本区-->
+<script type="text/javascript">

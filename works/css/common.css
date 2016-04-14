@@ -133,8 +133,8 @@ div.form .remark{ text-align:left; padding:20px;}
 /*add*/
 
 .table_1{ width:100%; border-left:1px solid #ddd;}
-.table_1 tr:hover{ background:#fbfbfb;}
-.table_1 th{ height:25px;border-right:1px solid #ddd; border-bottom:1px solid #ddd; padding:8px; background:#48bcbb; color:#fff;}
+.table_1 tr:hover{ background: #f2f2f2;}
+.table_1 th{ height:25px;border-right:1px solid #ddd; border-bottom:1px solid #ddd; padding:8px; background: #429aca; color:#fff;}
 .table_1 td{ border-right:1px solid #ddd; border-bottom:1px solid #ddd; padding:6px 8px; color:#666;}
 .table_1 img{ vertical-align:middle}
 .table_1 em{ color:#f00;}
@@ -145,7 +145,7 @@ div.form .remark{ text-align:left; padding:20px;}
 .table_1 a:hover{ text-decoration:underline;}
 .table_1 select{ height:26px;  border:1px solid #ccc; margin:0 8px 0 0; font-size:12px;}
 .table_1 input[type="text"]{ height:25px; border:1px solid #ccc; margin:2px 0; padding:0 3px; font-size:14px;}
-.table_1 input[type="button"],input.green{ height:24px; padding:0 5px; margin:2px 3px; border:0; background:#87B87F; color:#fff; font-size:12px; overflow:visible;}
+.table_1 input[type="button"],input.blue{ height:24px; padding:0 5px; margin:2px 3px; border:0; background:#429aca; color:#fff; font-size:12px; overflow:visible;}
 .table_1 input.longbtn{ width:110px; padding:5px; height:30px; margin-right:30px;}
 .table_1 input:hover[type="button"]{ background:#629B58;}
 .table_1 input[type="submit"]{ height:24px; padding:0 5px; margin:2px 3px; border:0; background:#87B87F; color:#fff; font-size:12px; overflow:visible;}
@@ -221,7 +221,7 @@ a.p_2{ padding-left:20px;}
 .l_search ul li ul li a{ color:#333}
 .l_search ul li ul li span{ display:block; padding-left:28px;}
 .l_search ul li ul li span p{ padding-left:12px; margin:0; color:#999}
-a.bt_org{ padding:0 10px; text-align:center; color:#fff; background:#f60; display:inline-block; float:left;margin-right: 10px;}
+a.bt_org{ padding:0 10px; text-align:center; color:#fff; background:#428bca; display:inline-block; float:left;margin-right: 10px;}
 
 /*上传*/
 .upload_pic td{border: none;}
