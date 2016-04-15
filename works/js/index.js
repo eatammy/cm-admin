@@ -38,7 +38,7 @@ var CMADMIN = avalon.define({
     //打开弹窗
     index: 0,//记录弹窗
     openDialog: function (url, data, title, width, height, callBack) {
-        $.post(CMADMIN.htmlRoot + url, {}, function (html) {
+        $.get(CMADMIN.htmlRoot + url, {}, function (html) {
             var str = JSON.stringify(data);
             var hidden = "<input id='param' type='hidden' value='"+str+"' />";
             var area = [width, height];

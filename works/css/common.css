@@ -147,9 +147,9 @@ div.form .remark{ text-align:left; padding:20px;}
 .table_1 input[type="text"]{ height:25px; border:1px solid #ccc; margin:2px 0; padding:0 3px; font-size:14px;}
 .table_1 input[type="button"],input.blue{ height:24px; padding:0 5px; margin:2px 3px; border:0; background:#429aca; color:#fff; font-size:12px; overflow:visible;}
 .table_1 input.longbtn{ width:110px; padding:5px; height:30px; margin-right:30px;}
-.table_1 input:hover[type="button"]{ background:#629B58;}
+.table_1 input:hover[type="button"]{ background:#428ebe;}
 .table_1 input[type="submit"]{ height:24px; padding:0 5px; margin:2px 3px; border:0; background:#87B87F; color:#fff; font-size:12px; overflow:visible;}
-.table_1 input:hover[type="submit"]{ background:#629B58;}
+.table_1 input:hover[type="submit"]{ background: #428ebe;}
 .table_1 textarea{ width:500px; height:auto; border:1px solid #ccc; padding:5px;}
 
 .table_1 td .mul{ width:100px; height:26px; display:inline-block; position:relative;}
