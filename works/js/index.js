@@ -22,6 +22,7 @@ var CMADMIN = avalon.define({
     $id: "CMADMIN",
     htmlRoot: '/html',
     currentDate: new Date(),
+    currentUser: JSON.parse(sessionStorage.getItem("CURRENTUSER")),
 
     //打开loading
     openLoading: function () {
@@ -40,9 +41,9 @@ var CMADMIN = avalon.define({
     openDialog: function (url, data, title, width, height, callBack) {
         $.get(CMADMIN.htmlRoot + url, {}, function (html) {
             var str = JSON.stringify(data);
-            var hidden = "<input id='param' type='hidden' value='"+str+"' />";
+            var hidden = "<input id='param' type='hidden' value='" + str + "' />";
             var area = [width, height];
-            if (height=='auto'){
+            if (height == 'auto') {
                 area = width;
             }
             CMADMIN.index = layer.open({
@@ -85,9 +86,24 @@ var CMADMIN = avalon.define({
     },
     //退出
     logout: function () {
-        store.clear();
-        sessionStorage.clear();
-        window.location = "/admin/logout";
+        $.ajax({
+            url: "/cm/admin/user/logout",
+            dataType: 'json',
+            type: 'get',
+            success: function (result) {
+                if (isSuccess(result)) {
+                    layer.alert(result.bizData, 1);
+                    //store.clear();
+                    sessionStorage.clear();
+                    window.setTimeout(function () {
+                        window.location = "/login.html";
+                    }, 1500);
+                } else {
+                    layer.alert("操作失败！", 5);
+                }
+            }
+        })
+
     }
 });
 avalon.scan();
