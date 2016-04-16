@@ -86,22 +86,25 @@ var CMADMIN = avalon.define({
     },
     //退出
     logout: function () {
-        $.ajax({
-            url: "/cm/admin/user/logout",
-            dataType: 'json',
-            type: 'get',
-            success: function (result) {
-                if (isSuccess(result)) {
-                    layer.alert(result.bizData, 1);
-                    //store.clear();
-                    sessionStorage.clear();
-                    window.setTimeout(function () {
-                        window.location = "/login.html";
-                    }, 1500);
-                } else {
-                    layer.alert("操作失败！", 5);
+        layer.confirm("您确定要登出？",{icon: 5, title: "注销"}, function (index) {
+            $.ajax({
+                url: "/cm/admin/user/logout",
+                dataType: 'json',
+                type: 'get',
+                success: function (result) {
+                    if (isSuccess(result)) {
+                        layer.alert(result.bizData, 1);
+                        //store.clear();
+                        sessionStorage.clear();
+                        window.setTimeout(function () {
+                            window.location = "/login.html";
+                        }, 1500);
+                    } else {
+                        layer.alert("操作失败！", 5);
+                    }
                 }
-            }
+            });
+            layer.close(index);
         })
 
     }
