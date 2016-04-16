@@ -82,7 +82,6 @@ var CMADMIN = avalon.define({
         $(".layui-layer-close").trigger("click");
     },
     init: function () {
-        avalon.log("haha");
     },
     //退出
     logout: function () {
@@ -96,12 +95,12 @@ var CMADMIN = avalon.define({
                         layer.alert(result.bizData, 1);
                         //store.clear();
                         sessionStorage.clear();
-                        window.setTimeout(function () {
-                            window.location = "/login.html";
-                        }, 1500);
                     } else {
                         layer.alert("操作失败！", 5);
                     }
+                    window.setTimeout(function () {
+                        window.location = "/login.html";
+                    }, 1500);
                 }
             });
             layer.close(index);

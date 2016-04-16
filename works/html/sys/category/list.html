@@ -3,6 +3,12 @@
     .ms-controller, .ms-important {
         visibility: hidden;
     }
+    .disabled_text{
+        color: #cd0000;
+    }
+    .enabled_text{
+        color: #1b6aaa;
+    }
 </style>
 
 <!--标签区-->
@@ -58,54 +64,24 @@
             <th width="5%">状态</th>
             <th width="25%">操作</th>
         </tr>
-        <tr>
+        <tr ms-repeat="category">
             <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
                                   ms-attr-disabled="el.status===0"/></td>
-            <td>早餐</td>
-            <td>食谱</td>
-            <td>帅气的胖麦</td>
-            <td>1</td>
-            <td>2016-04-14</td>
-            <td>启用</td>
+            <td>{{el.name}}</td>
+            <td>{{el.type|categoryTypeFilter}}</td>
+            <td>{{el.creatorName}}</td>
+            <td>{{el.priority}}</td>
+            <td>{{el.createDate|date("yyyy-MM-dd")}}</td>
+            <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
+            <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">停用</span></td>
             <td>
                 <input name="" type="button" ms-click="edit" value="修改"/>
-                <input name="" type="button" value="启用"/>
-                <input name="" type="button" value="停用"/>
+                <input name="" type="button" value="启用" ms-if="el.status == 0"/>
+                <input name="" type="button" value="停用" ms-if="el.status == 1"/>
                 <input name="" type="button" value="删除"/>
             </td>
         </tr>
-        <tr>
-            <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
-                                  ms-attr-disabled="el.status===0"/></td>
-            <td>午餐</td>
-            <td>食谱</td>
-            <td>帅气的胖麦</td>
-            <td>1</td>
-            <td>2016-04-14</td>
-            <td>启用</td>
-            <td>
-                <input name="" type="button" value="修改"/>
-                <input name="" type="button" value="启用"/>
-                <input name="" type="button" value="停用"/>
-                <input name="" type="button" value="删除"/>
-            </td>
-        </tr>
-        <tr>
-            <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
-                                  ms-attr-disabled="el.status===0"/></td>
-            <td>晚餐</td>
-            <td>食谱</td>
-            <td>帅气的胖麦</td>
-            <td>1</td>
-            <td>2016-04-14</td>
-            <td>启用</td>
-            <td>
-                <input name="" type="button" value="修改"/>
-                <input name="" type="button" value="启用"/>
-                <input name="" type="button" value="停用"/>
-                <input name="" type="button" value="删除"/>
-            </td>
-        </tr>
+
     </table>
 </div>
 

@@ -2,15 +2,18 @@
  * Created by 郭旭辉 on 2016/4/13.
  */
 
+/** 分类**/
+var categoryType = ["食谱", "商店", "商品", "活动"];
+
 /**通用方法**/
 function isSuccess(result) {
     var rtnCode = result.rtnCode;
     if (rtnCode == '0000000')
         return true;
-    if(rtnCode=='0100041'){
-        if(layer){
-            layer.alert(result.msg,{icon:5});
-        }else{
+    if (rtnCode == '0100041') {
+        if (layer) {
+            layer.alert(result.msg, {icon: 5});
+        } else {
             alert(result.msg);
         }
     }
@@ -53,4 +56,18 @@ function closeAllTip() {
     $('.qtip').each(function () {
         $(this).data('qtip').destroy();
     })
+}
+/** 过滤器 **/
+avalon.filters.categoryTypeFilter = function (value, args, args2) {
+    var str = "";
+    if (value == 1){
+        str = categoryType[0];
+    }else if (value == 2){
+        str = categoryType[1];
+    } else if(value == 4){
+        str = categoryType[2];
+    } else {
+        str = categoryType[3];
+    }
+    return str;
 }

@@ -46,6 +46,7 @@ $(function () {
                 });
             }
         },
+
         back: function () {
             CMADMIN.cancelDialog();
         }
