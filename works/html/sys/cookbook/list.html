@@ -1,0 +1,94 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important {
+        visibility: hidden;
+    }
+
+
+</style>
+
+<!--标签区-->
+<div id="listCookbook" ms-important="listCookbook" class="page-content">
+    <div class=" search user-c-box">
+        <form id="searchCondition">
+            <div class="user-c">
+                <div class="tj">
+                    <span class="search-label"><b>食谱名称：</b><input class="txt" name="name" ms-keydown="enter($event)"
+                                                                  type="text"
+                                                                  placeholder="请输入"/></span>
+                    <span class="search-label">
+                        <b>食谱类型：</b>
+                        <select name="type">
+                            <option value="-1">默认</option>
+                            <option></option>
+                        </select>
+                    </span><span class="search-label">
+                        <b>状态：</b>
+                        <select name="status">
+                            <option value="-1">默认</option>
+                            <option value="0">启用</option>
+                            <option value="1">停用</option>
+                        </select>
+                    </span>
+                    <a href="javascript:void(0)" ms-click="query(1)" class=" bt_org">查询</a><a
+                        href="javascript:void(0)"
+                        ms-click="clear"
+                        class=" bt_org">重置</a>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <!-- 顶部操作-->
+    <div class="top_bt">
+        <a href="javascript:void(0);" ms-click="add">添 加</a>
+        <a href="javascript:void(0);" ms-click="deleteBatch">删 除</a>
+    </div>
+
+    <table class="table_1">
+        <tr>
+            <th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"
+                                  data-duplex-changed="checkAll"/></th>
+            <th width="20%">食谱名称</th>
+            <th width="15%">食谱类型</th>
+            <th width="20%">创建者</th>
+            <th width="10%">创建时间</th>
+            <th width="5%">状态</th>
+            <th width="25%">操作</th>
+        </tr>
+        <tr ms-repeat="category">
+            <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
+                                  ms-attr-disabled="el.status===0"/></td>
+            <td>{{el.name}}</td>
+            <td>{{el.type|categoryTypeFilter}}</td>
+            <td>{{el.creatorName}}</td>
+            <td>{{el.createDate|date("yyyy-MM-dd")}}</td>
+            <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
+            <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">停用</span></td>
+            <td>
+                <input name="" type="button" ms-click="edit(el.id)" value="修改"/>
+                <input name="" type="button" value="启用" ms-if="el.status == 1" ms-click="disableOrEnable(0,el.id,0)"/>
+                <input name="" type="button" value="停用" ms-if="el.status == 0" ms-click="disableOrEnable(1,el.id,1)"/>
+                <input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id)"/>
+            </td>
+        </tr>
+    </table>
+    <div class="page_num">
+        <a ms-class="disabled:pageNo===1" ms-click="selectPage(-9999)">首页</a>
+        <a ms-class="disabled:pageNo===1" ms-click="selectPage(-1)">上页</a>
+        <a ms-class="disabled:pageNo===total" ms-click="selectPage(1)">下页</a>
+        <a ms-class="disabled:pageNo===total" ms-click="selectPage(9999)">末页</a>
+        &emsp;当前第{{pageNo}}页/共{{total}}页，跳转至第
+        <input typt="text" id="selectPageNo" ms-blur="toPage" value="1">
+        页，每页
+        <select id="pageSize" ms-change="selectSize">
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
+        条，共<em>{{records}}</em>条记录
+    </div>
+</div>
+
+<script src="../../../js/sys/cookbook/list.js"></script>
