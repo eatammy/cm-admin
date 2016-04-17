@@ -223,6 +223,14 @@ a.p_2{ padding-left:20px;}
 .l_search ul li ul li span p{ padding-left:12px; margin:0; color:#999}
 a.bt_org{ padding:0 10px; text-align:center; color:#fff; background:#428bca; display:inline-block; float:left;margin-right: 10px;}
 
+/*停用、启用*/
+.disabled_text {
+    color: #cd0000;
+}
+.enabled_text {
+    color: #1b6aaa;
+}
+
 /*上传*/
 .upload_pic td{border: none;}
 #treeDemo span{color: black;  line-height: normal; font-family: "Microsoft YaHei"}

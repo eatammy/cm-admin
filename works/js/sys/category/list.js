@@ -21,7 +21,7 @@ ace.load_ajax_scripts(scripts, function () {
                 $.ajax({
                     url: '/cm/admin/category/queryPage',
                     dataType: 'json',
-                    type: 'get',
+                    type: 'post',
                     data: data,
                     beforeSend: function () {
                         CMADMIN.openLoading();
@@ -36,16 +36,40 @@ ace.load_ajax_scripts(scripts, function () {
                     }
                 })
             },
+
+            //点击查询
+            query: function (pageNo) {
+                vm.pageNo = pageNo;
+                vm.queryPage();
+            },
+
+            //回车查询
+            enter: function (event) {
+                vm.pageNo = 1;
+                vm.pageSize = 10;
+                if (event.keyCode == 13) {
+                    vm.queryPage();
+                }
+            },
+
+            //重置
+            clear: function () {
+                $("#searchCondition")[0].reset();
+                vm.pageNo = 1;
+                vm.pageSize = 10;
+                vm.queryPage();
+            },
+
             //添加
             add: function () {
                 CMADMIN.openDialog("/sys/category/add.html", {}, "添加分类", "700px", "270px", function () {
-                    //vm.clear();    //重置
+                    vm.clear();    //重置
                 });
             },
             //修改
-            edit: function () {
-                CMADMIN.openDialog("/sys/category/edit.html", {}, "添加分类", "700px", "270px", function () {
-                    //vm.clear();    //重置
+            edit: function (id) {
+                CMADMIN.openDialog("/sys/category/edit.html", {id: id}, "添加分类", "700px", "270px", function () {
+                    vm.clear();    //重置
                 });
             },
             init: function(){
