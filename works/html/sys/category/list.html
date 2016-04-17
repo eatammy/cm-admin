@@ -77,8 +77,23 @@
                 <input name="" type="button" value="删除"/>
             </td>
         </tr>
-
     </table>
+    <div class="page_num">
+        <a ms-class="disabled:pageNo===1" ms-click="selectPage(-9999)">首页</a>
+        <a ms-class="disabled:pageNo===1" ms-click="selectPage(-1)">上页</a>
+        <a ms-class="disabled:pageNo===total" ms-click="selectPage(1)">下页</a>
+        <a ms-class="disabled:pageNo===total" ms-click="selectPage(9999)">末页</a>
+        &emsp;当前第{{pageNo}}页/共{{total}}页，跳转至第
+        <input typt="text" id="selectPageNo" ms-blur="toPage" value="1">
+        页，每页
+        <select id="pageSize" ms-change="selectSize">
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
+        条，共<em>{{records}}</em>条记录
+    </div>
 </div>
 
 <script src="../../../js/sys/category/list.js"></script>

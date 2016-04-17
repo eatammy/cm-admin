@@ -10,14 +10,16 @@ ace.load_ajax_scripts(scripts, function () {
         var vm = avalon.define({
             $id: "listCategory",
             currentDate: new Date(),
-            pageNo: 1,
-            pageSize: 10,
+            pageNo: 1,      //页码
+            pageSize: 10,   //页大小
+            records: 0,     //总数
+            total: 0,       //页数
             category: [],
             //分页查询
             queryPage: function () {
                 var data = $("#searchCondition").serialize();
-                data.pageNo = vm.pageNo;
-                data.pageSize = vm.pageSize;
+                data += "&pageNo=" + vm.pageNo;
+                data += "&pageSize=" + vm.pageSize;
                 $.ajax({
                     url: '/cm/admin/category/queryPage',
                     dataType: 'json',
@@ -30,8 +32,10 @@ ace.load_ajax_scripts(scripts, function () {
                         CMADMIN.closeLoading();
                     },
                     success: function (result) {
-                        if(isSuccess(result)){
+                        if (isSuccess(result)) {
                             vm.category = result.bizData.rows;
+                            vm.total = result.bizData.total;
+                            vm.records = result.bizData.records;
                         }
                     }
                 })
@@ -72,7 +76,38 @@ ace.load_ajax_scripts(scripts, function () {
                     vm.clear();    //重置
                 });
             },
-            init: function(){
+
+            //首页，上下页，尾页
+            selectPage: function (value) {
+                vm.pageNo += parseInt(value);
+                if (vm.pageNo < 1) {
+                    vm.pageNo = 1;
+                }
+                if (vm.pageNo > vm.total) {
+                    vm.pageNo = vm.total;
+                }
+                vm.queryPage();
+            },
+
+            //每页大小
+            selectSize: function () {
+                vm.pageSize = parseInt($("#pageSize").val());
+                vm.pageNo = 1;
+                vm.queryPage(vm.condition);
+                $("#pageSize").val(vm.pageSize);
+            },
+
+            //跳转到某页
+            toPage: function () {
+                var val = $(this).val();
+                if (isNaN(val) || val < 1 || val > vm.total) {
+                    layer.alert("请输入正确的页号！", {icon: 5});
+                    return;
+                }
+                vm.pageNo = parseInt(val);
+                vm.queryPage();
+            },
+            init: function () {
                 vm.queryPage();
             }
         });

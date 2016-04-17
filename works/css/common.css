@@ -231,6 +231,16 @@ a.bt_org{ padding:0 10px; text-align:center; color:#fff; background:#428bca; dis
     color: #1b6aaa;
 }
 
+/*分页*/
+.page_btn{
+    padding: 0 10px;
+    text-align: center;
+    color: #fff;
+    background: #428bca;
+    display: inline-block;
+    margin-right: 10px
+}
+
 /*上传*/
 .upload_pic td{border: none;}
 #treeDemo span{color: black;  line-height: normal; font-family: "Microsoft YaHei"}
