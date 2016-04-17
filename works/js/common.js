@@ -5,6 +5,15 @@
 /** 分类**/
 var categoryType = ["食谱", "商店", "商品", "活动"];
 
+/** 复选框是否全选 **/
+function isSelectedAll(item) {
+    if (item.status == 1) {
+        return item.checked;
+    } else {
+        return true;
+    }
+}
+
 /**通用方法**/
 function isSuccess(result) {
     var rtnCode = result.rtnCode;

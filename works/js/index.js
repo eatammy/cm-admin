@@ -93,7 +93,6 @@ var CMADMIN = avalon.define({
                 success: function (result) {
                     if (isSuccess(result)) {
                         layer.alert(result.bizData, 1);
-                        //store.clear();
                         sessionStorage.clear();
                     } else {
                         layer.alert("操作失败！", 5);
