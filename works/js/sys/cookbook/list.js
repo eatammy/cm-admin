@@ -90,7 +90,7 @@ ace.load_ajax_scripts(scripts, function () {
 
             //添加
             add: function () {
-                CMADMIN.openDialog("/sys/category/add.html", {}, "添加分类", "700px", "270px", function () {
+                CMADMIN.openDialog("/sys/cookbook/add.html", {}, "添加分类", "700px", "270px", function () {
                     vm.clear();    //重置
                 });
             },
