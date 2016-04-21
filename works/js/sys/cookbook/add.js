@@ -6,7 +6,7 @@ $(function () {
     //上传
     uploader = Qiniu.uploader({
         runtimes : 'html5,flash,html4', // 上传模式,依次退化
-        browse_button : 'pickfiles', // 上传选择的点选按钮，**必需**
+        browse_button : 'pickFiles', // 上传选择的点选按钮，**必需**
         // 在初始化时，uptoken, uptoken_url, uptoken_func 三个参数中必须有一个被设置
         // 切如果提供了多个，其优先级为 uptoken > uptoken_url > uptoken_func
         // 其中 uptoken 是直接提供上传凭证，uptoken_url 是提供了获取上传凭证的地址，如果需要定制获取 uptoken 的过程则可以设置 uptoken_func
@@ -22,12 +22,12 @@ $(function () {
         unique_names : true, // 默认 false，key 为文件名。若开启该选项，JS-SDK 会为每个文件自动生成key（文件名）
         // save_key: true,                  // 默认 false。若在服务端生成 uptoken 的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
         domain : 'http://7xnnot.com1.z0.glb.clouddn.com/', // bucket 域名，下载资源时用到，**必需**
-        container : 'pp', // 上传区域 DOM ID，默认是 browser_button 的父元素，
+        container : 'headIcon', // 上传区域 DOM ID，默认是 browser_button 的父元素，
         max_file_size : '100mb', // 最大文件体积限制
-        flash_swf_url : 'bower_components/plupload/js/Moxie.swf', //引入 flash,相对路径
+        flash_swf_url : 'libs/upload/plupload/Moxie.swf', //引入 flash,相对路径
         max_retries : 3, // 上传失败最大重试次数
         dragdrop : true, // 开启可拖曳上传
-        drop_element : 'pp', // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
+        drop_element : 'headIcon', // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
         chunk_size : '4mb', // 分块上传时，每块的体积
         auto_start : false, // 选择文件后自动上传，若关闭需要自己绑定事件触发上传,
         filters : [ {
@@ -52,7 +52,7 @@ $(function () {
                 plupload.each(files, function(file) {
                     // 文件添加进队列后,处理相关的事情
                     previewImage(file, function (imgsrc) {
-                        $("#iii").attr("src",imgsrc);
+                        $("#img").attr("src",imgsrc);
                     })
                 });
             },
@@ -75,7 +75,7 @@ $(function () {
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
                 var sourceLink = domain + res.key; //获取上传成功后的文件的Url
-                document.getElementById("iii").setAttribute("src",
+                document.getElementById("img").setAttribute("src",
                     sourceLink);
 
             },
