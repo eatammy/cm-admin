@@ -82,6 +82,11 @@ var CMADMIN = avalon.define({
         $(".layui-layer-close").trigger("click");
     },
     init: function () {
+        if(!isLoad()){
+            window.location = "/login.html";
+        }else{//在此处做初始化的事务
+
+        }
     },
     //退出
     logout: function () {

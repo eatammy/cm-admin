@@ -5,6 +5,11 @@
 /** 分类**/
 var categoryType = ["食谱", "商店", "商品", "活动"];
 
+/** 判断是否登录 **/
+function isLoad(){
+    return sessionStorage.getItem("ISLOAD");
+}
+
 /** 复选框是否全选 **/
 function isSelectedAll(item) {
     if (item.status == 1) {
@@ -60,6 +65,12 @@ function errorPlacement(error, element) {
         element.qtip('destroy');
     }
 }
+/** 拓展验证规则 **/
+jQuery.validator.addMethod("isSame", function (value, element) {
+    var password = $("#regPasswd").val();
+    //var secondPasswd = $("#regSecondPasswd").val();
+    return this.optional(element) || (password === value);
+},"两次密码不一致");
 //关闭所有提示
 function closeAllTip() {
     $('.qtip').each(function () {

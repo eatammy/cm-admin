@@ -56,6 +56,7 @@ avalon.ready(function () {
                                 avalon.log(loginInfo);
                                 localStorage.setItem("LOGININFO", JSON.stringify(loginInfo));
                                 sessionStorage.setItem("CURRENTUSER", JSON.stringify(result.bizData));
+                                sessionStorage.setItem("ISLOAD",true);
                             }
                             layer.alert("登录成功", {icon: 1});
                             window.setTimeout(function () {//3秒后自动跳转

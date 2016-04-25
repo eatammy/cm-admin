@@ -197,7 +197,7 @@
 
                         <div id="signup-box" class="signup-box widget-box no-border">
                             <div class="widget-body">
-                                <div class="widget-main">
+                                <div class="widget-main" ms-controller="register" id="register">
                                     <h4 class="header green lighter bigger">
                                         <i class="ace-icon fa fa-users blue"></i>
                                         新用户注册
@@ -206,33 +206,33 @@
                                     <div class="space-6"></div>
                                     <p> 请输入您的信息: </p>
 
-                                    <form>
+                                    <form id="regForm">
                                         <fieldset>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="手机号码" />
+															<input type="text" class="form-control" placeholder="手机号码" name="username"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="密码" />
+															<input type="password" class="form-control" placeholder="密码" name="password" id="regPasswd"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="重复输入密码" />
+															<input type="password" class="form-control" placeholder="重复输入密码" name="secondPasswd" id="regSecondPasswd"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
                                             </label>
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text"  placeholder="验证码"  class="pull-left input-md"/>
+															<input type="text"  placeholder="验证码"  class="pull-left input-md" name="verifiedCode"/>
 															 <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
                                                                  <i class="ace-icon fa fa-clock-o"></i>
                                                                  <span class="bigger-110">发送验证码</span>
@@ -241,7 +241,7 @@
                                             </label>
 
                                             <label class="block">
-                                                <input type="checkbox" class="ace" />
+                                                <input type="checkbox" class="ace" name="agree"/>
 														<span class="lbl">
 															同意
 															<a href="#">用户条约</a>
@@ -256,7 +256,7 @@
                                                     <span class="bigger-110">重置</span>
                                                 </button>
 
-                                                <button type="button" class="width-65 pull-right btn btn-sm btn-primary">
+                                                <button type="button" class="width-65 pull-right btn btn-sm btn-primary" ms-click="register">
                                                     <span class="bigger-110">注册</span>
 
                                                     <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
@@ -320,5 +320,6 @@
 <!-- 引入通用脚本 -->
 <script src="js/common.js"></script>
 <script src="js/login.js"></script>
+<script src="js/register.js"></script>
 </body>
 </html>
