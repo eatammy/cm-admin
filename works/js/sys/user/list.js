@@ -14,7 +14,7 @@ ace.load_ajax_scripts(scripts, function () {
             pageSize: 10,   //页大小
             records: 0,     //总数
             total: 0,       //页数
-            category: [],
+            data: [],
             allChecked: false,  //是否全选，默认为false
 
             //勾选
@@ -22,14 +22,14 @@ ace.load_ajax_scripts(scripts, function () {
                 if (!this.checked) {
                     vm.allChecked = false;
                 } else {
-                    vm.allChecked = vm.category.every(function (el) {
+                    vm.allChecked = vm.data.every(function (el) {
                         return isSelectedAll(el);
                     });
                 }
             },
             //全选
             checkAll: function () {
-                vm.category.forEach(function (el) {
+                vm.data.forEach(function (el) {
                     if (el.status == 1) {
                         el.checked = vm.allChecked;
                     } else {
@@ -42,28 +42,28 @@ ace.load_ajax_scripts(scripts, function () {
                 var data = $("#searchCondition").serialize();
                 data += "&pageNo=" + vm.pageNo;
                 data += "&pageSize=" + vm.pageSize;
-                //$.ajax({
-                //    url: '/cm/admin/category/queryPage',
-                //    dataType: 'json',
-                //    type: 'post',
-                //    data: data,
-                //    beforeSend: function () {
-                //        CMADMIN.openLoading();
-                //    },
-                //    complete: function () {
-                //        CMADMIN.closeLoading();
-                //    },
-                //    success: function (result) {
-                //        if (isSuccess(result)) {
-                //            result.bizData.rows.forEach(function (el) {
-                //                el.checked = false;
-                //            });
-                //            vm.category = result.bizData.rows;
-                //            vm.total = result.bizData.total;
-                //            vm.records = result.bizData.records;
-                //        }
-                //    }
-                //})
+                $.ajax({
+                    url: '/cm/admin/category/queryPage',
+                    dataType: 'json',
+                    type: 'post',
+                    data: data,
+                    beforeSend: function () {
+                        CMADMIN.openLoading();
+                    },
+                    complete: function () {
+                        CMADMIN.closeLoading();
+                    },
+                    success: function (result) {
+                        if (isSuccess(result)) {
+                            result.bizData.rows.forEach(function (el) {
+                                el.checked = false;
+                            });
+                            vm.data = result.bizData.rows;
+                            vm.total = result.bizData.total;
+                            vm.records = result.bizData.records;
+                        }
+                    }
+                })
             },
 
             //点击查询
@@ -91,14 +91,14 @@ ace.load_ajax_scripts(scripts, function () {
 
             //添加
             add: function () {
-                CMADMIN.openDialog("/sys/category/add.html", {}, "添加分类", "700px", "270px", function () {
+                CMADMIN.openDialog("/sys/user/add.html", {}, "添加分类", "750px", "650px", function () {
                     vm.clear();    //重置
                 });
             },
 
             //修改
             edit: function (id) {
-                CMADMIN.openDialog("/sys/category/edit.html", {id: id}, "添加分类", "700px", "270px", function () {
+                CMADMIN.openDialog("/sys/user/edit.html", {id: id}, "添加分类", "700px", "270px", function () {
                     vm.clear();    //重置
                 });
             },

@@ -6,7 +6,7 @@
 </style>
 
 <!--标签区-->
-<div id="addCategory" ms-important="addCategory">
+<div id="addUser" ms-important="addUser">
 
     <div class="form">
         <form id="addForm">
@@ -14,23 +14,52 @@
                 <div class="remark"> 注：带 * 号为必填项</div>
                 <table class="table_1" cellpadding="0" cellspacing="0">
                     <tr>
-                        <th width="20%"><span>*</span>分类名称：</th>
-                        <td width="30%"><input type="text" name="name"/></td>
-                        <th width="20%"><span>*</span> 创建时间：</th>
-                        <td width="30%">{{currentDate|date("yyyy-MM-dd")}}</td>
+                        <th width="20%"><span>*</span>账号：</th>
+                        <td width="30"><input type="text" name="username"></td>
+                        <th width="20%"><span>*</span>密码：</th>
+                        <td width="30%"><input type="password" name="password"></td>
                     </tr>
                     <tr>
-                        <th width="20%"><span>*</span>排序：</th>
-                        <td width="30%"><input type="text" name="priority"/></td>
-                        <th width="20%"><span>*</span>所属分类</th>
+                        <th width="20%">昵称：</th>
+                        <td width="30%"><input type="text" name="nickname"></td>
+                        <th width="20%"><span>*</span>电话：</th>
+                        <td width="30"><input type="text" name="phone"></td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span>*</span>用户头像：</th>
+                        <td width="30">
+                            <table class="upload_pic">
+                                <tr>
+                                    <td rowspan="2" id="showImg">
+                                        <img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px" id="headIcon"/>
+                                    </td>
+                                    <td>
+                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;">默认</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;">选择图片</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <th width="20%">地址：</th>
+                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th width="20%">用户身份</th>
                         <td width="30%">
-                            <input type="radio" name="type" value="1"> 食谱
-                            <input type="radio" name="type" value="2"> 商店
-                            <input type="radio" name="type" value="4"> 商品
-                            <input type="radio" name="type" value="8"> 活动
+                            <label><input type="radio" name="userType" style="vertical-align: -2px;" value="1" checked> 普通用户&nbsp;</label>
+                            <label><input type="radio" name="userType" style="vertical-align: -2px;" value="2"> 商家&nbsp;</label>
+                            <label><input type="radio" name="userType" style="vertical-align: -2px;" value="4"> 管理员</label>
+                        </td>
+                        <th width="20%">性别：</th>
+                        <td width="30%">
+                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="0"> 男&nbsp;</label>
+                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="1"> 女</label>
                         </td>
                     </tr>
-
                 </table>
                 <div class="user-btn">
                     <input type="button" value="保存" class="oper" ms-click="save"/>
@@ -43,4 +72,4 @@
 
 
 <!--脚本区-->
-<script type="text/javascript" src="../../../js/sys/category/add.js"/>
+<script type="text/javascript" src="../../../js/sys/user/add.js"/>

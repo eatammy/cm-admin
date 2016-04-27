@@ -19,7 +19,7 @@ $(function () {
     });
 
     var vm = avalon.define({
-        $id: "addCategory",
+        $id: "addUser",
         currentDate: new Date(),
 
         save: function () {
@@ -51,5 +51,5 @@ $(function () {
             CMADMIN.cancelDialog();
         }
     });
-    avalon.scan($("#addCategory")[0], vm);
+    avalon.scan($("#addUser")[0], vm);
 });
