@@ -19,18 +19,13 @@
                         <th width="20%"><span>*</span>密码：</th>
                         <td width="30%"><input type="password" name="password"></td>
                     </tr>
-                    <tr>
-                        <th width="20%">昵称：</th>
-                        <td width="30%"><input type="text" name="nickname"></td>
-                        <th width="20%"><span>*</span>电话：</th>
-                        <td width="30"><input type="text" name="phone"></td>
-                    </tr>
+
                     <tr>
                         <th width="20%"><span>*</span>用户头像：</th>
                         <td width="30">
                             <table class="upload_pic">
                                 <tr>
-                                    <td rowspan="2" id="showImg">
+                                    <td rowspan="2" >
                                         <img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px" id="headIcon"/>
                                     </td>
                                     <td>
@@ -38,8 +33,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;">选择图片</a>
+                                    <td id="showImg">
+                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;" id="selectImg">选择图片</a>
                                     </td>
                                 </tr>
                             </table>
@@ -48,15 +43,21 @@
                         <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px"></textarea></td>
                     </tr>
                     <tr>
-                        <th width="20%">用户身份</th>
+                        <th width="20%">昵称：</th>
+                        <td width="30%"><input type="text" name="nickname"></td>
+                        <th width="20%"><span>*</span>电话：</th>
+                        <td width="30"><input type="text" name="phone"></td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span>*</span>用户身份</th>
                         <td width="30%">
-                            <label><input type="radio" name="userType" style="vertical-align: -2px;" value="1" checked> 普通用户&nbsp;</label>
-                            <label><input type="radio" name="userType" style="vertical-align: -2px;" value="2"> 商家&nbsp;</label>
-                            <label><input type="radio" name="userType" style="vertical-align: -2px;" value="4"> 管理员</label>
+                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="1" checked> 普通用户&nbsp;</label>
+                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="2"> 商家&nbsp;</label>
+                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="4"> 管理员</label>
                         </td>
-                        <th width="20%">性别：</th>
+                        <th width="20%"><span>*</span>性别：</th>
                         <td width="30%">
-                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="0"> 男&nbsp;</label>
+                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="0" checked> 男&nbsp;</label>
                             <label><input type="radio" style="vertical-align: -2px;" name="sex" value="1"> 女</label>
                         </td>
                     </tr>

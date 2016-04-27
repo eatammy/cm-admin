@@ -43,7 +43,7 @@ ace.load_ajax_scripts(scripts, function () {
                 data += "&pageNo=" + vm.pageNo;
                 data += "&pageSize=" + vm.pageSize;
                 $.ajax({
-                    url: '/cm/admin/category/queryPage',
+                    url: '/cm/admin/user/queryPage',
                     dataType: 'json',
                     type: 'post',
                     data: data,
@@ -91,7 +91,7 @@ ace.load_ajax_scripts(scripts, function () {
 
             //添加
             add: function () {
-                CMADMIN.openDialog("/sys/user/add.html", {}, "添加分类", "750px", "650px", function () {
+                CMADMIN.openDialog("/sys/user/add.html", {}, "添加分类", "750px", "430px", function () {
                     vm.clear();    //重置
                 });
             },
