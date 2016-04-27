@@ -1,0 +1,46 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important, [ms-controller], [ms-important] {
+        visibility: hidden;
+    }
+</style>
+
+<!--标签区-->
+<div id="editCategory" ms-important="editCategory">
+
+    <div class="form">
+        <form id="updateForm">
+            <input type="text" name="id" ms-attr-value="category.id" hidden>
+            <div class=" user-edit ">
+                <div class="remark"> 注：带 * 号为必填项</div>
+                <table class="table_1" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th width="20%"><span>*</span>分类名称：</th>
+                        <td width="30%"><input type="text" name="name" ms-duplex-string="category.name"/></td>
+                        <th width="20%"><span>*</span> 创建时间：</th>
+                        <td width="30%">{{category.createDate|date("yyyy-MM-dd")}}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span>*</span>排序：</th>
+                        <td width="30%"><input type="text" name="priority" ms-duplex-number="category.priority"/></td>
+                        <th width="20%"><span>*</span>所属分类：</th>
+                        <td width="30%">
+                            <input type="radio" name="type" value="1" ms-duplex-number="type"> 食谱
+                            <input type="radio" name="type" value="2" ms-duplex-number="type"> 商店
+                            <input type="radio" name="type" value="4" ms-duplex-number="type"> 商品
+                            <input type="radio" name="type" value="8" ms-duplex-number="type"> 活动
+                        </td>
+                    </tr>
+                </table>
+                <div class="user-btn">
+                    <input type="button" value="保存" class="oper" ms-click="save"/>
+                    <input type="button" value="返回" class="oper" ms-click="back"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/sys/category/edit.js"/>
