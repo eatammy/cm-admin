@@ -26,14 +26,14 @@
                             <option value="1">女</option>
                         </select>
                     </span>
-                    <span class="search-label">
-                        <b>身份：</b>
-                        <select name="isStudent">
-                            <option value="-1">默认</option>
-                            <option value="0">学生</option>
-                            <option value="1">非学生</option>
-                        </select>
-                    </span>
+                    <!--<span class="search-label">-->
+                        <!--<b>身份：</b>-->
+                        <!--<select name="isStudent">-->
+                            <!--<option value="-1">默认</option>-->
+                            <!--<option value="0">学生</option>-->
+                            <!--<option value="1">非学生</option>-->
+                        <!--</select>-->
+                    <!--</span>-->
                     <span class="search-label">
                         <b>状态：</b>
                         <select name="status">
@@ -47,7 +47,14 @@
                         ms-click="clear"
                         class=" bt_org">重置</a>
                 </div>
-
+                <div class="tj">
+                    <span class="search-label">
+                        <b>身份：</b>
+                        <label><input type="checkbox" style="vertical-align: -2px;" value="1" name="userType" checked> 普通用户&nbsp;</label>
+                        <label><input type="checkbox" style="vertical-align: -2px;"value="2" name="userType" checked> 商家&nbsp;</label>
+                        <label><input type="checkbox" style="vertical-align: -2px;" value="4" name="userType" checked> 管理员</label>
+                    </span>
+                </div>
             </div>
         </form>
     </div>

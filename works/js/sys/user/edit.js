@@ -19,7 +19,7 @@ $(function () {
     });
 
     var vm = avalon.define({
-        $id: 'editCategory',
+        $id: 'editUser',
         category: {id: CMADMIN.getParam("id"), name: "", createDate: "", priority: null, type: null},
         type: [],
         //回显示查询
@@ -80,6 +80,6 @@ $(function () {
 
 
     });
-    avalon.scan($("#editCategory")[0], vm);
+    avalon.scan($("#editUser")[0], vm);
     vm.queryOne();
 });

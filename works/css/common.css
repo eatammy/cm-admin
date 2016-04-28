@@ -138,7 +138,7 @@ div.form .remark{ text-align:left; padding:20px;}
 .table_1 th{ height:25px;border-right:1px solid #ddd; border-bottom:1px solid #ddd; padding:8px; background: #429aca; color:#fff;}
 .table_1 td{ border-right:1px solid #ddd; border-bottom:1px solid #ddd; padding:6px 8px; color:#666;}
 .table_1 img{ vertical-align:middle}
-.table_1 img.headIcon{border-radius:50px; }
+.table_1 img.headIcon{border-radius:10px; }
 .table_1 em{ color:#f00;}
 .table_1 em.green{ color:#390;}
 .table_1 em.blue{ color:#06F;}
@@ -228,22 +228,11 @@ a.p_2{ padding-left:20px;}
 a.bt_org{ padding:0 10px; text-align:center; color:#fff; background:#428bca; display:inline-block; float:left;margin-right: 10px;}
 
 /*停用、启用*/
-.disabled_text {
-    color: #cd0000;
-}
-.enabled_text {
-    color: #1b6aaa;
-}
+.disabled_text {  color: #cd0000;  }
+.enabled_text {  color: #1b6aaa;  }
 
 /*分页*/
-.page_btn{
-    padding: 0 10px;
-    text-align: center;
-    color: #fff;
-    background: #428bca;
-    display: inline-block;
-    margin-right: 10px
-}
+.page_btn{  padding: 0 10px; text-align: center; color: #fff; background: #428bca; display: inline-block; margin-right: 10px  }
 
 /*上传*/
 .upload_pic td{border: none;}

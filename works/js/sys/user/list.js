@@ -91,14 +91,14 @@ ace.load_ajax_scripts(scripts, function () {
 
             //添加
             add: function () {
-                CMADMIN.openDialog("/sys/user/add.html", {}, "添加分类", "750px", "430px", function () {
+                CMADMIN.openDialog("/sys/user/add.html", {}, "添加用户", "750px", "430px", function () {
                     vm.clear();    //重置
                 });
             },
 
             //修改
             edit: function (id) {
-                CMADMIN.openDialog("/sys/user/edit.html", {id: id}, "添加分类", "700px", "270px", function () {
+                CMADMIN.openDialog("/sys/user/edit.html", {id: id}, "查看用户", "750px", "430px", function () {
                     vm.clear();    //重置
                 });
             },
