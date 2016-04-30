@@ -5,6 +5,7 @@
 /** 分类**/
 var categoryType = ["食谱", "商店", "商品", "活动"];
 
+
 /** 产生guid **/
 function S4() {
     return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
@@ -79,6 +80,9 @@ jQuery.validator.addMethod("isSame", function (value, element) {
     //var secondPasswd = $("#regSecondPasswd").val();
     return this.optional(element) || (password === value);
 },"两次密码不一致");
+jQuery.validator.addMethod("isPhone", function (value, element) {
+    return this.optional(element) || /^1\d{10}$/.test(value);
+},"电话号码不正确");
 //关闭所有提示
 function closeAllTip() {
     $('.qtip').each(function () {
@@ -98,4 +102,8 @@ avalon.filters.categoryTypeFilter = function (value, args, args2) {
         str = categoryType[3];
     }
     return str;
-}
+};
+/** 七牛云上传 **/
+var bucket = {
+    "headIcon": "http://7xtefm.com2.z0.glb.qiniucdn.com/",
+};

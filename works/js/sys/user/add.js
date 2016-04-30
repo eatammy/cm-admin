@@ -2,23 +2,24 @@
  * Created by simagle on 2016/4/15.
  */
 var uploader;
+var code = guid();  //产生guid
+var isSave = false; //是否保存成功
+var headIcon = "";
 $(function () {
     //七牛云上传
-
     uploader = Qiniu.uploader({
         runtimes: 'html5,flash,html4', // 上传模式,依次退化
         browse_button: 'selectImg', // 上传选择的点选按钮，**必需**
         uptoken_func: function (file) {    // 在需要获取 uptoken 时，该方法会被调用
             var uptoken = "";
             $.ajax({
-                url: "/cm/admin/common/generalUploadToken",
+                url: "/cm/admin/common/generalUploadToken?type=4&key="+code,
                 dataType: "json",
                 type: "get",
                 async: false,
                 success: function (result) {
                     if (isSuccess(result)) {
                         uptoken = result.bizData;
-                        avalon.log(uptoken);
                     } else {
                         layer.alert("获取上传凭证失败", 2);
                     }
@@ -27,7 +28,8 @@ $(function () {
             return uptoken;
         },
         get_new_uptoken: false, // 设置上传文件的时候是否每次都重新获取新的 uptoken
-        domain: 'http://7xnnot.com1.z0.glb.clouddn.com/', // bucket 域名，下载资源时用到，**必需**
+        //domain: 'http://7xnnot.com1.z0.glb.clouddn.com/', // bucket 域名，下载资源时用到，**必需**
+        domain: bucket.headIcon, // bucket 域名，下载资源时用到，**必需**
         container: 'showImg', // 上传区域 DOM ID，默认是 browser_button 的父元素，
         max_file_size: '5mb', // 最大文件体积限制
         flash_swf_url: 'libs/upload/plupload/Moxie.swf', //引入 flash,相对路径
@@ -64,15 +66,11 @@ $(function () {
                 //    "key": "gogopher.jpg"
                 //  }
                 // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
-
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
-                avalon(res);
                 var sourceLink = domain + res.key; //获取上传成功后的文件的Url
-                $("#headIcon").attr("src",sourceLink);
-                //document.getElementById("img").setAttribute("src",
-                //    sourceLink);
-
+                headIcon = sourceLink;
+                $("#headIcon").attr("src",sourceLink+"?"+new Date().getTime());
             },
             'Error': function (up, err, errTip) {
                 //上传出错时,处理相关的事情
@@ -84,25 +82,47 @@ $(function () {
             'Key': function (up, file) {
                 // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
                 // 该配置必须要在 unique_names: false , save_key: false 时才生效
-                //var uid =
                 var key = "";
-                key = "萌萌哒"
+                key = code;
                 return key
             }
         }
-
     });
+    function previewImage(file, callback) {//file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
+        if (!file || !/image\//.test(file.type)) return; //确保文件是图片
+        if (file.type == 'image/gif') {//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
+            var fr = new mOxie.FileReader();
+            fr.onload = function () {
+                callback(fr.result);
+                fr.destroy();
+                fr = null;
+            }
+            fr.readAsDataURL(file.getSource());
+        } else {
+            var preloader = new mOxie.Image();
+            preloader.onload = function () {
+                //preloader.downsize(550, 400);//先压缩一下要预览的图片,宽300，高300
+                var imgsrc = preloader.type == 'image/jpeg' ? preloader.getAsDataURL('image/jpeg', 80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
+                callback && callback(imgsrc); //callback传入的参数为预览图片的url
+                preloader.destroy();
+                preloader = null;
+            };
+            preloader.load(file.getSource());
+        }
+    }
     //表单校验
     var validator = $("#addForm").validate({
         rules: {
-            name: {required: true, maxlength: 20},
-            priority: {required: true, digits: true, max: 999, min: 1},
-            type: {required: true}
+            username: {required: true, maxlength: 20},
+            password: {required: true, maxlength: 32},
+            phone: {required:true, isPhone:true},
+            userType: {required: true}
         },
         messages: {
-            name: {required: "必填", maxlength: "最大输入20字符长度"},
-            priority: {required: "必填", digits: "请输入数字", max: "不能大于999", min: "不能小于1"},
-            type: {required: "必选"}
+            username: {required: "必填", maxlength: "最大输入20个字符长度"},
+            password: {required: "必填", maxlength: "最大输入32个字符长度"},
+            phone: {required: "必填"},
+            userType: {required: "必选"}
         },
         errorPlacement: errorPlacement,
         success: "valid"
@@ -114,8 +134,11 @@ $(function () {
 
         save: function () {
             if (validator.form()) {
+                var data = $("#addForm").serialize();
+                data += "&headIcon="+headIcon;
+                data += "&code="+code;
                 $.ajax({
-                    url: "/cm/admin/category/add",
+                    url: "/cm/admin/user/add",
                     type: "POST",
                     dataType: 'json',
                     beforeSend: function () {
@@ -124,7 +147,7 @@ $(function () {
                     complete: function () {
                         CMADMIN.closeLoading();
                     },
-                    data: $("#addForm").serialize(),
+                    data: data,
                     success: function (result) {
                         if (isSuccess(result)) {
                             layer.alert(result.bizData, {icon: 1});
@@ -137,7 +160,19 @@ $(function () {
             }
         },
 
+
+        deleteHeadIcon: function () {
+            $.ajax({
+                url: "/cm/admin/user/deleteHeadIcon?key="+code,
+                dataType: "json",
+                data: "get",
+                success: function (result) {
+
+                }
+            })
+        },
         back: function () {
+            vm.deleteHeadIcon();
             CMADMIN.cancelDialog();
         }
     });
