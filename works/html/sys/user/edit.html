@@ -9,15 +9,20 @@
 <div id="editUser" ms-important="editUser">
 
     <div class="form">
-        <form id="addForm">
+        <form id="updateForm">
             <div class=" user-edit ">
                 <div class="remark"> 注：带 * 号为必填项</div>
                 <table class="table_1" cellpadding="0" cellspacing="0">
                     <tr>
                         <th width="20%"><span>*</span>账号：</th>
-                        <td width="30"><input type="text" name="username"></td>
+                        <td width="30"><input type="text" name="username" ms-duplex-string="data.username" readonly></td>
                         <th width="20%"><span>*</span>密码：</th>
-                        <td width="30%"><input type="password" name="password"></td>
+                        <td width="30%">
+                            <!--<input type="password" name="password" ms-duplex-string="data.password">-->
+                            <input type="text" value="*******" readonly ms-if="data.password == null">
+                            <input type="text" ms-duplex-string="data.password" ms-if="data.password != null" readonly>
+                            <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;" ms-click="resetPasswd">重置</a>
+                        </td>
                     </tr>
 
                     <tr>
@@ -26,39 +31,39 @@
                             <table class="upload_pic">
                                 <tr>
                                     <td rowspan="2" >
-                                        <img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px" id="headIcon"/>
+                                        <img ms-attr-src="data.headIcon" class="headIcon" width="94px" height="94px" id="headIcon"/>
                                     </td>
                                     <td>
-                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;">默认</a>
+                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;" ms-click="defaultHeadIcon">重置</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td id="showImg">
-                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;" id="selectImg">选择图片</a>
-                                    </td>
-                                </tr>
+                                <!--<tr>-->
+                                    <!--<td id="showImg">-->
+                                        <!--<a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;" id="selectImg">选择图片</a>-->
+                                    <!--</td>-->
+                                <!--</tr>-->
                             </table>
                         </td>
                         <th width="20%">地址：</th>
-                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px"></textarea></td>
+                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px" ms-duplex-string="data.address"></textarea></td>
                     </tr>
                     <tr>
                         <th width="20%">昵称：</th>
-                        <td width="30%"><input type="text" name="nickname"></td>
+                        <td width="30%"><input type="text" name="nickname" ms-duplex-string="data.nickname"></td>
                         <th width="20%"><span>*</span>电话：</th>
-                        <td width="30"><input type="text" name="phone"></td>
+                        <td width="30"><input type="text" name="phone" ms-duplex-string="data.phone"></td>
                     </tr>
                     <tr>
                         <th width="20%"><span>*</span>用户身份</th>
                         <td width="30%">
-                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="1" checked> 普通用户&nbsp;</label>
-                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="2"> 商家&nbsp;</label>
-                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="4"> 管理员</label>
+                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="1" ms-duplex-number="userType"> 普通用户&nbsp;</label>
+                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="2" ms-duplex-number="userType"> 商家&nbsp;</label>
+                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="4" ms-duplex-number="userType"> 管理员</label>
                         </td>
                         <th width="20%"><span>*</span>性别：</th>
                         <td width="30%">
-                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="0" checked> 男&nbsp;</label>
-                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="1"> 女</label>
+                            <label><input type="radio" value="0" style="vertical-align: -2px;" name="sex"  ms-duplex-number="gender"> 男&nbsp;</label>
+                            <label><input type="radio" value="1" style="vertical-align: -2px;" name="sex"  ms-duplex-number="gender"> 女</label>
                         </td>
                     </tr>
                     <!--<tr>-->

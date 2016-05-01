@@ -4,7 +4,6 @@
 var uploader;
 var code = guid();  //产生guid
 var isSave = false; //是否保存成功
-var headIcon = "";
 $(function () {
     //七牛云上传
     uploader = Qiniu.uploader({
@@ -69,7 +68,7 @@ $(function () {
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
                 var sourceLink = domain + res.key; //获取上传成功后的文件的Url
-                headIcon = sourceLink;
+                vm.headIcon = sourceLink;
                 $("#headIcon").attr("src",sourceLink+"?"+new Date().getTime());
             },
             'Error': function (up, err, errTip) {
@@ -82,9 +81,7 @@ $(function () {
             'Key': function (up, file) {
                 // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
                 // 该配置必须要在 unique_names: false , save_key: false 时才生效
-                var key = "";
-                key = code;
-                return key
+                return code;
             }
         }
     });
@@ -131,11 +128,11 @@ $(function () {
     var vm = avalon.define({
         $id: "addUser",
         currentDate: new Date(),
-
+        headIcon: "",
         save: function () {
             if (validator.form()) {
                 var data = $("#addForm").serialize();
-                data += "&headIcon="+headIcon;
+                data += "&headIcon="+vm.headIcon;
                 data += "&code="+code;
                 $.ajax({
                     url: "/cm/admin/user/add",
@@ -171,10 +168,20 @@ $(function () {
                 }
             })
         },
+
+        defaultHeadIcon: function () {
+            vm.headIcon = "/images/headIcon/headIcon_default"+Math.floor(Math.random()*2+1)+".png";
+        },
+
         back: function () {
             vm.deleteHeadIcon();
             CMADMIN.cancelDialog();
+        },
+
+        init: function () {
+            vm.defaultHeadIcon();
         }
     });
     avalon.scan($("#addUser")[0], vm);
+    vm.init();
 });

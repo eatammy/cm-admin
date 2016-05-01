@@ -5,28 +5,52 @@ $(function () {
     //表单校验
     var validator = $("#updateForm").validate({
         rules: {
-            name: {required: true, maxlength: 20},
-            priority: {required: true, digits: true, max: 999, min: 1},
-            type: {required: true}
+            username: {required: true, maxlength: 20},
+            password: {required: true, maxlength: 32},
+            phone: {required: true, isPhone: true},
+            userType: {required: true}
         },
         messages: {
-            name: {required: "必填", maxlength: "最大输入20字符长度"},
-            priority: {required: "必填", digits: "请输入数字", max: "不能大于999", min: "不能小于1"},
-            type: {required: "必选"}
+            username: {required: "必填", maxlength: "最大输入20个字符长度"},
+            password: {required: "必填", maxlength: "最大输入32个字符长度"},
+            phone: {required: "必填"},
+            userType: {required: "必选"}
         },
         errorPlacement: errorPlacement,
         success: "valid"
     });
-
+    // 将用户身份组合值拆分成整型数组
+    function getUserTypeInt(userTypes) {
+        var arr = [];
+        if (typeof (userTypes) == "undefined") return arr;
+        for (var i = 1; i <= 8; i *= 2) {
+            var userType = userTypes & i;
+            if (userType != 0) {
+                arr.push(userType);
+            }
+        }
+        return arr;
+    };
     var vm = avalon.define({
         $id: 'editUser',
-        category: {id: CMADMIN.getParam("id"), name: "", createDate: "", priority: null, type: null},
-        type: [],
+        data: {
+            id: CMADMIN.getParam("id"),
+            username: "",
+            password: null,
+            headIcon: "",
+            code: "",
+            address: "",
+            nickname: "",
+            userTypes: null,
+            phone: "",
+            sex: null
+        },
+        gender: null,
+        userType: [],
         //回显示查询
         queryOne: function () {
-            //vm.category.id = CMADMIN.getParam("id");
             $.ajax({
-                url: '/cm/admin/category/queryOne?id='+vm.category.id,
+                url: '/cm/admin/user/queryOne?id=' + vm.data.id,
                 dataType: 'json',
                 type: 'get',
                 beforeSend: function () {
@@ -36,22 +60,67 @@ $(function () {
                     CMADMIN.closeLoading();
                 },
                 success: function (result) {
-                    if (isSuccess(result)){
-                        vm.category.id = result.bizData.id;
-                        vm.category.name = result.bizData.name;
-                        vm.category.createDate = result.bizData.createDate;
-                        vm.category.priority = result.bizData.priority;
-                        vm.category.type = result.bizData.type;
-                        vm.type.push(result.bizData.type);
+                    if (isSuccess(result)) {
+                        vm.data.id = result.bizData.id;
+                        vm.data.username = result.bizData.username;
+                        //vm.data.password = result.bizData.password;
+                        vm.data.headIcon = result.bizData.headIcon;
+                        vm.data.code = result.bizData.code;
+                        vm.data.address = result.bizData.address;
+                        vm.data.nickname = result.bizData.nickname;
+                        vm.data.userTypes = result.bizData.userTypes;
+                        vm.data.phone = result.bizData.phone;
+                        vm.data.sex = result.bizData.sex;
+                        vm.gender = vm.data.sex;
+                        vm.userType = getUserTypeInt(result.bizData.userTypes);
                     }
                 }
             })
 
         },
+
+        resetPasswd: function () {
+            var index = layer.confirm("确定要重置该用户的密码？", {icon: 2}, function () {
+                $.ajax({
+                    url: "/cm/admin/user/resetPasswd",
+                    dataType: "json",
+                    type: "get",
+                    data: {code: vm.data.code},
+                    beforeSend: function () {
+                        CMADMIN.openLoading();
+                        layer.close(index);
+                    },
+                    complete: function () {
+                        CMADMIN.closeLoading();
+                    },
+                    success: function (result) {
+                        if (isSuccess(result)) {
+                            alert("密码修改成功！新密码为：" + result.bizData, 1);
+                            vm.data.password = result.bizData;
+                        } else {
+                            alert("密码重置失败！", 2);
+                        }
+                    }
+                })
+            });
+        },
+
+        headIconIndex: 1,
+        defaultHeadIcon: function () {
+
+            var index = Math.floor(Math.random()*2+1);
+            while(index == vm.headIconIndex){
+                index = Math.floor(Math.random()*2+1);
+            }
+            vm.headIconIndex = index;
+
+            vm.data.headIcon = "/images/headIcon/headIcon_default"+index+".png";
+        },
+
         save: function () {
             if (validator.form()) {
                 $.ajax({
-                    url: "/cm/admin/category/update",
+                    url: "/cm/admin/user/update?id=" + vm.data.id,
                     type: "POST",
                     dataType: 'json',
                     beforeSend: function () {
@@ -72,7 +141,6 @@ $(function () {
                 });
             }
         },
-
 
         back: function () {
             CMADMIN.cancelDialog();

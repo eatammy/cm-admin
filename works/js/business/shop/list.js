@@ -215,6 +215,6 @@ ace.load_ajax_scripts(scripts, function () {
             }
         });
         avalon.scan($("#listShop")[0], vm);
-        vm.init();
+        //vm.init();
     });
 });

@@ -98,16 +98,16 @@ ace.load_ajax_scripts(scripts, function () {
 
             //修改
             edit: function (id) {
-                CMADMIN.openDialog("/sys/user/edit.html", {id: id}, "查看用户", "750px", "430px", function () {
+                CMADMIN.openDialog("/sys/user/edit.html", {id: id}, "查看用户", "850px", "430px", function () {
                     vm.clear();    //重置
                 });
             },
 
             //批量删除
             deleteBatch: function () {
-                layer.confirm('确定要删除所选？', {icon: 2},function (index) {
+                layer.confirm('确定要删除所选用户？', {icon: 2},function (index) {
                     var ids = [];
-                    vm.category.forEach(function (el) {
+                    vm.data.forEach(function (el) {
                         if (el.checked) {
                             ids.push(el.id);
                         }
@@ -117,7 +117,7 @@ ace.load_ajax_scripts(scripts, function () {
                         return;
                     }
                     $.ajax({
-                        url: "/cm/admin/category/deleteByIds",
+                        url: "/cm/admin/user/deleteByIds",
                         type: "POST",
                         dataType: 'json',
                         data: {ids: ids.join(",")},
@@ -140,7 +140,7 @@ ace.load_ajax_scripts(scripts, function () {
             deleteOne: function (id) {
                 layer.confirm('确定要删除该分类？', {icon: 2}, function (index) {
                     $.ajax({
-                        url: "/cm/admin/category/deleteOne?id=" + id,
+                        url: "/cm/admin/user/deleteOne?id=" + id,
                         type: "GET",
                         dataType: "json",
                         complete: function () {
@@ -164,7 +164,7 @@ ace.load_ajax_scripts(scripts, function () {
                 var icon = flag === 1 ? 5 : 6
                 layer.confirm('确定要' + action + '该分类！', {icon: icon}, function (index) {
                     $.ajax({
-                        url: "/cm/admin/category/disableOrEnable?id=" + id + "&status=" + status,
+                        url: "/cm/admin/user/disableOrEnable?id=" + id + "&status=" + status,
                         type: "GET",
                         dataType: "json",
                         complete: function () {
