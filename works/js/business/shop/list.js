@@ -17,6 +17,69 @@ ace.load_ajax_scripts(scripts, function () {
             data: [],
             allChecked: false,  //是否全选，默认为false
 
+            province: [],
+            city: [],
+            town: [],
+            selectedCity: [],
+            selectedTown: [],
+            //获取省市
+            getProvince: function () {
+                $.ajax({
+                    url: "/libs/province.json",
+                    type: "get",
+                    dataType: "json",
+                    success: function (result) {
+                        vm.province = result;
+                    }
+                })
+            },
+
+            // 获取城市
+            getCity: function () {
+                $.ajax({
+                    url: "/libs/city.json",
+                    type: "get",
+                    dataType: "json",
+                    success: function (result) {
+                        vm.city = result;
+                    }
+                })
+            },
+
+            //获取区县
+            getTown: function () {
+                $.ajax({
+                    url: "/libs/town.json",
+                    type: "get",
+                    dataType: "json",
+                    success: function (result) {
+                        vm.town = result;
+                    }
+                })
+            },
+
+            //省市联动
+            changeCity: function (id) {
+                layer.alert(id);
+                vm.selectedCity = [];
+                vm.city.forEach(function (el) {
+                    if (el.ProID == id) {
+                        vm.selectedCity.push(el);
+                    }
+                });
+                //layer.alert(vm.selectedCity.length);
+            },
+
+            //市区县联动
+            changeTown: function (id) {
+
+                vm.selectedTown = [];
+                vm.town.forEach(function (el) {
+                    if (el.CityID == id) {
+                        vm.selectedTown.push(el);
+                    }
+                })
+            },
             //勾选
             checkOne: function () {
                 if (!this.checked) {
@@ -91,21 +154,21 @@ ace.load_ajax_scripts(scripts, function () {
 
             //添加
             add: function () {
-                CMADMIN.openDialog("/sys/user/add.html", {}, "添加用户", "750px", "430px", function () {
+                CMADMIN.openDialog("/business/shop/add.html", {}, "添加用户", "750px", "560px", function () {
                     vm.clear();    //重置
                 });
             },
 
             //修改
             edit: function (id) {
-                CMADMIN.openDialog("/sys/user/edit.html", {id: id}, "查看用户", "750px", "430px", function () {
+                CMADMIN.openDialog("/business/shop/edit.html", {id: id}, "查看用户", "750px", "430px", function () {
                     vm.clear();    //重置
                 });
             },
 
             //批量删除
             deleteBatch: function () {
-                layer.confirm('确定要删除所选？', {icon: 2},function (index) {
+                layer.confirm('确定要删除所选？', {icon: 2}, function (index) {
                     var ids = [];
                     vm.category.forEach(function (el) {
                         if (el.checked) {
@@ -129,7 +192,7 @@ ace.load_ajax_scripts(scripts, function () {
                             if (isSuccess(result)) {
                                 layer.alert(result.bizData, {icon: 1});
                             } else {
-                                layer.alert(result.msg , {icon: 2});
+                                layer.alert(result.msg, {icon: 2});
                             }
                         }
                     });
@@ -151,7 +214,7 @@ ace.load_ajax_scripts(scripts, function () {
                             if (isSuccess(result)) {
                                 layer.alert(result.bizData, {icon: 1});
                             } else {
-                                layer.alert(result.msg , {icon: 2});
+                                layer.alert(result.msg, {icon: 2});
                             }
                         }
                     });
@@ -211,10 +274,14 @@ ace.load_ajax_scripts(scripts, function () {
                 vm.queryPage();
             },
             init: function () {
-                vm.queryPage();
+                vm.getProvince();
+                vm.getCity();
+                vm.getTown();
+                //vm.queryPage();
             }
         });
         avalon.scan($("#listShop")[0], vm);
-        //vm.init();
+        vm.init();
+
     });
 });

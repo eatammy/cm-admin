@@ -12,28 +12,12 @@
         <form id="searchCondition">
             <div class="user-c">
                 <div class="tj">
+                    <span class="search-label"><b>商店名称：</b><input class="txt" name="shopName" ms-keydown="enter($event)"
+                                                                  type="text"
+                                                                  placeholder="请输入"/></span>
                     <span class="search-label"><b>账号：</b><input class="txt" name="username" ms-keydown="enter($event)"
-                                                                  type="text"
-                                                                  placeholder="请输入"/></span>
-                    <span class="search-label"><b>电话：</b><input class="txt" name="phone" ms-keydown="enter($event)"
-                                                                  type="text"
-                                                                  placeholder="请输入"/></span>
-                    <span class="search-label">
-                        <b>性别：</b>
-                        <select name="sex">
-                            <option value="-1">默认</option>
-                            <option value="0">男</option>
-                            <option value="1">女</option>
-                        </select>
-                    </span>
-                    <!--<span class="search-label">-->
-                        <!--<b>身份：</b>-->
-                        <!--<select name="isStudent">-->
-                            <!--<option value="-1">默认</option>-->
-                            <!--<option value="0">学生</option>-->
-                            <!--<option value="1">非学生</option>-->
-                        <!--</select>-->
-                    <!--</span>-->
+                                                                type="text"
+                                                                placeholder="请输入"/></span>
                     <span class="search-label">
                         <b>状态：</b>
                         <select name="status">
@@ -42,18 +26,28 @@
                             <option value="1">停用</option>
                         </select>
                     </span>
+
+                </div>
+                <div class="tj">
+                    <span class="search-label">
+                        <b>区域范围：</b>&nbsp;
+                        <select name="province" ms-change="changeCity(this.value)">
+                            <option value="-1">请选择省份</option>
+                            <option ms-repeat="province" ms-attr-value="el.ProID" >{{el.name}}</option>
+                        </select>&nbsp;
+                        <select name="city" ms-change="changeTown(this.value)">
+                            <option value="-1">请选择城市</option>
+                            <option ms-repeat="selectedCity" ms-attr-value="el.CityID">{{el.name}}</option>
+                        </select>&nbsp;
+                        <select name="town">
+                            <option value="-1">请选择区县</option>
+                            <option ms-repeat="selectedTown" ms-attr-value="el.Id">{{el.DisName}}</option>
+                        </select>
+                    </span>
                     <a href="javascript:void(0)" ms-click="query(1)" class=" bt_org">查询</a><a
                         href="javascript:void(0)"
                         ms-click="clear"
                         class=" bt_org">重置</a>
-                </div>
-                <div class="tj">
-                    <span class="search-label">
-                        <b>身份：</b>
-                        <label><input type="checkbox" style="vertical-align: -2px;" value="1" name="userType" checked> 普通用户&nbsp;</label>
-                        <label><input type="checkbox" style="vertical-align: -2px;"value="2" name="userType" checked> 商家&nbsp;</label>
-                        <label><input type="checkbox" style="vertical-align: -2px;" value="4" name="userType" checked> 管理员</label>
-                    </span>
                 </div>
             </div>
         </form>
@@ -68,20 +62,20 @@
         <tr>
             <th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"
                                   data-duplex-changed="checkAll"/></th>
-            <th width="13%">用户昵称</th>
-            <th width="13%">账号</th>
-            <th width="13%">电话</th>
-            <th width="20%">地址</th>
-            <th width="11%">创建时间</th>
+            <th width="15%">商店名称</th>
+            <th width="10%">所属分类</th>
+            <th width="10%">所有者</th>
+            <th width="25%">地址</th>
+            <th width="10%">创建时间</th>
             <th width="5%">状态</th>
             <th width="25%">操作</th>
         </tr>
         <tr ms-repeat="data">
             <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
                                   ms-attr-disabled="el.status===0"/></td>
-            <td>{{el.nickname}}</td>
-            <td>{{el.username}}</td>
-            <td>{{el.phone}}</td>
+            <td>{{el.shopName}}</td>
+            <td>{{el.categoryName}}</td>
+            <td>{{el.belongTo}}</td>
             <td>{{el.address}}</td>
             <td>{{el.createDate|date("yyyy-MM-dd")}}</td>
             <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
