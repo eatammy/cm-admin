@@ -14,71 +14,80 @@
                 <div class="remark"> 注：带 * 号为必填项</div>
                 <table class="table_1" cellpadding="0" cellspacing="0">
                     <tr>
-                        <th width="20%"><span>*</span>账号：</th>
-                        <td width="30"><input type="text" name="username"></td>
-                        <th width="20%"><span>*</span>密码：</th>
-                        <td width="30%"><input type="password" name="password"></td>
+                        <th width="20%"><span>*</span> 姓名：</th>
+                        <td width="30"><input type="text" name="owner"></td>
+                        <th width="20%"><span>*</span> 创建时间：</th>
+                        <td width="30%">{{currentDate|date('yyyy-MM-dd')}}</td>
+                    </tr>
+                    <tr>
+                        <th><span>*</span> 地址：</th>
+                        <td colspan="3">
+                            <select name="province" ms-change="changeCity(this.value)">
+                                <option value="-1">请选择省份</option>
+                                <option ms-repeat="province" ms-attr-value="el.ProID" >{{el.name}}</option>
+                            </select>&nbsp;
+                            <select name="city" ms-change="changeTown(this.value)">
+                                <option value="-1">请选择城市</option>
+                                <option ms-repeat="selectedCity" ms-attr-value="el.CityID">{{el.name}}</option>
+                            </select>&nbsp;
+                            <select name="town">
+                                <option value="-1">请选择区县</option>
+                                <option ms-repeat="selectedTown" ms-attr-value="el.Id">{{el.DisName}}</option>
+                            </select>
+                        </td>
                     </tr>
 
                     <tr>
-                        <th width="20%"><span>*</span>用户头像：</th>
-                        <td width="30%">
+                        <th width="20%" rowspan="2"><span>*</span> 身份证：</th>
+                        <td width="30%" rowspan="2">
                             <table class="upload_pic">
                                 <tr>
                                     <td rowspan="2" >
-                                        <img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px" id="headIcon"/>
+                                        <img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px"/>
                                     </td>
-                                    <td>
-                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;">默认</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td id="showImg">
-                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;" id="selectImg">选择图片</a>
+                                    <td rowspan="2" >
+                                        <img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px"/>
                                     </td>
                                 </tr>
                             </table>
                         </td>
-                        <th width="20%">地址：</th>
+                        <th width="20%"><span>*</span> 详细地址：</th>
                         <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px"></textarea></td>
                     </tr>
                     <tr>
-                        <th width="20%">昵称：</th>
-                        <td width="30%"><input type="text" name="nickname"></td>
-                        <th width="20%"><span>*</span>电话：</th>
-                        <td width="30"><input type="text" name="phone"></td>
+                        <th><span>*</span> 身份证号：</th>
+                        <td><input type="text"></td>
                     </tr>
                     <tr>
-                        <th width="20%"><span>*</span>用户身份</th>
-                        <td width="30%">
-                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="1" checked> 普通用户&nbsp;</label>
-                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="2"> 商家&nbsp;</label>
-                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="4"> 管理员</label>
-                        </td>
-                        <th width="20%"><span>*</span>性别：</th>
-                        <td width="30%">
-                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="0" checked> 男&nbsp;</label>
-                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="1"> 女</label>
+                        <th width="20%"><span>*</span> 商店名称：</th>
+                        <td width="30%"><input type="text" name="nickname"></td>
+                        <th width="20%"><span>*</span> 所属分类：</th>
+                        <td width="30">
+                            <select name="categoryName">
+                                <option value="1">快餐店</option>
+                            </select>
                         </td>
                     </tr>
-                    <!--<tr>-->
-                        <!--<th width="20%" rowspan="2"><span>*</span>学生证：</th>-->
-                        <!--<td width="30%" rowspan="2">-->
-                            <!--<table class="upload_pic">-->
-                                <!--<tr>-->
-                                    <!--<td><img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px"/></td>-->
-                                    <!--<td><img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px"/></td>-->
-                                <!--</tr>-->
-                            <!--</table>-->
-
-                        <!--</td>-->
-                        <!--<th width="20%"><span>*</span>所属学校：</th>-->
-                        <!--<td width="30%"><input type="text"></td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<th width="20%"><span>*</span>学生证号：</th>-->
-                        <!--<td width="30%"><input type="text"></td>-->
-                    <!--</tr>-->
+                    <tr>
+                        <th width="20%"><span>*</span> 所属用户</th>
+                        <td width="30%">
+                            <select name="user">
+                                <option value="1">萌萌哒的胖麦</option>
+                            </select>
+                        </td>
+                        <th><span>*</span> 用户账号：</th>
+                        <td><input type="text" readonly></td>
+                    </tr>
+                    <tr>
+                        <th width="20%">固定电话：</th>
+                        <td width="30%">
+                            <input type="text">
+                        </td>
+                        <th width="20%">手机号：</th>
+                        <td width="30%">
+                            <input type="text">
+                        </td>
+                    </tr>
                 </table>
                 <div class="user-btn">
                     <input type="button" value="保存" class="oper" ms-click="save"/>
