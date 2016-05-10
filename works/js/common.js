@@ -108,11 +108,18 @@ var bucket = {
     "headIcon": "http://7xtefm.com2.z0.glb.qiniucdn.com/",
     "auth": "http://o6kyy6co9.bkt.clouddn.com/"
 };
+var bucketType = {
+    "BUSINESS": 1,
+    "COOKBOOK": 2,
+    "DISCOVER": 3,
+    "HEADICON": 4,
+    "AUTH": 5
+};
 
 function getUploadToken(type, key) {
     var uptoken = "";
     $.ajax({
-        url: "/cm/admin/common/generalUploadToken?type=" + type + "&key=" + code,
+        url: "/cm/admin/common/generalUploadToken?type=" + type + "&key=" + key,
         dataType: "json",
         type: "get",
         async: false,

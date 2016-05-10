@@ -58,13 +58,6 @@ $(function () {
                 //console.log(file.percent)
             },
             'FileUploaded': function (up, file, info) {
-                // 每个文件上传成功后,处理相关的事情
-                // 其中 info 是文件上传成功后，服务端返回的json，形式如
-                // {
-                //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
-                //    "key": "gogopher.jpg"
-                //  }
-                // 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
                 var sourceLink = domain + res.key; //获取上传成功后的文件的Url
@@ -73,14 +66,12 @@ $(function () {
             },
             'Error': function (up, err, errTip) {
                 //上传出错时,处理相关的事情
-                layer.alert("头像上传失败",2);
+                layer.alert(" 头像上传失败",{icon: 2});
             },
             'UploadComplete': function () {
                 //队列文件处理完毕后,处理相关的事情
             },
             'Key': function (up, file) {
-                // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
-                // 该配置必须要在 unique_names: false , save_key: false 时才生效
                 return code;
             }
         }
