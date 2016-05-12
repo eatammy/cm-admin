@@ -33,18 +33,19 @@ $(function () {
                 });
             },
             'BeforeUpload': function (up, file) {
-                // 每个文件上传前,处理相关的事情
+                CMADMIN.openLoading();
             },
             'UploadProgress': function (up, file) {
                 // 每个文件上传时,处理相关的事情
                 //console.log(file.percent)
             },
             'FileUploaded': function (up, file, info) {
-
+                CMADMIN.closeLoading();
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
                 avalon(res);
                 var sourceLink = domain + res.key; //获取上传成功后的文件的Url
+                vm.authImg1 = sourceLink;
                 $("#auth1").attr("src", sourceLink + "?" + new Date().getTime());
             },
             'Error': function (up, err, errTip) {
@@ -55,7 +56,6 @@ $(function () {
                 //队列文件处理完毕后,处理相关的事情
             },
             'Key': function (up, file) {
-
                 return code + "_1";
             }
         }
@@ -89,18 +89,19 @@ $(function () {
                 });
             },
             'BeforeUpload': function (up, file) {
-                // 每个文件上传前,处理相关的事情
+                CMADMIN.openLoading();
             },
             'UploadProgress': function (up, file) {
                 // 每个文件上传时,处理相关的事情
                 //console.log(file.percent)
             },
             'FileUploaded': function (up, file, info) {
-
+                CMADMIN.closeLoading();
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
                 avalon(res);
                 var sourceLink = domain + res.key; //获取上传成功后的文件的Url
+                vm.authImg2 = sourceLink;
                 $("#auth2").attr("src", sourceLink + "?" + new Date().getTime());
             },
             'Error': function (up, err, errTip) {
@@ -111,7 +112,6 @@ $(function () {
                 //队列文件处理完毕后,处理相关的事情
             },
             'Key': function (up, file) {
-
                 return code + "_2";
             }
         }
@@ -120,25 +120,63 @@ $(function () {
     var validator = $("#addForm").validate({
         rules: {
             name: {required: true, maxlength: 20},
-            priority: {required: true, digits: true, max: 999, min: 1},
-            type: {required: true}
+            province: {required: true},
+            city: {required: true},
+            town: {required: true},
+            address: {required: true},
+            ownerPaper: {required: true},
+            shopName: {required: true},
+            categoryId: {required: true},
+            uid: {required: true}
         },
         messages: {
             name: {required: "必填", maxlength: "最大输入20字符长度"},
-            priority: {required: "必填", digits: "请输入数字", max: "不能大于999", min: "不能小于1"},
-            type: {required: "必选"}
+            province: {required: "未选择省份"},
+            city: {required: "未选择城市"},
+            town: {required: "未选择区县"},
+            address: {required: "详细地址不能为空"},
+            ownerPaper: {required: "身份证号不能为空"},
+            shopName: {required: "商店名称不能为空"},
+            categoryId: {required: "未选择分类"},
+            uid: {required: "未选择归属用户"}
         },
         errorPlacement: errorPlacement,
         success: "valid"
     });
 
-    var uploader = null;
-    var count = 0;
     var vm = avalon.define({
         $id: "addShop",
         currentDate: new Date(),
         user: [],
+        curUsername: '',
         category: [],
+        province: getProvince(),
+        city: getCity(),
+        town: getTown(),
+        selectedCity: [],
+        selectedTown: [],
+        authImg1: '',   //身份证正面
+        authImg2: '',   //身份证反面
+        //省市联动
+        changeCity: function (id) {
+            vm.selectedCity = [];
+            vm.selectedTown = [];
+            vm.city.forEach(function (el) {
+                if (el.ProID == id) {
+                    vm.selectedCity.push(el);
+                }
+            });
+        },
+
+        //市区县联动
+        changeTown: function (id) {
+            vm.selectedTown = [];
+            vm.town.forEach(function (el) {
+                if (el.CityID == id) {
+                    vm.selectedTown.push(el);
+                }
+            })
+        },
 
         //查询商店用户
         queryUser4Shop: function () {
@@ -149,9 +187,16 @@ $(function () {
                 success: function (result) {
                     if (isSuccess(result)) {
                         vm.user = result.bizData;
+                        vm.curUsername = vm.user[0].username;
                     }
                 }
             })
+        },
+
+        //当前账号
+        currentAccount: function () {
+            var index = $(this).find("option:selected").attr("inx");
+            vm.curUsername = vm.user[index].username;
         },
 
         //获取商店分类
@@ -170,8 +215,12 @@ $(function () {
 
         save: function () {
             if (validator.form()) {
+                var data = $("#addForm").serialize();
+                data += "&authImg1=" + vm.authImg1;
+                data += "&authImg2=" + vm.authImg2;
+                data += "&code=" + code;
                 $.ajax({
-                    url: "/cm/admin/category/add",
+                    url: "/cm/admin/shop/add",
                     type: "POST",
                     dataType: 'json',
                     beforeSend: function () {
@@ -180,7 +229,7 @@ $(function () {
                     complete: function () {
                         CMADMIN.closeLoading();
                     },
-                    data: $("#addForm").serialize(),
+                    data: data,
                     success: function (result) {
                         if (isSuccess(result)) {
                             layer.alert(result.bizData, {icon: 1});

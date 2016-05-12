@@ -17,51 +17,17 @@ ace.load_ajax_scripts(scripts, function () {
             data: [],
             allChecked: false,  //是否全选，默认为false
 
-            province: [],
-            city: [],
-            town: [],
+            province: getProvince(),
+            city: getCity(),
+            town: getTown(),
             selectedCity: [],
             selectedTown: [],
-            //获取省市
-            getProvince: function () {
-                $.ajax({
-                    url: "/libs/province.json",
-                    type: "get",
-                    dataType: "json",
-                    success: function (result) {
-                        vm.province = result;
-                    }
-                })
-            },
 
-            // 获取城市
-            getCity: function () {
-                $.ajax({
-                    url: "/libs/city.json",
-                    type: "get",
-                    dataType: "json",
-                    success: function (result) {
-                        vm.city = result;
-                    }
-                })
-            },
-
-            //获取区县
-            getTown: function () {
-                $.ajax({
-                    url: "/libs/town.json",
-                    type: "get",
-                    dataType: "json",
-                    success: function (result) {
-                        vm.town = result;
-                    }
-                })
-            },
 
             //省市联动
             changeCity: function (id) {
-                layer.alert(id);
                 vm.selectedCity = [];
+                vm.selectedTown = [];
                 vm.city.forEach(function (el) {
                     if (el.ProID == id) {
                         vm.selectedCity.push(el);
@@ -72,7 +38,6 @@ ace.load_ajax_scripts(scripts, function () {
 
             //市区县联动
             changeTown: function (id) {
-
                 vm.selectedTown = [];
                 vm.town.forEach(function (el) {
                     if (el.CityID == id) {
@@ -274,9 +239,6 @@ ace.load_ajax_scripts(scripts, function () {
                 vm.queryPage();
             },
             init: function () {
-                vm.getProvince();
-                vm.getCity();
-                vm.getTown();
                 //vm.queryPage();
             }
         });

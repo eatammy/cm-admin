@@ -43,6 +43,49 @@ function isSuccess(result) {
     return false;
 }
 
+//获取省份
+function getProvince() {
+    var province = [];
+    $.ajax({
+        url: "/libs/province.json",
+        type: "get",
+        dataType: "json",
+        async: false,
+        success: function (result) {
+            province = result;
+        }
+    });
+    return province;
+}
+//获取城市
+function getCity() {
+    var city = [];
+    $.ajax({
+        url: "/libs/city.json",
+        type: "get",
+        dataType: "json",
+        async: false,
+        success: function (result) {
+            city = result;
+        }
+    });
+    return city;
+}
+//获取区县
+function getTown() {
+    var town = [];
+    $.ajax({
+        url: "/libs/town.json",
+        type: "get",
+        dataType: "json",
+        async: false,
+        success: function (result) {
+            town = result;
+        }
+    });
+    return town;
+}
+
 /**qtip最顶部**/
 $.fn.qtip.zindex = 99999999;
 
@@ -75,11 +118,6 @@ function errorPlacement(error, element) {
     }
 }
 /** 拓展验证规则 **/
-jQuery.validator.addMethod("isSame", function (value, element) {
-    var password = $("#regPasswd").val();
-    //var secondPasswd = $("#regSecondPasswd").val();
-    return this.optional(element) || (password === value);
-}, "两次密码不一致");
 jQuery.validator.addMethod("isPhone", function (value, element) {
     return this.optional(element) || /^1\d{10}$/.test(value);
 }, "电话号码不正确");
