@@ -52,31 +52,31 @@
                             </table>
                         </td>
                         <th width="20%"><span>*</span> 详细地址：</th>
-                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px"></textarea></td>
+                        <td width="30%"><textarea cols="30"  name="address" rows="10" width="200px" height="90px"></textarea></td>
                     </tr>
                     <tr>
                         <th><span>*</span> 身份证号：</th>
-                        <td><input type="text"></td>
+                        <td><input type="text" name="ownerPaper"></td>
                     </tr>
                     <tr>
                         <th width="20%"><span>*</span> 商店名称：</th>
                         <td width="30%"><input type="text" name="shopName"></td>
                         <th width="20%"><span>*</span> 所属分类：</th>
                         <td width="30">
-                            <select name="shopCategoryId">
-                                <option value="1">快餐店</option>
+                            <select name="categoryId">
+                                <option ms-repeat="category" ms-attr-value="el.id">{{el.name}}</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th width="20%"><span>*</span> 所属用户</th>
-                        <td width="30%">
-                            <select name="uid">
-                                <option value="1">萌萌哒的胖麦</option>
+                        <td width="30%" >
+                            <select name="uid" ms-each-el="user" ms-change="currentAccount">
+                                <option ms-attr-value="el.code" ms-attr-inx="$index">{{el.nickname}}</option>
                             </select>
                         </td>
                         <th><span>*</span> 用户账号：</th>
-                        <td><input type="text" readonly></td>
+                        <td><input type="text" ms-duplex-string="curUsername" readonly/></td>
                     </tr>
                     <tr>
                         <th width="20%">固定电话：</th>
