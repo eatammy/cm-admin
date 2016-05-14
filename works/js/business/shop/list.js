@@ -22,7 +22,7 @@ ace.load_ajax_scripts(scripts, function () {
             town: getTown(),
             selectedCity: [],
             selectedTown: [],
-
+            category: [],       //所有商店分类
 
             //省市联动
             changeCity: function (id) {
@@ -65,13 +65,26 @@ ace.load_ajax_scripts(scripts, function () {
                     }
                 });
             },
+            //查询商店分类
+            queryCategory: function () {
+                $.ajax({
+                    url: "/cm/admin/category/queryCategory?type=2",
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (result) {
+                        if (isSuccess(result)) {
+                            vm.category = result.bizData;
+                        }
+                    }
+                })
+            },
             //分页查询
             queryPage: function () {
                 var data = $("#searchCondition").serialize();
                 data += "&pageNo=" + vm.pageNo;
                 data += "&pageSize=" + vm.pageSize;
                 $.ajax({
-                    url: '/cm/admin/user/queryPage',
+                    url: '/cm/admin/shop/queryPage',
                     dataType: 'json',
                     type: 'post',
                     data: data,
@@ -239,11 +252,11 @@ ace.load_ajax_scripts(scripts, function () {
                 vm.queryPage();
             },
             init: function () {
-                //vm.queryPage();
+                vm.queryCategory();
+                vm.queryPage();
             }
         });
         avalon.scan($("#listShop")[0], vm);
         vm.init();
-
     });
 });

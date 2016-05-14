@@ -20,10 +20,9 @@
                                                                 placeholder="请输入"/></span>
                     <span class="search-label">
                         <b>分类：</b>
-                        <select name="status">
+                        <select name="categoryId">
                             <option value="-1">默认</option>
-                            <option value="0">启用</option>
-                            <option value="1">停用</option>
+                            <option ms-repeat="category" ms-attr-value="el.id">{{el.name}}</option>
                         </select>
                     </span>
                     <span class="search-label">
@@ -83,16 +82,16 @@
                                   ms-attr-disabled="el.status===0"/></td>
             <td>{{el.shopName}}</td>
             <td>{{el.categoryName}}</td>
-            <td>{{el.belongTo}}</td>
+            <td>{{el.owner}}</td>
             <td>{{el.address}}</td>
             <td>{{el.createDate|date("yyyy-MM-dd")}}</td>
-            <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
-            <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">停用</span></td>
+            <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">营业</span></td>
+            <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">审核</span></td>
             <td>
                 <input name="" type="button" ms-click="edit(el.id)" value="修改"/>
-                <input name="" type="button" value="启用" ms-if="el.status == 1" ms-click="disableOrEnable(0,el.id,0)"/>
-                <input name="" type="button" value="停用" ms-if="el.status == 0" ms-click="disableOrEnable(1,el.id,1)"/>
-                <input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id)"/>
+                <input name="" type="button" value="审核" ms-if="el.status == 1" ms-click="disableOrEnable(0,el.id,0)"/>
+                <input name="" type="button" value="营业" ms-if="el.status == 0" ms-click="disableOrEnable(1,el.id,1)"/>
+                <!--<input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id)"/>-->
             </td>
         </tr>
     </table>
