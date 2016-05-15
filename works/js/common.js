@@ -194,3 +194,15 @@ function previewImage(file, callback) {//file为plupload事件监听函数参数
         preloader.load(file.getSource());
     }
 }
+
+function deleteImg(type, key) {
+    $.ajax({
+        url: '/cm/admin/common/deleteImg',
+        dataType: 'json',
+        type: 'get',
+        data: {type: type, key: key},
+        success: function () {
+
+        }
+    })
+}

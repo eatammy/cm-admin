@@ -62,13 +62,13 @@
     <!-- 顶部操作-->
     <div class="top_bt">
         <a href="javascript:void(0);" ms-click="add">添 加</a>
-        <a href="javascript:void(0);" ms-click="deleteBatch">删 除</a>
+        <!--<a href="javascript:void(0);" ms-click="deleteBatch">删 除</a>-->
     </div>
 
     <table class="table_1">
         <tr>
-            <th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"
-                                  data-duplex-changed="checkAll"/></th>
+            <!--<th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"-->
+                                  <!--data-duplex-changed="checkAll"/></th>-->
             <th width="15%">商店名称</th>
             <th width="10%">所属分类</th>
             <th width="10%">所有者</th>
@@ -78,8 +78,8 @@
             <th width="25%">操作</th>
         </tr>
         <tr ms-repeat="data">
-            <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
-                                  ms-attr-disabled="el.status===0"/></td>
+            <!--<td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"-->
+                                  <!--ms-attr-disabled="el.status===0"/></td>-->
             <td>{{el.shopName}}</td>
             <td>{{el.categoryName}}</td>
             <td>{{el.owner}}</td>
@@ -88,10 +88,10 @@
             <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">营业</span></td>
             <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">审核</span></td>
             <td>
-                <input name="" type="button" ms-click="edit(el.id)" value="修改"/>
+                <input name="" type="button" ms-click="edit(el.code)" value="查看"/>
                 <input name="" type="button" value="审核" ms-if="el.status == 1" ms-click="disableOrEnable(0,el.id,0)"/>
                 <input name="" type="button" value="营业" ms-if="el.status == 0" ms-click="disableOrEnable(1,el.id,1)"/>
-                <!--<input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id)"/>-->
+                <input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id, el.code)"/>
             </td>
         </tr>
     </table>

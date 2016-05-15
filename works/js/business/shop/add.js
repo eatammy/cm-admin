@@ -247,6 +247,8 @@ $(function () {
             vm.queryCategory();
         },
         back: function () {
+            deleteImg(bucketType.AUTH, code + "_1"); //删除身份证正面
+            deleteImg(bucketType.AUTH, code + "_2"); //删除身份证反面
             CMADMIN.cancelDialog();
         }
     });

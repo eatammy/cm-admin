@@ -20,13 +20,31 @@ $(function () {
 
     var vm = avalon.define({
         $id: 'editUser',
-        category: {id: CMADMIN.getParam("id"), name: "", createDate: "", priority: null, type: null},
-        type: [],
+        shop: {
+            code: CMADMIN.getParam("code"),
+            owner: "",
+            createDate: "",
+            province: '',
+            city: '',
+            town: '',
+            authImg1: '',
+            authImg2: '',
+            address: '',
+            ownerPaper: '',
+            shopName: '',
+            categoryName: '',
+            nickName: '',
+            username: '',
+            linetTelephone: '',
+            phone: ''
+        },
+        province: getProvince(),
+        city: getCity(),
+        town: getTown(),
         //回显示查询
         queryOne: function () {
-            //vm.category.id = CMADMIN.getParam("id");
             $.ajax({
-                url: '/cm/admin/category/queryOne?id='+vm.category.id,
+                url: '/cm/admin/shop/queryOne?code=' + vm.shop.code,
                 dataType: 'json',
                 type: 'get',
                 beforeSend: function () {
@@ -36,43 +54,51 @@ $(function () {
                     CMADMIN.closeLoading();
                 },
                 success: function (result) {
-                    if (isSuccess(result)){
-                        vm.category.id = result.bizData.id;
-                        vm.category.name = result.bizData.name;
-                        vm.category.createDate = result.bizData.createDate;
-                        vm.category.priority = result.bizData.priority;
-                        vm.category.type = result.bizData.type;
-                        vm.type.push(result.bizData.type);
+                    if (isSuccess(result)) {
+                        vm.shop.code = result.bizData.code;
+                        vm.shop.owner = result.bizData.owner;
+                        vm.shop.address = result.bizData.address;
+                        vm.shop.ownerPaper = result.bizData.ownerPaper;
+                        vm.shop.shopName = result.bizData.shopName;
+                        vm.shop.categoryName = result.bizData.categoryName;
+                        vm.shop.nickName = result.bizData.nickName;
+                        vm.shop.username = result.bizData.username;
+                        vm.shop.linetTelephone = result.bizData.linetTelephone;
+                        vm.shop.phone = result.bizData.phone;
+                        vm.shop.createDate = result.bizData.createDate;
+                        vm.queryProvince(result.bizData.province);
+                        vm.queryCity(result.bizData.city);
+                        vm.queryTown(result.bizData.town);
+                        var authImg = result.bizData.ownerPaperPic.split(",");
+                        vm.shop.authImg1 = authImg[0];
+                        vm.shop.authImg2 = authImg[1];
                     }
                 }
             })
 
         },
-        save: function () {
-            if (validator.form()) {
-                $.ajax({
-                    url: "/cm/admin/category/update",
-                    type: "POST",
-                    dataType: 'json',
-                    beforeSend: function () {
-                        CMADMIN.openLoading();
-                    },
-                    complete: function () {
-                        CMADMIN.closeLoading();
-                    },
-                    data: $("#updateForm").serialize(),
-                    success: function (result) {
-                        if (isSuccess(result)) {
-                            layer.alert(result.bizData, {icon: 1});
-                            CMADMIN.closeDialog();
-                        } else {
-                            layer.alert(result.msg, {icon: 2});
-                        }
-                    }
-                });
-            }
-        },
 
+        queryProvince: function (id) {
+            vm.province.forEach(function (el) {
+                if (el.ProID == id) {
+                    vm.shop.province = el.name;
+                }
+            })
+        },
+        queryCity: function (id) {
+            vm.city.forEach(function (el) {
+                if (el.CityID == id) {
+                    vm.shop.city = el.name;
+                }
+            })
+        },
+        queryTown: function (id) {
+            vm.town.forEach(function (el) {
+                if (el.Id == id) {
+                    vm.shop.town = el.DisName;
+                }
+            })
+        },
 
         back: function () {
             CMADMIN.cancelDialog();

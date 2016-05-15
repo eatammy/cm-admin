@@ -15,7 +15,7 @@ ace.load_ajax_scripts(scripts, function () {
             records: 0,     //总数
             total: 0,       //页数
             data: [],
-            allChecked: false,  //是否全选，默认为false
+            //allChecked: false,  //是否全选，默认为false
 
             province: getProvince(),
             city: getCity(),
@@ -45,26 +45,26 @@ ace.load_ajax_scripts(scripts, function () {
                     }
                 })
             },
-            //勾选
-            checkOne: function () {
-                if (!this.checked) {
-                    vm.allChecked = false;
-                } else {
-                    vm.allChecked = vm.data.every(function (el) {
-                        return isSelectedAll(el);
-                    });
-                }
-            },
-            //全选
-            checkAll: function () {
-                vm.data.forEach(function (el) {
-                    if (el.status == 1) {
-                        el.checked = vm.allChecked;
-                    } else {
-                        el.checked = false;
-                    }
-                });
-            },
+            ////勾选
+            //checkOne: function () {
+            //    if (!this.checked) {
+            //        vm.allChecked = false;
+            //    } else {
+            //        vm.allChecked = vm.data.every(function (el) {
+            //            return isSelectedAll(el);
+            //        });
+            //    }
+            //},
+            ////全选
+            //checkAll: function () {
+            //    vm.data.forEach(function (el) {
+            //        if (el.status == 1) {
+            //            el.checked = vm.allChecked;
+            //        } else {
+            //            el.checked = false;
+            //        }
+            //    });
+            //},
             //查询商店分类
             queryCategory: function () {
                 $.ajax({
@@ -138,8 +138,8 @@ ace.load_ajax_scripts(scripts, function () {
             },
 
             //修改
-            edit: function (id) {
-                CMADMIN.openDialog("/business/shop/edit.html", {id: id}, "查看用户", "750px", "560px", function () {
+            edit: function (code) {
+                CMADMIN.openDialog("/business/shop/edit.html", {code: code}, "查看用户", "750px", "560px", function () {
                     vm.clear();    //重置
                 });
             },
@@ -158,7 +158,7 @@ ace.load_ajax_scripts(scripts, function () {
                         return;
                     }
                     $.ajax({
-                        url: "/cm/admin/category/deleteByIds",
+                        url: "/cm/admin/shop/deleteByIds",
                         type: "POST",
                         dataType: 'json',
                         data: {ids: ids.join(",")},
@@ -178,12 +178,13 @@ ace.load_ajax_scripts(scripts, function () {
             },
 
             //单个删除
-            deleteOne: function (id) {
-                layer.confirm('确定要删除该分类？', {icon: 2}, function (index) {
+            deleteOne: function (id,code) {
+                layer.confirm('确定要删除该商店？', {icon: 2}, function (index) {
                     $.ajax({
-                        url: "/cm/admin/category/deleteOne?id=" + id,
+                        url: "/cm/admin/shop/deleteOne",
                         type: "GET",
                         dataType: "json",
+                        data: {id: id,code: code},
                         complete: function () {
                             layer.close(index);
                             vm.query(vm.pageNo);
@@ -201,11 +202,11 @@ ace.load_ajax_scripts(scripts, function () {
 
             //启用/停用
             disableOrEnable: function (status, id, flag) {
-                var action = flag === 1 ? "停用" : "启用";
+                var action = flag === 1 ? "审核" : "通过";
                 var icon = flag === 1 ? 5 : 6
-                layer.confirm('确定要' + action + '该分类！', {icon: icon}, function (index) {
+                layer.confirm('确定要' + action + '该商店！', {icon: icon}, function (index) {
                     $.ajax({
-                        url: "/cm/admin/category/disableOrEnable?id=" + id + "&status=" + status,
+                        url: "/cm/admin/shop/disableOrEnable?id=" + id + "&status=" + status,
                         type: "GET",
                         dataType: "json",
                         complete: function () {

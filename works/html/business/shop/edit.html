@@ -15,25 +15,23 @@
                 <table class="table_1" cellpadding="0" cellspacing="0">
                     <tr>
                         <th width="20%"><span>*</span> 姓名：</th>
-                        <td width="30"><input type="text" name="owner"></td>
+                        <td width="30"><input type="text" name="owner" readonly ms-duplex-string="shop.owner"></td>
                         <th width="20%"><span>*</span> 创建时间：</th>
-                        <td width="30%">{{currentDate|date('yyyy-MM-dd')}}</td>
+                        <td width="30%">{{shop.createDate|date('yyyy-MM-dd')}}</td>
                     </tr>
                     <tr>
                         <th><span>*</span> 地址：</th>
                         <td colspan="3">
-                            <select name="province" ms-change="changeCity(this.value)">
-                                <option value="-1">请选择省份</option>
-                                <option ms-repeat="province" ms-attr-value="el.ProID" >{{el.name}}</option>
-                            </select>&nbsp;
-                            <select name="city" ms-change="changeTown(this.value)">
-                                <option value="-1">请选择城市</option>
-                                <option ms-repeat="selectedCity" ms-attr-value="el.CityID">{{el.name}}</option>
-                            </select>&nbsp;
-                            <select name="town">
-                                <option value="-1">请选择区县</option>
-                                <option ms-repeat="selectedTown" ms-attr-value="el.Id">{{el.DisName}}</option>
+                            <select disabled>
+                                <option>{{shop.province}}</option>
                             </select>
+                            <select disabled>
+                                <option>{{shop.city}}</option>
+                            </select>
+                            <select disabled>
+                                <option>{{shop.town}}</option>
+                            </select>
+
                         </td>
                     </tr>
 
@@ -42,55 +40,55 @@
                         <td width="30%" rowspan="2">
                             <table class="upload_pic">
                                 <tr>
-                                    <td rowspan="2" >
-                                        <img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px"/>
+                                    <td rowspan="2">
+                                        <img ms-attr-src="shop.authImg1" alt="图片加载失败" name="authImg1" width="94px"
+                                             height="94px"/>
                                     </td>
-                                    <td rowspan="2" >
-                                        <img src="/images/public/empty140px.png" class="headIcon" width="94px" height="94px"/>
+                                    <td rowspan="2">
+                                        <img ms-attr-src="shop.authImg2" alt="图片加载失败" name="authImg2" width="94px"
+                                             height="94px"/>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                         <th width="20%"><span>*</span> 详细地址：</th>
-                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px"></textarea></td>
+                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px"
+                                                  ms-duplex-string="shop.address" readonly></textarea></td>
                     </tr>
                     <tr>
                         <th><span>*</span> 身份证号：</th>
-                        <td><input type="text"></td>
+                        <td><input type="text" ms-duplex-string="shop.ownerPaper" readonly></td>
                     </tr>
                     <tr>
                         <th width="20%"><span>*</span> 商店名称：</th>
-                        <td width="30%"><input type="text" name="nickname"></td>
+                        <td width="30%"><input type="text" name="shopName" ms-duplex-string="shop.shopName" readonly>
+                        </td>
                         <th width="20%"><span>*</span> 所属分类：</th>
                         <td width="30">
-                            <select name="categoryName">
-                                <option value="1">快餐店</option>
-                            </select>
+                            <input type="text" name="categoryName" ms-duplex-string="shop.categoryName" readonly>
                         </td>
                     </tr>
                     <tr>
                         <th width="20%"><span>*</span> 所属用户</th>
                         <td width="30%">
-                            <select name="user">
-                                <option value="1">萌萌哒的胖麦</option>
-                            </select>
+                            <input type="text" name="nickName" ms-duplex-string="shop.nickName" readonly>
                         </td>
                         <th><span>*</span> 用户账号：</th>
-                        <td><input type="text" readonly></td>
+                        <td><input type="text" ms-duplex-string="shop.username" readonly></td>
                     </tr>
                     <tr>
                         <th width="20%">固定电话：</th>
                         <td width="30%">
-                            <input type="text">
+                            <input type="text" ms-duplex-string="shop.linetTelephone" readonly>
                         </td>
                         <th width="20%">手机号：</th>
                         <td width="30%">
-                            <input type="text">
+                            <input type="text" ms-duplex-string="shop.phone" readonly>
                         </td>
                     </tr>
                 </table>
                 <div class="user-btn">
-                    <input type="button" value="保存" class="oper" ms-click="save"/>
+                    <!--<input type="button" value="保存" class="oper" ms-click="save"/>-->
                     <input type="button" value="返回" class="oper" ms-click="back"/>
                 </div>
             </div>
@@ -100,4 +98,4 @@
 
 
 <!--脚本区-->
-<script type="text/javascript" src="../../../js/sys/user/edit.js"/>
+<script type="text/javascript" src="../../../js/business/shop/edit.js"/>
