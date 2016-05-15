@@ -119,23 +119,23 @@ $(function () {
 //表单校验
     var validator = $("#addForm").validate({
         rules: {
-            name: {required: true, maxlength: 20},
-            province: {required: true},
-            city: {required: true},
-            town: {required: true},
+            owner: {required: true},
+            province: {required: true, min: 1},
+            city: {required: true, min: 1},
+            town: {required: true, min: 1},
             address: {required: true},
-            ownerPaper: {required: true},
+            ownerPaper: {required: true,isIdCardNo:true},
             shopName: {required: true},
             categoryId: {required: true},
             uid: {required: true}
         },
         messages: {
-            name: {required: "必填", maxlength: "最大输入20字符长度"},
-            province: {required: "未选择省份"},
-            city: {required: "未选择城市"},
-            town: {required: "未选择区县"},
+            owner: {required: "真实姓名不能为空"},
+            province: {min: "未选择省份"},
+            city: {min: "未选择城市"},
+            town: {min: "未选择区县"},
             address: {required: "详细地址不能为空"},
-            ownerPaper: {required: "身份证号不能为空"},
+            ownerPaper: {required: "身份证不能为空",isIdCardNo:"身份证格式不正确"},
             shopName: {required: "商店名称不能为空"},
             categoryId: {required: "未选择分类"},
             uid: {required: "未选择归属用户"}

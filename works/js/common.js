@@ -121,6 +121,11 @@ function errorPlacement(error, element) {
 jQuery.validator.addMethod("isPhone", function (value, element) {
     return this.optional(element) || /^1\d{10}$/.test(value);
 }, "电话号码不正确");
+// 身份证号码验证
+jQuery.validator.addMethod("isIdCardNo", function(value, element) {
+    //var idCard = /^(\d{6})()?(\d{4})(\d{2})(\d{2})(\d{3})(\w)$/;
+    return this.optional(element) || isIdCardNo(value);
+}, "请输入正确的身份证号码。");
 //关闭所有提示
 function closeAllTip() {
     $('.qtip').each(function () {
