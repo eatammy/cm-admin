@@ -50,12 +50,13 @@
         <tr>
             <th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"
                                   data-duplex-changed="checkAll"/></th>
-            <th width="20%">商品名称</th>
+            <th width="15%">商品名称</th>
             <th width="15%">分类</th>
-            <th width="15%">价格</th>
+            <th width="10%">价格</th>
+            <th width="15%">销售量</th>
             <th width="15%">创建时间</th>
             <th width="5%">状态</th>
-            <th width="25%">操作</th>
+            <th width="20%">操作</th>
         </tr>
         <tr ms-repeat="data">
             <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
@@ -64,6 +65,13 @@
             <td>{{el.username}}</td>
             <td>{{el.phone}}</td>
             <td>{{el.address}}</td>
+            <td>
+                <div class="progress">
+                    <div class="progress-bar" style="min-width: 2em;width: 40%">
+                        40%
+                    </div>
+                </div>
+            </td>
             <td>{{el.createDate|date("yyyy-MM-dd")}}</td>
             <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
             <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">停用</span></td>
