@@ -1,11 +1,13 @@
 /**
  * Created by 郭旭辉 on 2016/4/13.
  */
+var ACCESS_TOKEN = "access_token";
 
 /** 分类**/
 var categoryType = ["食谱", "商店", "商品", "活动"];
-
-
+var roleNames = ["普通用户", "商家", "管理员", "超级管理员"];
+var CURRENTUSER = "CURRENTUSER";
+var CURRENTSHOP = "CURRENTSHOP";
 /** 产生guid **/
 function S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
@@ -42,7 +44,29 @@ function isSuccess(result) {
     }
     return false;
 }
-
+// 登出
+function logout() {
+    layer.confirm("您确定要登出？", {icon: 5, title: "注销"}, function (index) {
+        $.ajax({
+            url: "/cm/admin/user/logout",
+            dataType: 'json',
+            type: 'get',
+            success: function (result) {
+                if (isSuccess(result)) {
+                    layer.alert(result.bizData, {icon: 1});
+                    $.removeCookie(ACCESS_TOKEN);
+                    sessionStorage.clear();
+                } else {
+                    layer.alert("操作失败！", {icon: 5});
+                }
+                window.setTimeout(function () {
+                    window.location = "/login.html";
+                }, 1200);
+            }
+        });
+        layer.close(index);
+    });
+}
 //获取省份
 function getProvince() {
     var province = [];
@@ -122,7 +146,7 @@ jQuery.validator.addMethod("isPhone", function (value, element) {
     return this.optional(element) || /^1\d{10}$/.test(value);
 }, "电话号码不正确");
 // 身份证号码验证
-jQuery.validator.addMethod("isIdCardNo", function(value, element) {
+jQuery.validator.addMethod("isIdCardNo", function (value, element) {
     //var idCard = /^(\d{6})()?(\d{4})(\d{2})(\d{2})(\d{3})(\w)$/;
     return this.optional(element) || isIdCardNo(value);
 }, "请输入正确的身份证号码。");
@@ -145,6 +169,10 @@ avalon.filters.categoryTypeFilter = function (value, args, args2) {
         str = categoryType[3];
     }
     return str;
+};
+avalon.filters.userTypeFilter = function (value) {
+    var index = (Math.log(value)) / (Math.log(2));
+    return roleNames[index];
 };
 /** 七牛云上传 **/
 var bucket = {

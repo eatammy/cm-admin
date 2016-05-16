@@ -58,10 +58,10 @@
     <!-- 按钮栏 -->
     <div class="navbar-buttons navbar-header pull-right ">
         <ul class="nav ace-nav">
-            <li class="transparent"><a href="javascript:void(0);">吃咩吃货组 </a></li>
+            <li class="transparent"><a href="javascript:void(0);">{{currentUser.userType|userTypeFilter}} </a></li>
             <li class="transparent"><a href="javascript:void(0);"><i class="ace-icon glyphicon glyphicon-user"></i>&nbsp;<span>[ {{currentUser.nickname}} ]</span></a>
             </li>
-            <li class="transparent"><a href="javascript:void(0);" ms-click="logout" title="返回登录页面"><i
+            <li class="transparent"><a href="javascript:void(0);" onclick="logout()" title="返回登录页面"><i
                     class="ace-icon glyphicon glyphicon-log-out"></i> </a>
             </li>
         </ul>
@@ -293,6 +293,7 @@
 <script src="libs/avalon/avalon.shim.js"></script>
 <script src="libs/layer/layer.js"></script>
 <script src="libs/store/store.min.js"></script>
+<script src="libs/cookies/jquery.cookie.js"></script>
 <script src="assets/js/jquery.validate.min.js"></script>
 <script src="libs/qtip/jquery.qtip.min.js"></script>
 <script src="libs/upload/plupload/plupload.full.min.js"></script>

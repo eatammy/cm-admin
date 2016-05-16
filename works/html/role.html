@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户角色选择</title>
+    <link rel="stylesheet" href="/css/role.css">
+
+
+</head>
+<body>
+<div class="box" ms-controller="role">
+    <div class="top">
+        <div class="box1000">
+            <!--<div class="logo"><img ms-attr-src="logo"></div>-->
+            <span class="top_title">用户身份选择</span>
+
+            <div class="top_button"><a onclick="logout()" href="/">返回登录界面</a></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="box1000">
+        <!--<div class="top_warp1">-->
+        <div>
+            <div class="top_box1">
+                <a ms-repeat="roleData" ms-click="selectRole(el)" class="change_role" href="javascript:;">
+                    <span  ms-css-background="el.background">
+                        <img ms-attr-src="el.img"/>
+                    </span>
+                    <p class="p_school">{{el.roleName}}</p>
+                    <p>{{el.description}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="main_foot">
+    </div>
+</div>
+<!--[if !IE]> -->
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='../assets/js/jquery.min.js'>" + "<" + "/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]  兼容-->
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='../assets/js/jquery1x.min.js'>" + "<" + "/script>");
+</script>
+<script type="text/javascript" src="../libs/layer/layer.js"></script>
+<script src="../libs/avalon/avalon.shim.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script src="../libs/qtip/jquery.qtip.min.js"></script>
+<script type="text/javascript" src="../js/role.js"></script>
+<script>
+    $(document).ready(function () {
+        var height = window.screen.availHeight - 96;
+        avalon.log(height);
+        $(".box").css("min-height",height+"px");
+    });
+</script>
+
+</body>
+</html>

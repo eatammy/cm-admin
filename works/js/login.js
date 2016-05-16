@@ -31,9 +31,7 @@ avalon.ready(function () {
 
         //登录
         login: function () {
-
             if (validator.form()) {
-
                 $.ajax({
                     url: "/cm/admin/user/login",
                     type: "POST",
@@ -56,13 +54,16 @@ avalon.ready(function () {
                                 avalon.log(loginInfo);
                                 localStorage.setItem("LOGININFO", JSON.stringify(loginInfo));
                                 sessionStorage.setItem("CURRENTUSER", JSON.stringify(result.bizData));
-                                sessionStorage.setItem("ISLOAD",true);
+                                sessionStorage.setItem("ISLOAD", true);
                             }
                             layer.alert("登录成功", {icon: 1});
-                            window.setTimeout(function () {//3秒后自动跳转
-                                window.location = "/index.html";
-                            },1500);
-
+                            window.setTimeout(function () {//1.2秒后自动跳转
+                                if (result.bizData.userTypes == 1) {  //只有普通用户身份，直接跳转至PC端
+                                    window.location.href = "/";
+                                } else {//具有多种用户身份
+                                    window.location.href = "/html/role.html";
+                                }
+                            }, 1200);
 
                         } else {
                             layer.alert(result.msg, {icon: 2});
