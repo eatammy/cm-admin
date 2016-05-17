@@ -44,7 +44,7 @@ $(function () {
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
                 avalon(res);
-                var sourceLink = domain + res.key; //获取上传成功后的文件的Url
+                var sourceLink = domain + '/' + res.key; //获取上传成功后的文件的Url
                 vm.authImg1 = sourceLink;
                 $("#auth1").attr("src", sourceLink + "?" + new Date().getTime());
             },
@@ -100,7 +100,7 @@ $(function () {
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
                 avalon(res);
-                var sourceLink = domain + res.key; //获取上传成功后的文件的Url
+                var sourceLink = domain + '/' + res.key; //获取上传成功后的文件的Url
                 vm.authImg2 = sourceLink;
                 $("#auth2").attr("src", sourceLink + "?" + new Date().getTime());
             },
@@ -124,7 +124,7 @@ $(function () {
             city: {required: true, min: 1},
             town: {required: true, min: 1},
             address: {required: true},
-            ownerPaper: {required: true,isIdCardNo:true},
+            ownerPaper: {required: true, isIdCardNo: true},
             shopName: {required: true},
             categoryId: {required: true},
             uid: {required: true}
@@ -135,7 +135,7 @@ $(function () {
             city: {min: "未选择城市"},
             town: {min: "未选择区县"},
             address: {required: "详细地址不能为空"},
-            ownerPaper: {required: "身份证不能为空",isIdCardNo:"身份证格式不正确"},
+            ownerPaper: {required: "身份证不能为空", isIdCardNo: "身份证格式不正确"},
             shopName: {required: "商店名称不能为空"},
             categoryId: {required: "未选择分类"},
             uid: {required: "未选择归属用户"}

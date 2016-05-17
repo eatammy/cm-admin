@@ -6,7 +6,7 @@
 </style>
 
 <!--标签区-->
-<div id="addUser" ms-important="addUser">
+<div id="addUser" ms-important="addGoods">
 
     <div class="form">
         <form id="addForm">
@@ -14,22 +14,35 @@
                 <div class="remark"> 注：带 * 号为必填项</div>
                 <table class="table_1" cellpadding="0" cellspacing="0">
                     <tr>
-                        <th width="20%"><span>*</span>账号：</th>
-                        <td width="30"><input type="text" name="username"></td>
-                        <th width="20%"><span>*</span>密码：</th>
-                        <td width="30%"><input type="password" name="password"></td>
+                        <th width="20%"><span>*</span>商品名称：</th>
+                        <td width="30"><label><input type="text" name="goodsName"></label></td>
+                        <th width="20%"><span>*</span>所属分类：</th>
+                        <td width="30%">
+                            <label>
+                                <select name="categoryId">
+                                    <option value="-1">请选择分类</option>
+                                    <option ms-repeat="category" ms-attr-value="el.id">{{el.name}}</option>
+                                </select>
+                            </label>
+                        </td>
                     </tr>
-
                     <tr>
-                        <th width="20%"><span>*</span>用户头像：</th>
+                        <th width="20%"><span>*</span>商品单价</th>
+                        <td width="30%">
+                            <label><input type="text" name="price"></label>
+                        </td>
+                        <th width="20%"><span>*</span>库存量（件）：</th>
+                        <td width="30%">
+                            <label><input type="text" name="stock"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span>*</span>商品图片：</th>
                         <td width="30%">
                             <table class="upload_pic">
                                 <tr>
                                     <td rowspan="2" >
-                                        <img ms-attr-src="headIcon" class="headIcon" width="94px" height="94px" id="headIcon"/>
-                                    </td>
-                                    <td>
-                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;" ms-click="defaultHeadIcon">默认</a>
+                                        <img src="/images/public/empty140px.png" width="94px" height="94px" id="picture"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -39,28 +52,10 @@
                                 </tr>
                             </table>
                         </td>
-                        <th width="20%">地址：</th>
-                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px" name="address"></textarea></td>
+                        <th width="20%">描述：</th>
+                        <td width="30%"><label><textarea cols="30" rows="10" width="200px" height="90px" name="description"/></label></td>
                     </tr>
-                    <tr>
-                        <th width="20%">昵称：</th>
-                        <td width="30%"><input type="text" name="nickname"></td>
-                        <th width="20%"><span>*</span>电话：</th>
-                        <td width="30"><input type="text" name="phone"></td>
-                    </tr>
-                    <tr>
-                        <th width="20%"><span>*</span>用户身份</th>
-                        <td width="30%">
-                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="1" checked> 普通用户&nbsp;</label>
-                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="2"> 商家&nbsp;</label>
-                            <label><input type="checkbox" name="userType" style="vertical-align: -2px;" value="4"> 管理员</label>
-                        </td>
-                        <th width="20%"><span>*</span>性别：</th>
-                        <td width="30%">
-                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="0" checked> 男&nbsp;</label>
-                            <label><input type="radio" style="vertical-align: -2px;" name="sex" value="1"> 女</label>
-                        </td>
-                    </tr>
+
                 </table>
                 <div class="user-btn">
                     <input type="button" value="保存" class="oper" ms-click="save"/>
@@ -73,4 +68,4 @@
 
 
 <!--脚本区-->
-<script type="text/javascript" src="../../../js/sys/user/add.js"/>
+<script type="text/javascript" src="../../../js/business/goods/add.js"/>

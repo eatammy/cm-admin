@@ -7,7 +7,7 @@
 </style>
 
 <!--标签区-->
-<div id="listgoods" ms-important="listUser" class="page-content">
+<div id="listGoods" ms-important="listGoods" class="page-content">
     <div class=" search user-c-box">
         <form id="searchCondition">
             <div class="user-c">
@@ -53,7 +53,7 @@
             <th width="15%">商品名称</th>
             <th width="15%">分类</th>
             <th width="10%">价格</th>
-            <th width="15%">销售量</th>
+            <th width="15%">销售库存比</th>
             <th width="15%">创建时间</th>
             <th width="5%">状态</th>
             <th width="20%">操作</th>
@@ -61,15 +61,14 @@
         <tr ms-repeat="data">
             <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
                                   ms-attr-disabled="el.status===0"/></td>
-            <td>{{el.nickname}}</td>
-            <td>{{el.username}}</td>
-            <td>{{el.phone}}</td>
-            <td>{{el.address}}</td>
+            <td>{{el.goodsName}}</td>
+            <td>{{el.categoryName}}</td>
+            <td>{{el.price}}</td>
             <td>
-                <div class="progress">
-                    <div class="progress-bar" style="min-width: 2em;width: 40%">
-                        40%
-                    </div>
+                <div class="progress" style="margin-bottom: 0">
+                    <div  class="progress-bar" ms-class-1="progress-bar-success: el.process < 50 "
+                          ms-class-2="progress-bar-warning: el.process < 80 && el.process >= 50"
+                          ms-class-3="progress-bar-danger: el.process >=80" style="min-width: 2em;" ms-css-width="el.process+'%'">{{el.process}}%</div>
                 </div>
             </td>
             <td>{{el.createDate|date("yyyy-MM-dd")}}</td>
@@ -101,4 +100,4 @@
     </div>
 </div>
 
-<script src="../../../js/sys/user/list.js"></script>
+<script src="../../../js/business/goods/list.js"></script>

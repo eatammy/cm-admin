@@ -2,6 +2,77 @@
  * Created by 郭旭辉 on 2016/4/15.
  */
 $(function () {
+    //七牛云上传
+    uploader = Qiniu.uploader({
+        runtimes: 'html5,flash,html4', // 上传模式,依次退化
+        browse_button: 'selectImg', // 上传选择的点选按钮，**必需**
+        uptoken_func: function (file) {    // 在需要获取 uptoken 时，该方法会被调用
+            var uptoken = "";
+            $.ajax({
+                url: "/cm/admin/common/generalUploadToken?type=4&key="+code,
+                dataType: "json",
+                type: "get",
+                async: false,
+                success: function (result) {
+                    if (isSuccess(result)) {
+                        uptoken = result.bizData;
+                    } else {
+                        layer.alert("获取上传凭证失败", 2);
+                    }
+                }
+            });
+            return uptoken;
+        },
+        get_new_uptoken: false, // 设置上传文件的时候是否每次都重新获取新的 uptoken
+        //domain: 'http://7xnnot.com1.z0.glb.clouddn.com/', // bucket 域名，下载资源时用到，**必需**
+        domain: bucket.BUSINESS, // bucket 域名，下载资源时用到，**必需**
+        container: 'showImg', // 上传区域 DOM ID，默认是 browser_button 的父元素，
+        max_file_size: '5mb', // 最大文件体积限制
+        flash_swf_url: 'libs/upload/plupload/Moxie.swf', //引入 flash,相对路径
+        max_retries: 3, // 上传失败最大重试次数
+        dragdrop: true, // 开启可拖曳上传
+        drop_element: 'picture', // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
+        chunk_size: '2mb', // 分块上传时，每块的体积
+        auto_start: true, // 选择文件后自动上传，若关闭需要自己绑定事件触发上传,
+        filters: [{
+            title: "Image files",
+            extensions: "jpg,gif,png"
+        }],
+        init: {
+            'FilesAdded': function (up, files) {
+                plupload.each(files, function (file) {
+                    // 文件添加进队列后,处理相关的事情
+                    previewImage(file, function (imgsrc) {
+                        $("#picture").attr("src", imgsrc);
+                    })
+                });
+            },
+            'BeforeUpload': function (up, file) {
+                // 每个文件上传前,处理相关的事情
+            },
+            'UploadProgress': function (up, file) {
+                // 每个文件上传时,处理相关的事情
+                //console.log(file.percent)
+            },
+            'FileUploaded': function (up, file, info) {
+                var domain = up.getOption('domain');
+                var res = JSON.parse(info);
+                var sourceLink = domain + res.key; //获取上传成功后的文件的Url
+                vm.picture = sourceLink;
+                $("#picture").attr("src",sourceLink+"?"+new Date().getTime());
+            },
+            'Error': function (up, err, errTip) {
+                //上传出错时,处理相关的事情
+                layer.alert(" 头像上传失败",{icon: 2});
+            },
+            'UploadComplete': function () {
+                //队列文件处理完毕后,处理相关的事情
+            },
+            'Key': function (up, file) {
+                return code;
+            }
+        }
+    });
     //表单校验
     var validator = $("#updateForm").validate({
         rules: {
@@ -19,38 +90,23 @@ $(function () {
         errorPlacement: errorPlacement,
         success: "valid"
     });
-    // 将用户身份组合值拆分成整型数组
-    function getUserTypeInt(userTypes) {
-        var arr = [];
-        if (typeof (userTypes) == "undefined") return arr;
-        for (var i = 1; i <= 8; i *= 2) {
-            var userType = userTypes & i;
-            if (userType != 0) {
-                arr.push(userType);
-            }
-        }
-        return arr;
-    };
     var vm = avalon.define({
         $id: 'editUser',
         data: {
             id: CMADMIN.getParam("id"),
-            username: "",
-            password: null,
-            headIcon: "",
+            goodsName: "",
+            categoryId: null,
+            picture: "",
             code: "",
-            address: "",
-            nickname: "",
-            userTypes: null,
-            phone: "",
-            sex: null
+            stock: "",
+            shopId: "",
+            description: ''
         },
-        gender: null,
-        userType: [],
+        categoryL: queryCategory(4),
         //回显示查询
         queryOne: function () {
             $.ajax({
-                url: '/cm/admin/user/queryOne?id=' + vm.data.id,
+                url: '/cm/admin/goods/queryOne?id=' + vm.data.id,
                 dataType: 'json',
                 type: 'get',
                 beforeSend: function () {
@@ -62,59 +118,17 @@ $(function () {
                 success: function (result) {
                     if (isSuccess(result)) {
                         vm.data.id = result.bizData.id;
-                        vm.data.username = result.bizData.username;
+                        vm.data.goodsName = result.bizData.goodsName;
                         //vm.data.password = result.bizData.password;
-                        vm.data.headIcon = result.bizData.headIcon;
+                        vm.data.categoryId = result.bizData.categoryId;
                         vm.data.code = result.bizData.code;
-                        vm.data.address = result.bizData.address;
-                        vm.data.nickname = result.bizData.nickname;
-                        vm.data.userTypes = result.bizData.userTypes;
-                        vm.data.phone = result.bizData.phone;
-                        vm.data.sex = result.bizData.sex;
-                        vm.gender = vm.data.sex;
-                        vm.userType = getUserTypeInt(result.bizData.userTypes);
+                        vm.data.shopId = result.bizData.shopId;
+                        vm.data.picture = result.bizData.picture;
+                        vm.data.stock = result.bizData.stock;
+                        vm.data.description = result.bizData.description;
                     }
                 }
             })
-
-        },
-
-        resetPasswd: function () {
-            var index = layer.confirm("确定要重置该用户的密码？", {icon: 2}, function () {
-                $.ajax({
-                    url: "/cm/admin/user/resetPasswd",
-                    dataType: "json",
-                    type: "get",
-                    data: {code: vm.data.code},
-                    beforeSend: function () {
-                        CMADMIN.openLoading();
-                        layer.close(index);
-                    },
-                    complete: function () {
-                        CMADMIN.closeLoading();
-                    },
-                    success: function (result) {
-                        if (isSuccess(result)) {
-                            alert("密码修改成功！新密码为：" + result.bizData, 1);
-                            vm.data.password = result.bizData;
-                        } else {
-                            alert("密码重置失败！", 2);
-                        }
-                    }
-                })
-            });
-        },
-
-        headIconIndex: 1,
-        defaultHeadIcon: function () {
-
-            var index = Math.floor(Math.random()*2+1);
-            while(index == vm.headIconIndex){
-                index = Math.floor(Math.random()*2+1);
-            }
-            vm.headIconIndex = index;
-
-            vm.data.headIcon = "/images/headIcon/headIcon_default"+index+".png";
         },
 
         save: function () {

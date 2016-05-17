@@ -67,6 +67,22 @@ function logout() {
         layer.close(index);
     });
 }
+//查询分类
+function queryCategory(type){
+    var category = [];
+    $.ajax({
+        url: "/cm/admin/category/queryCategory?type="+type,
+        dataType: 'json',
+        type: 'get',
+        async: false,
+        success: function (result) {
+            if (isSuccess(result)) {
+                category =  result.bizData;
+            }
+        }
+    });
+    return category;
+}
 //获取省份
 function getProvince() {
     var province = [];
@@ -150,6 +166,46 @@ jQuery.validator.addMethod("isIdCardNo", function (value, element) {
     //var idCard = /^(\d{6})()?(\d{4})(\d{2})(\d{2})(\d{3})(\w)$/;
     return this.optional(element) || isIdCardNo(value);
 }, "请输入正确的身份证号码。");
+//身份证号码的验证规则
+function isIdCardNo(num){
+    //if (isNaN(num)) {alert("输入的不是数字！"); return false;}
+    var len = num.length, re;
+    if (len == 15)
+        re = new RegExp(/^(\d{6})()?(\d{2})(\d{2})(\d{2})(\d{2})(\w)$/);
+    else if (len == 18)
+        re = new RegExp(/^(\d{6})()?(\d{4})(\d{2})(\d{2})(\d{3})(\w)$/);
+    else {
+        //alert("输入的数字位数不对。");
+        return false;
+    }
+    var a = num.match(re);
+    if (a != null)
+    {
+        if (len==15)
+        {
+            var D = new Date("19"+a[3]+"/"+a[4]+"/"+a[5]);
+            var B = D.getYear()==a[3]&&(D.getMonth()+1)==a[4]&&D.getDate()==a[5];
+        }
+        else
+        {
+            var D = new Date(a[3]+"/"+a[4]+"/"+a[5]);
+            var B = D.getFullYear()==a[3]&&(D.getMonth()+1)==a[4]&&D.getDate()==a[5];
+        }
+        if (!B) {
+            //alert("输入的身份证号 "+ a[0] +" 里出生日期不对。");
+            return false;
+        }
+    }
+    if(!re.test(num)){
+        //alert("身份证最后一位只能是数字和字母。");
+        return false;
+    }
+    return true;
+}
+// 字符验证，只能包含中文、英文、数字、下划线等字符。
+jQuery.validator.addMethod("stringCheck", function(value, element) {
+    return this.optional(element) || /^[a-zA-Z0-9\u4e00-\u9fa5-_]+$/.test(value);
+}, "只能包含中文、英文、数字、下划线等字符");
 //关闭所有提示
 function closeAllTip() {
     $('.qtip').each(function () {
@@ -177,6 +233,7 @@ avalon.filters.userTypeFilter = function (value) {
 /** 七牛云上传 **/
 var bucket = {
     "headIcon": "http://7xtefm.com2.z0.glb.qiniucdn.com/",
+    "business": "http://7xtex2.com2.z0.glb.clouddn.com",
     "auth": "http://o6kyy6co9.bkt.clouddn.com/"
 };
 var bucketType = {

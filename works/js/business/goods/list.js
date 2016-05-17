@@ -43,7 +43,7 @@ ace.load_ajax_scripts(scripts, function () {
                 data += "&pageNo=" + vm.pageNo;
                 data += "&pageSize=" + vm.pageSize;
                 $.ajax({
-                    url: '/cm/admin/user/queryPage',
+                    url: '/cm/admin/goods/queryPage',
                     dataType: 'json',
                     type: 'post',
                     data: data,
@@ -57,6 +57,7 @@ ace.load_ajax_scripts(scripts, function () {
                         if (isSuccess(result)) {
                             result.bizData.rows.forEach(function (el) {
                                 el.checked = false;
+                                el.process = (el.sale/((el.sale+el.stock)*1.0)*100).toFixed(2);
                             });
                             vm.data = result.bizData.rows;
                             vm.total = result.bizData.total;
@@ -91,14 +92,14 @@ ace.load_ajax_scripts(scripts, function () {
 
             //添加
             add: function () {
-                CMADMIN.openDialog("/sys/user/add.html", {}, "添加用户", "750px", "430px", function () {
+                CMADMIN.openDialog("/business/goods/add.html", {}, "添加用户", "750px", "385px", function () {
                     vm.clear();    //重置
                 });
             },
 
             //修改
             edit: function (id) {
-                CMADMIN.openDialog("/sys/user/edit.html", {id: id}, "查看用户", "850px", "430px", function () {
+                CMADMIN.openDialog("/business/goods/edit.html", {id: id}, "查看用户", "850px", "430px", function () {
                     vm.clear();    //重置
                 });
             },
@@ -214,7 +215,7 @@ ace.load_ajax_scripts(scripts, function () {
                 vm.queryPage();
             }
         });
-        avalon.scan($("#listUser")[0], vm);
+        avalon.scan($("#listGoods")[0], vm);
         vm.init();
     });
 });
