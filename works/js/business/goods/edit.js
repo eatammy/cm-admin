@@ -3,29 +3,108 @@
  */
 $(function () {
     //七牛云上传
+    var token = '';
+
+    //表单校验
+    var validator = $("#updateForm").validate({
+        rules: {
+            username: {required: true, maxlength: 20},
+            password: {required: true, maxlength: 32},
+            phone: {required: true, isPhone: true},
+            userType: {required: true}
+        },
+        messages: {
+            username: {required: "必填", maxlength: "最大输入20个字符长度"},
+            password: {required: "必填", maxlength: "最大输入32个字符长度"},
+            phone: {required: "必填"},
+            userType: {required: "必选"}
+        },
+        errorPlacement: errorPlacement,
+        success: "valid"
+    });
+    var vm = avalon.define({
+        $id: 'editUser',
+        data: {
+            id: CMADMIN.getParam("id"),
+            goodsName: "",
+            categoryId: null,
+            picture: "",
+            price: null,
+            code: "",
+            stock: null,
+            shopId: "",
+            description: ''
+        },
+        category: queryCategory(4),
+        //回显示查询
+        queryOne: function () {
+            $.ajax({
+                url: '/cm/admin/goods/queryOne?id=' + vm.data.id,
+                dataType: 'json',
+                type: 'get',
+                async: false,
+                beforeSend: function () {
+                    CMADMIN.openLoading();
+                },
+                complete: function () {
+                    CMADMIN.closeLoading();
+                },
+                success: function (result) {
+                    if (isSuccess(result)) {
+                        vm.data.id = result.bizData.id;
+                        vm.data.goodsName = result.bizData.goodsName;
+                        //vm.data.password = result.bizData.password;
+                        vm.data.categoryId = result.bizData.categoryId;
+                        vm.data.code = result.bizData.code;
+                        vm.data.shopId = result.bizData.shopId;
+                        vm.data.picture = result.bizData.picture;
+                        vm.data.stock = result.bizData.stock;
+                        vm.data.price = result.bizData.price;
+                        vm.data.description = result.bizData.description;
+                        //获取token
+                        token = getUploadToken(bucketType.BUSINESS, vm.data.code);
+                    }
+                }
+            })
+        },
+
+        save: function () {
+            if (validator.form()) {
+                $.ajax({
+                    url: "/cm/admin/user/update?id=" + vm.data.id,
+                    type: "POST",
+                    dataType: 'json',
+                    beforeSend: function () {
+                        CMADMIN.openLoading();
+                    },
+                    complete: function () {
+                        CMADMIN.closeLoading();
+                    },
+                    data: $("#updateForm").serialize(),
+                    success: function (result) {
+                        if (isSuccess(result)) {
+                            layer.alert(result.bizData, {icon: 1});
+                            CMADMIN.closeDialog();
+                        } else {
+                            layer.alert(result.msg, {icon: 2});
+                        }
+                    }
+                });
+            }
+        },
+        back: function () {
+            CMADMIN.cancelDialog();
+        }
+    });
+    avalon.scan($("#editUser")[0], vm);
+    vm.queryOne();
     uploader = Qiniu.uploader({
         runtimes: 'html5,flash,html4', // 上传模式,依次退化
         browse_button: 'selectImg', // 上传选择的点选按钮，**必需**
-        uptoken_func: function (file) {    // 在需要获取 uptoken 时，该方法会被调用
-            var uptoken = "";
-            $.ajax({
-                url: "/cm/admin/common/generalUploadToken?type=4&key="+code,
-                dataType: "json",
-                type: "get",
-                async: false,
-                success: function (result) {
-                    if (isSuccess(result)) {
-                        uptoken = result.bizData;
-                    } else {
-                        layer.alert("获取上传凭证失败", 2);
-                    }
-                }
-            });
-            return uptoken;
-        },
+        uptoken: token,
         get_new_uptoken: false, // 设置上传文件的时候是否每次都重新获取新的 uptoken
         //domain: 'http://7xnnot.com1.z0.glb.clouddn.com/', // bucket 域名，下载资源时用到，**必需**
-        domain: bucket.BUSINESS, // bucket 域名，下载资源时用到，**必需**
+        domain: bucket.business, // bucket 域名，下载资源时用到，**必需**
         container: 'showImg', // 上传区域 DOM ID，默认是 browser_button 的父元素，
         max_file_size: '5mb', // 最大文件体积限制
         flash_swf_url: 'libs/upload/plupload/Moxie.swf', //引入 flash,相对路径
@@ -69,99 +148,8 @@ $(function () {
                 //队列文件处理完毕后,处理相关的事情
             },
             'Key': function (up, file) {
-                return code;
+                return vm.data.code;
             }
         }
     });
-    //表单校验
-    var validator = $("#updateForm").validate({
-        rules: {
-            username: {required: true, maxlength: 20},
-            password: {required: true, maxlength: 32},
-            phone: {required: true, isPhone: true},
-            userType: {required: true}
-        },
-        messages: {
-            username: {required: "必填", maxlength: "最大输入20个字符长度"},
-            password: {required: "必填", maxlength: "最大输入32个字符长度"},
-            phone: {required: "必填"},
-            userType: {required: "必选"}
-        },
-        errorPlacement: errorPlacement,
-        success: "valid"
-    });
-    var vm = avalon.define({
-        $id: 'editUser',
-        data: {
-            id: CMADMIN.getParam("id"),
-            goodsName: "",
-            categoryId: null,
-            picture: "",
-            code: "",
-            stock: "",
-            shopId: "",
-            description: ''
-        },
-        categoryL: queryCategory(4),
-        //回显示查询
-        queryOne: function () {
-            $.ajax({
-                url: '/cm/admin/goods/queryOne?id=' + vm.data.id,
-                dataType: 'json',
-                type: 'get',
-                beforeSend: function () {
-                    CMADMIN.openLoading();
-                },
-                complete: function () {
-                    CMADMIN.closeLoading();
-                },
-                success: function (result) {
-                    if (isSuccess(result)) {
-                        vm.data.id = result.bizData.id;
-                        vm.data.goodsName = result.bizData.goodsName;
-                        //vm.data.password = result.bizData.password;
-                        vm.data.categoryId = result.bizData.categoryId;
-                        vm.data.code = result.bizData.code;
-                        vm.data.shopId = result.bizData.shopId;
-                        vm.data.picture = result.bizData.picture;
-                        vm.data.stock = result.bizData.stock;
-                        vm.data.description = result.bizData.description;
-                    }
-                }
-            })
-        },
-
-        save: function () {
-            if (validator.form()) {
-                $.ajax({
-                    url: "/cm/admin/user/update?id=" + vm.data.id,
-                    type: "POST",
-                    dataType: 'json',
-                    beforeSend: function () {
-                        CMADMIN.openLoading();
-                    },
-                    complete: function () {
-                        CMADMIN.closeLoading();
-                    },
-                    data: $("#updateForm").serialize(),
-                    success: function (result) {
-                        if (isSuccess(result)) {
-                            layer.alert(result.bizData, {icon: 1});
-                            CMADMIN.closeDialog();
-                        } else {
-                            layer.alert(result.msg, {icon: 2});
-                        }
-                    }
-                });
-            }
-        },
-
-        back: function () {
-            CMADMIN.cancelDialog();
-        }
-
-
-    });
-    avalon.scan($("#editUser")[0], vm);
-    vm.queryOne();
 });

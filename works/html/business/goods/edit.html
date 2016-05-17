@@ -20,8 +20,7 @@
                         <td width="30%">
                             <label>
                                 <select name="categoryId" ms-duplex-number="data.categoryId">
-                                    <option value="-1">请选择分类</option>
-                                    <option ms-repeat="category" value="el.id">{{el.name}}</option>
+                                    <option ms-repeat="category" ms-attr-value="el.id">{{el.name}}</option>
                                 </select>
                             </label>
                         </td>
@@ -33,7 +32,7 @@
                             <table class="upload_pic">
                                 <tr>
                                     <td rowspan="2" >
-                                        <img ms-attr-value="data.picture" width="94px" height="94px" id="picture"/>
+                                        <img ms-attr-src="data.picture" width="94px" height="94px" id="picture"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -44,7 +43,7 @@
                             </table>
                         </td>
                         <th width="20%">描述：</th>
-                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px" name="description" ms-duplex-string="description"></textarea></td>
+                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px" name="description" ms-duplex-string="data.description"></textarea></td>
                     </tr>
                     <tr>
                         <th width="20%"><span>*</span>商品单价</th>

@@ -99,7 +99,7 @@ ace.load_ajax_scripts(scripts, function () {
 
             //修改
             edit: function (id) {
-                CMADMIN.openDialog("/business/goods/edit.html", {id: id}, "查看用户", "850px", "430px", function () {
+                CMADMIN.openDialog("/business/goods/edit.html", {id: id}, "查看用户", "850px", "385px", function () {
                     vm.clear();    //重置
                 });
             },
