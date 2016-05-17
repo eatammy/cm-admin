@@ -120,7 +120,11 @@ ace.load_ajax_scripts(scripts, function () {
                         type: "POST",
                         dataType: 'json',
                         data: {ids: ids.join(",")},
+                        beforeSend: function () {
+                          CMADMIN.openLoading();
+                        },
                         complete: function () {
+                            CMADMIN.closeLoading();
                             layer.close(index);
                             vm.query(1);
                         },
@@ -142,7 +146,11 @@ ace.load_ajax_scripts(scripts, function () {
                         url: "/cm/admin/category/deleteOne?id=" + id,
                         type: "GET",
                         dataType: "json",
+                        beforeSend: function () {
+                          CMADMIN.openLoading();
+                        },
                         complete: function () {
+                            CMADMIN.closeLoading();
                             layer.close(index);
                             vm.query(vm.pageNo);
                         },
@@ -166,7 +174,11 @@ ace.load_ajax_scripts(scripts, function () {
                         url: "/cm/admin/category/disableOrEnable?id=" + id + "&status=" + status,
                         type: "GET",
                         dataType: "json",
+                        beforeSend: function () {
+                          CMADMIN.openLoading();
+                        },
                         complete: function () {
+                            CMADMIN.closeLoading();
                             layer.close(index);
                             vm.query(vm.pageNo);
                         },
