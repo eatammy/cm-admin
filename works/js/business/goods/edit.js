@@ -70,8 +70,12 @@ $(function () {
 
         save: function () {
             if (validator.form()) {
+                var data = $("#updateForm").serialize();
+                data += "&code=" + vm.data.code;
+                data += "&id=" + vm.data.id;
+                data += "&picture="+ vm.picture;
                 $.ajax({
-                    url: "/cm/admin/user/update?id=" + vm.data.id,
+                    url: "/cm/admin/goods/update?id=" + vm.data.id,
                     type: "POST",
                     dataType: 'json',
                     beforeSend: function () {
@@ -80,7 +84,7 @@ $(function () {
                     complete: function () {
                         CMADMIN.closeLoading();
                     },
-                    data: $("#updateForm").serialize(),
+                    data: data,
                     success: function (result) {
                         if (isSuccess(result)) {
                             layer.alert(result.bizData, {icon: 1});
@@ -136,13 +140,13 @@ $(function () {
             'FileUploaded': function (up, file, info) {
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
-                var sourceLink = domain + res.key; //获取上传成功后的文件的Url
+                var sourceLink = domain + "/" + res.key; //获取上传成功后的文件的Url
                 vm.picture = sourceLink;
-                $("#picture").attr("src",sourceLink+"?"+new Date().getTime());
+                $("#picture").attr("src", sourceLink + "?" + new Date().getTime());
             },
             'Error': function (up, err, errTip) {
                 //上传出错时,处理相关的事情
-                layer.alert(" 头像上传失败",{icon: 2});
+                layer.alert(" 头像上传失败", {icon: 2});
             },
             'UploadComplete': function () {
                 //队列文件处理完毕后,处理相关的事情

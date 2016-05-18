@@ -16,7 +16,7 @@ ace.load_ajax_scripts(scripts, function () {
             total: 0,       //页数
             data: [],
             allChecked: false,  //是否全选，默认为false
-
+            shop: JSON.parse(sessionStorage.getItem(CURRENTSHOP)),
             //勾选
             checkOne: function () {
                 if (!this.checked) {
@@ -42,6 +42,7 @@ ace.load_ajax_scripts(scripts, function () {
                 var data = $("#searchCondition").serialize();
                 data += "&pageNo=" + vm.pageNo;
                 data += "&pageSize=" + vm.pageSize;
+                data += "&shopId="+ vm.shop.code;
                 $.ajax({
                     url: '/cm/admin/goods/queryPage',
                     dataType: 'json',
@@ -106,7 +107,7 @@ ace.load_ajax_scripts(scripts, function () {
 
             //批量删除
             deleteBatch: function () {
-                layer.confirm('确定要删除所选用户？', {icon: 2},function (index) {
+                layer.confirm('确定要删除所选商品？', {icon: 2},function (index) {
                     var ids = [];
                     vm.data.forEach(function (el) {
                         if (el.checked) {
@@ -118,7 +119,7 @@ ace.load_ajax_scripts(scripts, function () {
                         return;
                     }
                     $.ajax({
-                        url: "/cm/admin/user/deleteByIds",
+                        url: "/cm/admin/goods/deleteByIds",
                         type: "POST",
                         dataType: 'json',
                         data: {ids: ids.join(",")},
@@ -139,9 +140,9 @@ ace.load_ajax_scripts(scripts, function () {
 
             //单个删除
             deleteOne: function (id) {
-                layer.confirm('确定要删除该分类？', {icon: 2}, function (index) {
+                layer.confirm('确定要删除该商品？', {icon: 2}, function (index) {
                     $.ajax({
-                        url: "/cm/admin/user/deleteOne?id=" + id,
+                        url: "/cm/admin/goods/deleteOne?id=" + id,
                         type: "GET",
                         dataType: "json",
                         complete: function () {
@@ -163,9 +164,9 @@ ace.load_ajax_scripts(scripts, function () {
             disableOrEnable: function (status, id, flag) {
                 var action = flag === 1 ? "停用" : "启用";
                 var icon = flag === 1 ? 5 : 6
-                layer.confirm('确定要' + action + '该分类！', {icon: icon}, function (index) {
+                layer.confirm('确定要' + action + '该商品！', {icon: icon}, function (index) {
                     $.ajax({
-                        url: "/cm/admin/user/disableOrEnable?id=" + id + "&status=" + status,
+                        url: "/cm/admin/goods/disableOrEnable?id=" + id + "&status=" + status,
                         type: "GET",
                         dataType: "json",
                         complete: function () {
@@ -213,6 +214,16 @@ ace.load_ajax_scripts(scripts, function () {
             },
             init: function () {
                 vm.queryPage();
+                $.ajax({
+                    url:'/cm/admin/goods/test?',
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (result) {
+                        if(isSuccess(result)){
+                            layer.alert(result.bizData);
+                        }
+                    }
+                })
             }
         });
         avalon.scan($("#listGoods")[0], vm);
