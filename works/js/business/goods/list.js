@@ -214,16 +214,6 @@ ace.load_ajax_scripts(scripts, function () {
             },
             init: function () {
                 vm.queryPage();
-                $.ajax({
-                    url:'/cm/admin/goods/test?',
-                    dataType: 'json',
-                    type: 'get',
-                    success: function (result) {
-                        if(isSuccess(result)){
-                            layer.alert(result.bizData);
-                        }
-                    }
-                })
             }
         });
         avalon.scan($("#listGoods")[0], vm);
