@@ -8,6 +8,7 @@
 
 html{_background-image:url(about:blank); _background-attachment:fixed;}
 .laydate_body .laydate_box, .laydate_body .laydate_box *{margin:0; padding:0;}
+.laydate_body .laydate_box, .laydate_body .laydate_box *,:after,:before{box-sizing:content-box !important;-WebKit-box-sizing: content-box !important;}
 .laydate-icon,
 .laydate-icon-default,
 .laydate-icon-danlan,
@@ -48,11 +49,6 @@ html{_background-image:url(about:blank); _background-attachment:fixed;}
 .laydate_body .laydate_chnext cite{margin:-5px 0 0 -2px;}
 .laydate_body .laydate_ym label{right:28px;}
 .laydate_body .laydate_table{ width:230px; margin:0 5px; border-collapse:collapse; border-spacing:0px;}
-
-.laydate_table,:after,:before{box-sizing:content-box !important;-WebKit-box-sizing: content-box !important;}
-.laydate_top,:after,:before{box-sizing:content-box !important;-WebKit-box-sizing: content-box !important;}
-.laydate_bottom,:after,:before{box-sizing:content-box !important;-WebKit-box-sizing: content-box !important;}
-
 .laydate_body .laydate_table td{width:31px; height:19px; line-height:19px; text-align: center; cursor:pointer; font-size: 12px;}
 .laydate_body .laydate_table thead{height:22px; line-height:22px;}
 .laydate_body .laydate_table thead th{font-weight:400; font-size:12px; text-align:center;}

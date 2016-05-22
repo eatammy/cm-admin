@@ -118,7 +118,7 @@ ace.load_ajax_scripts(scripts, function () {
 
             //添加
             add: function () {
-                CMADMIN.openDialog("/business/goods/add.html", {}, "添加用户", "750px", "385px", function () {
+                CMADMIN.openDialog("/business/activity/add.html", {}, "新增活动", "700px", "270px", function () {
                     vm.clear();    //重置
                 });
             },
