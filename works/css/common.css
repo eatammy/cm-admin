@@ -7,7 +7,7 @@
     background: #3fbd8c;
 }
 div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
-    border: 0 none;
+    border: none;
     font-family: inherit;
     font-size: 100%;
     font-style: inherit;
@@ -39,7 +39,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
 .search .txt{ width:120px; height:28px;  background: #fefbe9;line-height:28px; border:1px solid #ccc; padding:3px 5px; float:left; color:#666; font-size:12px;}
 .search .time{ width:90px; height:28px; line-height:28px; border:1px solid #ccc; padding:3px 5px; float:left; color:#666; font-size:12px;}
 .search .name{ width:100px; height:28px; line-height:28px; border:1px solid #ccc; padding:3px 5px; float:left; color:#666; font-size:12px;}
-.search input[type="button"]{ width:auto; height:28px; line-height:28px; padding:10px; border:0; background:#6FB3E0; color:#fff; cursor:pointer; float:left; font-size:12px;}
+    .search input[type="button"]{ width:auto; height:28px; line-height:28px; padding:10px; border:0; background:#6FB3E0; color:#fff; cursor:pointer; float:left; font-size:12px;}
 .search input:hover[type="button"]{background:#4F99C6;}
 .search div.btn-ctr{ width:auto; margin-left:30px;padding-left:30px; height:28px;}
 .search div.btn-ctr input[type="button"]{ background:#F78B54;}
@@ -235,7 +235,7 @@ a.bt_org{ padding:0 10px; text-align:center; color:#fff; background:#428bca; dis
 .page_btn{  padding: 0 10px; text-align: center; color: #fff; background: #428bca; display: inline-block; margin-right: 10px  }
 
 /*上传*/
-.upload_pic td{border: none;}
+.uplodivad_pic td{border: none;}
 #treeDemo span{color: black;  line-height: normal; font-family: "Microsoft YaHei"}
 /*设置应用*/
 .table_project td{border: none;}

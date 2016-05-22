@@ -163,7 +163,7 @@
                         <b class="arrow"></b>
                         <ul class="submenu nav-show" style="display: block;">
                             <li class="">
-                                <a href="#">
+                                <a data-url="/business/activity/list.html" href="#/business/activity/list.html">
                                     <i class="menu-icon fa fa-leaf green"></i>
                                     最新活动
                                 </a>
@@ -171,7 +171,7 @@
                                 <b class="arrow"></b>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a data-url="/business/activity/list.html" href="#/business/activity/list.html">
                                     <i class="menu-icon fa fa-leaf green"></i>
                                     我的活动
                                 </a>
@@ -259,7 +259,8 @@
             <div id="nav-search" class="nav-search">
                               <span class="label label-xlg label-light arrowed arrowed-right"><i
                                       class="menu-icon fa fa-calendar">
-                              </i>&nbsp;&nbsp;今天：{{currentDate | date}}</span>
+                              </i>&nbsp;&nbsp;今天：{{currentDate | date}}
+                              </span>
             </div>
         </div>
         <!-- 页面内容 -->
@@ -318,6 +319,7 @@
 <script src="libs/qtip/jquery.qtip.min.js"></script>
 <script src="libs/upload/plupload/plupload.full.min.js"></script>
 <script src="libs/upload/qiniu/qiniu.min.js"></script>
+<script src="libs/laydate/laydate.js"></script>
 <!-- 引入通用脚本 -->
 <script src="js/common.js"></script>
 <script src="js/index.js"></script>

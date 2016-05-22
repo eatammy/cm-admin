@@ -1,0 +1,116 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important {
+        visibility: hidden;
+    }
+
+</style>
+
+<!--标签区-->
+<div id="listActivity" ms-important="listActivity" class="page-content">
+    <div class=" search user-c-box">
+        <form id="searchCondition">
+            <div class="user-c">
+                <div class="tj">
+                    <span class="search-label"><b>活动名称：</b><input class="txt" name="goodsName"
+                                                                  ms-keydown="enter($event)"
+                                                                  type="text"
+                                                                  placeholder="请输入"/></span>
+
+                    <span class="search-label">
+                        <b>分类：</b>
+                        <select name="status">
+                            <option value="-1">默认</option>
+                            <option value="0">启用</option>
+                            <option value="1">停用</option>
+                        </select>
+                    </span>
+                    <span class="search-label">
+                        <b>状态：</b>
+                        <select name="status">
+                            <option value="-1">默认</option>
+                            <option value="0">启用</option>
+                            <option value="1">停用</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="tj">
+                    <span class="search-label"><b>起始日期：</b>
+                        <input class="txt laydate-icon" id="start" type="text" style="width:130px; margin-right:10px;"/>
+                    </span>
+                    <span class="search-label"><b>结束日期：</b>
+                        <div class=""></div>
+                        <input class="txt laydate-icon" id="end" type="text" style="width: 130px;"/>
+                    </span>
+
+                    <a href="javascript:void(0)" ms-click="query(1)" class=" bt_org">查询</a><a
+                        href="javascript:void(0)"
+                        ms-click="clear"
+                        class=" bt_org">重置</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 顶部操作-->
+    <div class="top_bt">
+        <a href="javascript:void(0);" ms-click="add">添 加</a>
+        <a href="javascript:void(0);" ms-click="deleteBatch">删 除</a>
+    </div>
+
+    <table class="table_1">
+        <tr>
+            <th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"
+                                  data-duplex-changed="checkAll"/></th>
+            <th width="15%">活动名称</th>
+            <th width="15%">分类</th>
+            <th width="10%">创建人</th>
+            <th width="15%">结束时间</th>
+            <th width="15%">开始时间</th>
+            <th width="5%">状态</th>
+            <th width="20%">操作</th>
+        </tr>
+        <tr ms-repeat="data">
+            <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
+                                  ms-attr-disabled="el.status===0"/></td>
+            <td>{{el.goodsName}}</td>
+            <td>{{el.categoryName}}</td>
+            <td>{{el.price}}</td>
+            <td>
+                <div class="progress" style="margin-bottom: 0">
+                    <div class="progress-bar" ms-class-1="progress-bar-success: el.process < 50 "
+                         ms-class-2="progress-bar-warning: el.process < 80 && el.process >= 50"
+                         ms-class-3="progress-bar-danger: el.process >=80" style="min-width: 2em;"
+                         ms-css-width="el.process+'%'">{{el.process}}%
+                    </div>
+                </div>
+            </td>
+            <td>{{el.createDate|date("yyyy-MM-dd")}}</td>
+            <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
+            <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">停用</span></td>
+            <td>
+                <input name="" type="button" ms-click="edit(el.id)" value="修改"/>
+                <input name="" type="button" value="启用" ms-if="el.status == 1" ms-click="disableOrEnable(0,el.id,0)"/>
+                <input name="" type="button" value="停用" ms-if="el.status == 0" ms-click="disableOrEnable(1,el.id,1)"/>
+                <input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id)"/>
+            </td>
+        </tr>
+    </table>
+    <div class="page_num">
+        <a ms-class="disabled:pageNo===1" ms-click="selectPage(-9999)">首页</a>
+        <a ms-class="disabled:pageNo===1" ms-click="selectPage(-1)">上页</a>
+        <a ms-class="disabled:pageNo===total" ms-click="selectPage(1)">下页</a>
+        <a ms-class="disabled:pageNo===total" ms-click="selectPage(9999)">末页</a>
+        &emsp;当前第{{pageNo}}页/共{{total}}页，跳转至第
+        <input typt="text" id="selectPageNo" ms-blur="toPage" value="1">
+        页，每页
+        <select id="pageSize" ms-change="selectSize">
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
+        条，共<em>{{records}}</em>条记录
+    </div>
+</div>
+
+<script src="../../../js/business/activity/list.js"></script>
