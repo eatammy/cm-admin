@@ -6,7 +6,7 @@
 </style>
 
 <!--标签区-->
-<div id="editUser" ms-important="editUser">
+<div id="editActivity" ms-important="editActivity">
 
     <div class="form">
         <form id="updateForm">
@@ -14,47 +14,29 @@
                 <div class="remark"> 注：带 * 号为必填项</div>
                 <table class="table_1" cellpadding="0" cellspacing="0">
                     <tr>
-                        <th width="20%"><span>*</span>商品名称：</th>
-                        <td width="30"><input type="text" name="goodsName" ms-duplex-string="data.goodsName"></td>
+                        <th width="20%"><span>*</span>活动名称：</th>
+                        <td width="30"><input type="text" name="name" ms-duplex-string="data.name"></td>
                         <th width="20%"><span>*</span>所属分类：</th>
                         <td width="30%">
                             <label>
                                 <select name="categoryId" ms-duplex-number="data.categoryId">
-                                    <option ms-repeat="category" ms-attr-value="el.id">{{el.name}}</option>
+                                    <option value="-1">请选择分类</option>
+                                    <option ms-repeat="category" ms-attr-value="el.id" >{{el.name}}</option>
                                 </select>
                             </label>
                         </td>
                     </tr>
+                    <tr>
+                        <th width="20%"><span>*</span>开始时间：</th>
+                        <td width="30%">
+                            <input type="text" id="start" name="startTime" ms-duplex-string="data.startTime">
+                        </td>
+                        <th width="20%"><span>*</span>结束时间：</th>
+                        <td width="30%">
+                            <input type="text" id="end" name="endTime" ms-duplex-string="data.endTime">
+                        </td>
+                    </tr>
 
-                    <tr>
-                        <th width="20%"><span>*</span>商品分页：</th>
-                        <td width="30%">
-                            <table class="upload_pic">
-                                <tr>
-                                    <td rowspan="2" >
-                                        <img ms-attr-src="data.picture" width="94px" height="94px" id="picture"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td id="showImg">
-                                        <a style="border:1px solid #ccc;background: #429aca;padding:3px 7px;text-decoration: none;color:#fff;" id="selectImg">选择图片</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <th width="20%">描述：</th>
-                        <td width="30%"><textarea cols="30" rows="10" width="200px" height="90px" name="description" ms-duplex-string="data.description"></textarea></td>
-                    </tr>
-                    <tr>
-                        <th width="20%"><span>*</span>商品单价</th>
-                        <td width="30%">
-                            <label><input type="text" name="price" ms-duplex-number="data.price"></label>
-                        </td>
-                        <th width="20%"><span>*</span>库存量（件）：</th>
-                        <td width="30%">
-                            <label><input type="text" name="stock" ms-duplex-number="data.stock"></label>
-                        </td>
-                    </tr>
                 </table>
                 <div class="user-btn">
                     <input type="button" value="保存" class="oper" ms-click="save"/>
@@ -67,4 +49,4 @@
 
 
 <!--脚本区-->
-<script type="text/javascript" src="../../../js/business/goods/edit.js"/>
+<script type="text/javascript" src="../../../js/business/activity/edit.js"/>
