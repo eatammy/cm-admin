@@ -121,7 +121,7 @@ ace.load_ajax_scripts(scripts, function () {
             },
             //参加
             attend: function () {
-                CMADMIN.openDialog("/business/businessActivity/add.html", {}, "参与活动", "700px", "270px", function () {
+                CMADMIN.openDialog("/business/businessActivity/add.html", {}, "参与活动", "750px", "550px", function () {
                     vm.clear();    //重置
                 });
             },
