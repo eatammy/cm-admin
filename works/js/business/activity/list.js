@@ -8,7 +8,7 @@ var scripts = [null];
 ace.load_ajax_scripts(scripts, function () {
     avalon.ready(function () {
         var start = {
-            elem: '#start',
+            elem: '#startTime',
             format: 'YYYY/MM/DD hh:mm:ss',
             min: laydate.now(), //设定最小日期为当前日期
             max: '2099-06-16 23:59:59', //最大日期
@@ -20,7 +20,7 @@ ace.load_ajax_scripts(scripts, function () {
             }
         };
         var end = {
-            elem: '#end',
+            elem: '#endTime',
             format: 'YYYY/MM/DD hh:mm:ss',
             min: laydate.now(),
             max: '2099-06-16 23:59:59',

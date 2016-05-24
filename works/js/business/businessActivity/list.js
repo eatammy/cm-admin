@@ -33,7 +33,7 @@ ace.load_ajax_scripts(scripts, function () {
         laydate(start);
         laydate(end);
         var vm = avalon.define({
-            $id: "listActivity",
+            $id: "listBusinessActivity",
             pageNo: 1,      //页码
             pageSize: 10,   //页大小
             records: 0,     //总数
@@ -238,7 +238,7 @@ ace.load_ajax_scripts(scripts, function () {
                 vm.queryPage();
             }
         });
-        avalon.scan($("#listActivity")[0], vm);
+        avalon.scan($("#listBusinessActivity")[0], vm);
         vm.init();
     });
 });

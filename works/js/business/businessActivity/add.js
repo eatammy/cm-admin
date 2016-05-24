@@ -4,7 +4,7 @@
 $(function () {
     //初始化时间选择器
     var start = {
-        elem: '#startTime',
+        elem: '#start',
         format: 'YYYY/MM/DD hh:mm:ss',
         min: laydate.now(), //设定最小日期为当前日期
         max: '2099-06-16 23:59:59', //最大日期
@@ -16,7 +16,7 @@ $(function () {
         }
     };
     var end = {
-        elem: '#endTime',
+        elem: '#end',
         format: 'YYYY/MM/DD hh:mm:ss',
         min: laydate.now(),
         max: '2099-06-16 23:59:59',
@@ -47,7 +47,7 @@ $(function () {
     });
 
     var vm = avalon.define({
-        $id: "addActivity",
+        $id: "addBusinessActivity",
         category: queryCategory(8),
 
         save: function () {
@@ -80,5 +80,5 @@ $(function () {
             CMADMIN.cancelDialog();
         }
     });
-    avalon.scan($("#addActivity")[0], vm);
+    avalon.scan($("#addBusinessActivity")[0], vm);
 });

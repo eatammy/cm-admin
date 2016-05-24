@@ -2,8 +2,7 @@
  * Created by 郭旭辉 on 2016/4/15.
  */
 $(function () {
-    //七牛云上传
-    var token = '';
+
 
     //表单校验
     var validator = $("#updateForm").validate({
@@ -23,7 +22,7 @@ $(function () {
         success: "valid"
     });
     var vm = avalon.define({
-        $id: 'editUser',
+        $id: 'editBusinessActivity',
         data: {
             id: CMADMIN.getParam("id"),
             goodsName: "",
@@ -100,7 +99,7 @@ $(function () {
             CMADMIN.cancelDialog();
         }
     });
-    avalon.scan($("#editUser")[0], vm);
+    avalon.scan($("#editBusinessActivity")[0], vm);
     vm.queryOne();
     uploader = Qiniu.uploader({
         runtimes: 'html5,flash,html4', // 上传模式,依次退化
