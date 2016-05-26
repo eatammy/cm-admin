@@ -206,6 +206,11 @@ function isIdCardNo(num){
 jQuery.validator.addMethod("stringCheck", function(value, element) {
     return this.optional(element) || /^[a-zA-Z0-9\u4e00-\u9fa5-_]+$/.test(value);
 }, "只能包含中文、英文、数字、下划线等字符");
+// 判断数值类型，包括整数和浮点数
+jQuery.validator.addMethod("isNumber", function(value, element) {
+    return this.optional(element) || /^[-\+]?\d+$/.test(value) || /^[-\+]?\d+(\.\d+)?$/.test(value);
+}, "匹配数值类型，包括整数和浮点数");
+
 //关闭所有提示
 function closeAllTip() {
     $('.qtip').each(function () {

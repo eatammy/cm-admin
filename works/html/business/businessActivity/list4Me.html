@@ -7,7 +7,7 @@
 </style>
 
 <!--标签区-->
-<div id="listBusinessActivity" ms-important="listActivity" class="page-content">
+<div id="listActivity4Me" ms-important="listActivity4Me" class="page-content">
     <div class=" search user-c-box">
         <form id="searchCondition">
             <div class="user-c">
@@ -41,7 +41,14 @@
                         <div class=""></div>
                         <input class="txt" id="endTime" name="endTime" type="text" style="width: 130px;"/>
                     </span>
-
+                </div>
+                <div class="tj">
+                    <span class="search-label"><b>价格区间：</b>
+                        <input class="txt" name="low" ms-keydown="enter($event)" type="text" placeholder="最低价格"/>
+                    </span>
+                    <span class="search-label"><b>-&nbsp;&nbsp;</b>
+                    <input class="txt" name="high" ms-keydown="enter($event)" type="text" placeholder="最高价格"/>
+                    </span>
                     <a href="javascript:void(0)" ms-click="query(1)" class=" bt_org">查询</a><a
                         href="javascript:void(0)"
                         ms-click="clear"
@@ -51,29 +58,30 @@
         </form>
     </div>
     <!-- 顶部操作-->
-    <div class="top_bt">
-        <a href="javascript:void(0);" ms-click="add">添 加</a>
-        <a href="javascript:void(0);" ms-click="deleteBatch">删 除</a>
-    </div>
+    <!--<div class="top_bt">-->
+        <!--<a href="javascript:void(0);" ms-click="add">添 加</a>-->
+        <!--<a href="javascript:void(0);" ms-click="deleteBatch">删 除</a>-->
+    <!--</div>-->
 
     <table class="table_1">
         <tr>
-            <th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"
-                                  data-duplex-changed="checkAll"/></th>
-            <th width="20%">活动名称</th>
+            <!--<th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"-->
+                                  <!--data-duplex-changed="checkAll"/></th>-->
+            <th width="15%">活动名称</th>
             <th width="15%">分类</th>
-            <!--<th width="10%">创建人</th>-->
-            <th width="15%">开始时间</th>
             <th width="15%">结束时间</th>
+            <th width="15%">开始时间</th>
+            <th width="15%">销售库存比</th>
             <th width="5%">状态</th>
-            <th width="25%">操作</th>
+            <th width="20%">操作</th>
         </tr>
         <tr ms-repeat="data">
-            <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
-                                  ms-attr-disabled="el.status===0"/></td>
+            <!--<td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"-->
+                                  <!--ms-attr-disabled="el.status===0"/></td>-->
             <td>{{el.name}}</td>
             <td>{{el.categoryName}}</td>
             <td>{{el.startTime}}</td>
+            <td>{{el.endTime}}</td>
             <td>{{el.endTime}}</td>
             <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
             <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">停用</span></td>
@@ -104,4 +112,4 @@
     </div>
 </div>
 
-<script src="../../../js/business/businessActivity/list.js"></script>
+<script src="../../../js/business/businessActivity/list4Me.js"></script>

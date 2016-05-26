@@ -44,13 +44,13 @@ $(function () {
             'FileUploaded': function (up, file, info) {
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
-                var sourceLink = domain +"/"+ res.key; //获取上传成功后的文件的Url
+                var sourceLink = domain + "/" + res.key; //获取上传成功后的文件的Url
                 vm.picture = sourceLink;
-                $("#picture").attr("src",sourceLink+"?"+new Date().getTime());
+                $("#picture").attr("src", sourceLink + "?" + new Date().getTime());
             },
             'Error': function (up, err, errTip) {
                 //上传出错时,处理相关的事情
-                layer.alert(" 活动封面上传失败",{icon: 2});
+                layer.alert(" 活动封面上传失败", {icon: 2});
             },
             'UploadComplete': function () {
                 //队列文件处理完毕后,处理相关的事情
@@ -69,7 +69,7 @@ $(function () {
         max: '2099-06-16 23:59:59', //最大日期
         istime: true,
         istoday: false,
-        choose: function(datas){
+        choose: function (datas) {
             end.min = datas; //开始日选好后，重置结束日的最小日期
             end.start = datas //将结束日的初始值设定为开始日
         }
@@ -81,7 +81,7 @@ $(function () {
         max: '2099-06-16 23:59:59',
         istime: true,
         istoday: false,
-        choose: function(datas){
+        choose: function (datas) {
             start.max = datas; //结束日选好后，重置开始日的最大日期
         }
     };
@@ -91,18 +91,18 @@ $(function () {
     var validator = $("#addForm").validate({
         rules: {
             name: {required: true, maxlength: 20},
-            price: {min: 0},
-            stock:{min:0},
-            pNum:{min:0},
-            startTime: {required:true},
+            price: {isNumber: true, min: 0},
+            stock: {isNumber: true, min: 0},
+            pNum: {isNumber: true, min: 0},
+            startTime: {required: true},
             endTime: {required: true}
         },
         messages: {
             name: {required: "活动名称不能为空", maxlength: "名称过长"},
-            price: {min: "价格不能小于0"},
-            stock:{min: "库存不能小于0"},
-            pNum:{min: "人数上限不能小于0"},
-            startTime: {required:"开始日期不能为空"},
+            price: {isNumber: "填入值必须为数字", min: "价格不能小于0"},
+            stock: {min: "库存不能小于0"},
+            pNum: {min: "人数上限不能小于0"},
+            startTime: {required: "开始日期不能为空"},
             endTime: {required: "结束日期不能为空"}
         },
         errorPlacement: errorPlacement,
@@ -113,13 +113,15 @@ $(function () {
         $id: "addBusinessActivity",
         category: queryCategory(8),
         currentDate: new Date(),
+        shop: JSON.parse(sessionStorage.getItem(CURRENTSHOP)),
         picture: '',
         save: function () {
             if (validator.form()) {
                 var data = $("#addForm").serialize();
-                data += "&picture="+vm.picture;
-                data += "&code="+code;
-                data += "&shopId="+vm.shop.id;
+                data += "&picture=" + vm.picture;
+                data += "&code=" + code;
+                data += "&shopId=" + vm.shop.id;
+                data += "&activityId=" + CMADMIN.getParam("id");
                 $.ajax({
                     url: "/cm/admin/businessActivity/add",
                     type: "POST",
@@ -143,8 +145,8 @@ $(function () {
             }
         },
 
-
         back: function () {
+            deleteImg(bucketType.BUSINESS, code);
             CMADMIN.cancelDialog();
         }
     });
