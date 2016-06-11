@@ -114,9 +114,10 @@ $(function () {
         category: queryCategory(8),
         currentDate: new Date(),
         shop: JSON.parse(sessionStorage.getItem(CURRENTSHOP)),
-        picture: '',
+        picture: '/images/public/empty140px.png',   //默认图片
         save: function () {
             if (validator.form()) {
+                avalon.log(vm.shop);
                 var data = $("#addForm").serialize();
                 data += "&picture=" + vm.picture;
                 data += "&code=" + code;

@@ -3,20 +3,23 @@
  */
 $(function () {
 
-
     //表单校验
     var validator = $("#updateForm").validate({
         rules: {
-            username: {required: true, maxlength: 20},
-            password: {required: true, maxlength: 32},
-            phone: {required: true, isPhone: true},
-            userType: {required: true}
+            name: {required: true, maxlength: 20},
+            price: {isNumber: true, min: 0},
+            stock: {isNumber: true, min: 0},
+            pNum: {isNumber: true, min: 0},
+            startTime: {required: true},
+            endTime: {required: true}
         },
         messages: {
-            username: {required: "必填", maxlength: "最大输入20个字符长度"},
-            password: {required: "必填", maxlength: "最大输入32个字符长度"},
-            phone: {required: "必填"},
-            userType: {required: "必选"}
+            name: {required: "活动名称不能为空", maxlength: "名称过长"},
+            price: {isNumber: "填入值必须为数字", min: "价格不能小于0"},
+            stock: {min: "库存不能小于0"},
+            pNum: {min: "人数上限不能小于0"},
+            startTime: {required: "开始日期不能为空"},
+            endTime: {required: "结束日期不能为空"}
         },
         errorPlacement: errorPlacement,
         success: "valid"
@@ -25,20 +28,22 @@ $(function () {
         $id: 'editBusinessActivity',
         data: {
             id: CMADMIN.getParam("id"),
-            goodsName: "",
-            categoryId: null,
+            name: "",
+            createDate: null,
             picture: "",
             price: null,
             code: "",
             stock: null,
-            shopId: "",
-            description: ''
+            pNum: "",
+            startTime: "",
+            endTime: "",
+            rules:"",
+            description: ""
         },
-        category: queryCategory(4),
         //回显示查询
         queryOne: function () {
             $.ajax({
-                url: '/cm/admin/goods/queryOne?id=' + vm.data.id,
+                url: '/cm/admin/businessActivity/queryOne?id=' + vm.data.id,
                 dataType: 'json',
                 type: 'get',
                 async: false,
@@ -51,14 +56,16 @@ $(function () {
                 success: function (result) {
                     if (isSuccess(result)) {
                         vm.data.id = result.bizData.id;
-                        vm.data.goodsName = result.bizData.goodsName;
-                        //vm.data.password = result.bizData.password;
-                        vm.data.categoryId = result.bizData.categoryId;
-                        vm.data.code = result.bizData.code;
-                        vm.data.shopId = result.bizData.shopId;
+                        vm.data.name = result.bizData.name;
+                        vm.data.createDate = result.bizData.createDate;
                         vm.data.picture = result.bizData.picture;
-                        vm.data.stock = result.bizData.stock;
                         vm.data.price = result.bizData.price;
+                        vm.data.code = result.bizData.code;
+                        vm.data.stock = result.bizData.stock;
+                        vm.data.pNum = result.bizData.pNum;
+                        vm.data.startTime = result.bizData.startTime;
+                        vm.data.endTime = result.bizData.endTime;
+                        vm.data.rules = result.bizData.rules;
                         vm.data.description = result.bizData.description;
                         //获取token
                         token = getUploadToken(bucketType.BUSINESS, vm.data.code);
@@ -72,9 +79,9 @@ $(function () {
                 var data = $("#updateForm").serialize();
                 data += "&code=" + vm.data.code;
                 data += "&id=" + vm.data.id;
-                data += "&picture="+ vm.picture;
+                data += "&picture="+ vm.data.picture;
                 $.ajax({
-                    url: "/cm/admin/goods/update?id=" + vm.data.id,
+                    url: "cm/admin/businessActivity/update?id=" + vm.data.id,
                     type: "POST",
                     dataType: 'json',
                     beforeSend: function () {
@@ -96,6 +103,7 @@ $(function () {
             }
         },
         back: function () {
+            deleteImg(bucketType.BUSINESS, vm.data.code);
             CMADMIN.cancelDialog();
         }
     });
@@ -140,7 +148,7 @@ $(function () {
                 var domain = up.getOption('domain');
                 var res = JSON.parse(info);
                 var sourceLink = domain + "/" + res.key; //获取上传成功后的文件的Url
-                vm.picture = sourceLink;
+                vm.data.picture = sourceLink;
                 $("#picture").attr("src", sourceLink + "?" + new Date().getTime());
             },
             'Error': function (up, err, errTip) {

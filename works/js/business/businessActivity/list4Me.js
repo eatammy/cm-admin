@@ -9,8 +9,8 @@ ace.load_ajax_scripts(scripts, function () {
     avalon.ready(function () {
         var start = {
             elem: '#startTime',
-            format: 'YYYY/MM/DD hh:mm:ss',
-            min: shop == null ? '1900-01-01 00:00:00' : laydate.now(), //设定最小日期为当前日期
+            format: 'YYYY-MM-DD hh:mm:ss',
+            min: '1900-01-01 00:00:00', //设定最小日期为当前日期
             max: '2099-06-16 23:59:59', //最大日期
             istime: true,
             istoday: false,
@@ -21,8 +21,8 @@ ace.load_ajax_scripts(scripts, function () {
         };
         var end = {
             elem: '#endTime',
-            format: 'YYYY/MM/DD hh:mm:ss',
-            min: shop == null ? '1900-01-01 00:00:00' : laydate.now(),
+            format: 'YYYY-MM-DD hh:mm:ss',
+            min: '1900-01-01 00:00:00',
             max: '2099-06-16 23:59:59',
             istime: true,
             istoday: false,
@@ -41,33 +41,13 @@ ace.load_ajax_scripts(scripts, function () {
             data: [],
             category: queryCategory(8),
             allChecked: false,  //是否全选，默认为false
-            ////勾选
-            //checkOne: function () {
-            //    if (!this.checked) {
-            //        vm.allChecked = false;
-            //    } else {
-            //        vm.allChecked = vm.data.every(function (el) {
-            //            return isSelectedAll(el);
-            //        });
-            //    }
-            //},
-            ////全选
-            //checkAll: function () {
-            //    vm.data.forEach(function (el) {
-            //        if (el.status == 1) {
-            //            el.checked = vm.allChecked;
-            //        } else {
-            //            el.checked = false;
-            //        }
-            //    });
-            //},
             //分页查询
             queryPage: function () {
                 var data = $("#searchCondition").serialize();
                 data += "&pageNo=" + vm.pageNo;
                 data += "&pageSize=" + vm.pageSize;
                 $.ajax({
-                    url: '/cm/admin/businessActivity/queryPage',
+                    url: '/cm/admin/businessActivity/queryPage4Me',
                     dataType: 'json',
                     type: 'post',
                     data: data,
@@ -81,6 +61,7 @@ ace.load_ajax_scripts(scripts, function () {
                         if (isSuccess(result)) {
                             result.bizData.rows.forEach(function (el) {
                                 el.checked = false;
+                                el.process = (el.sale/((el.sale+el.stock)*1.0)*100).toFixed(2);
                             });
                             vm.data = result.bizData.rows;
                             vm.total = result.bizData.total;
@@ -113,82 +94,22 @@ ace.load_ajax_scripts(scripts, function () {
                 vm.queryPage();
             },
 
-            //添加
-            add: function () {
-                CMADMIN.openDialog("/business/activity/add.html", {}, "新增活动", "700px", "270px", function () {
-                    vm.clear();    //重置
-                });
-            },
 
             //修改
             edit: function (id) {
-                CMADMIN.openDialog("/business/goods/edit.html", {id: id}, "查看用户", "850px", "385px", function () {
+                CMADMIN.openDialog("/business/businessActivity/edit.html", {id: id}, "修改活动内容", "750px", "550px", function () {
                     vm.clear();    //重置
                 });
             },
 
-            //批量删除
-            deleteBatch: function () {
-                layer.confirm('确定要删除所选商品？', {icon: 2},function (index) {
-                    var ids = [];
-                    vm.data.forEach(function (el) {
-                        if (el.checked) {
-                            ids.push(el.id);
-                        }
-                    });
-                    if (ids.length <= 0) {
-                        layer.alert("请勾选记录！");
-                        return;
-                    }
-                    $.ajax({
-                        url: "/cm/admin/goods/deleteByIds",
-                        type: "POST",
-                        dataType: 'json',
-                        data: {ids: ids.join(",")},
-                        complete: function () {
-                            layer.close(index);
-                            vm.query(1);
-                        },
-                        success: function (result) {
-                            if (isSuccess(result)) {
-                                layer.alert(result.bizData, {icon: 1});
-                            } else {
-                                layer.alert(result.msg , {icon: 2});
-                            }
-                        }
-                    });
-                });
-            },
-
-            //单个删除
-            deleteOne: function (id) {
-                layer.confirm('确定要删除该商品？', {icon: 2}, function (index) {
-                    $.ajax({
-                        url: "/cm/admin/goods/deleteOne?id=" + id,
-                        type: "GET",
-                        dataType: "json",
-                        complete: function () {
-                            layer.close(index);
-                            vm.query(vm.pageNo);
-                        },
-                        success: function (result) {
-                            if (isSuccess(result)) {
-                                layer.alert(result.bizData, {icon: 1});
-                            } else {
-                                layer.alert(result.msg , {icon: 2});
-                            }
-                        }
-                    });
-                });
-            },
 
             //启用/停用
             disableOrEnable: function (status, id, flag) {
                 var action = flag === 1 ? "停用" : "启用";
                 var icon = flag === 1 ? 5 : 6
-                layer.confirm('确定要' + action + '该商品！', {icon: icon}, function (index) {
+                layer.confirm('确定要' + action + '该活动！', {icon: icon}, function (index) {
                     $.ajax({
-                        url: "/cm/admin/goods/disableOrEnable?id=" + id + "&status=" + status,
+                        url: "/cm/admin/businessActivity/disableOrEnable?id=" + id + "&status=" + status,
                         type: "GET",
                         dataType: "json",
                         complete: function () {

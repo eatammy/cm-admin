@@ -7,7 +7,7 @@
 </style>
 
 <!--标签区-->
-<div id="listBusinessActivity" ms-important="listActivity" class="page-content">
+<div id="listBusinessActivity" ms-important="listBusinessActivity" class="page-content">
     <div class=" search user-c-box">
         <form id="searchCondition">
             <div class="user-c">
@@ -18,13 +18,6 @@
                                                                   placeholder="请输入"/></span>
 
                     <span class="search-label">
-                        <b>分类：</b>
-                        <select name="categoryId">
-                            <option value="-1">请选择分类</option>
-                            <option ms-repeat="category" ms-attr-value="el.id" >{{el.name}}</option>
-                        </select>
-                    </span>
-                    <span class="search-label">
                         <b>状态：</b>
                         <select name="status">
                             <option value="-1">默认</option>
@@ -32,8 +25,6 @@
                             <option value="1">停用</option>
                         </select>
                     </span>
-                </div>
-                <div class="tj">
                     <span class="search-label"><b>起始日期：</b>
                         <input class="txt" id="startTime" name="startTime" type="text" style="width:130px; margin-right:10px;"/>
                     </span>
@@ -41,7 +32,15 @@
                         <div class=""></div>
                         <input class="txt" id="endTime" name="endTime" type="text" style="width: 130px;"/>
                     </span>
+                </div>
 
+                <div class="tj">
+                    <span class="search-label"><b>价格区间：</b>
+                        <input class="txt" name="low" ms-keydown="enter($event)" type="text" placeholder="最低价格"/>
+                    </span>
+                    <span class="search-label"><b>-&nbsp;&nbsp;</b>
+                    <input class="txt" name="high" ms-keydown="enter($event)" type="text" placeholder="最高价格"/>
+                    </span>
                     <a href="javascript:void(0)" ms-click="query(1)" class=" bt_org">查询</a><a
                         href="javascript:void(0)"
                         ms-click="clear"
@@ -61,28 +60,30 @@
             <th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"
                                   data-duplex-changed="checkAll"/></th>
             <th width="20%">活动名称</th>
-            <th width="15%">分类</th>
-            <!--<th width="10%">创建人</th>-->
-            <th width="15%">开始时间</th>
-            <th width="15%">结束时间</th>
+            <th width="15%">所属活动</th>
+            <th width="10%">所属商家</th>
+            <th width="10%">价格</th>
+            <th width="10%">开始时间</th>
+            <th width="10%">结束时间</th>
             <th width="5%">状态</th>
-            <th width="25%">操作</th>
+            <th width="15%">操作</th>
         </tr>
         <tr ms-repeat="data">
             <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
                                   ms-attr-disabled="el.status===0"/></td>
             <td>{{el.name}}</td>
-            <td>{{el.categoryName}}</td>
-            <td>{{el.startTime}}</td>
-            <td>{{el.endTime}}</td>
+            <td>{{el.activityName}}</td>
+            <td>{{el.shopName}}</td>
+            <td>{{el.price}}</td>
+            <td>{{el.startTime|date('yyyy-MM-dd')}}</td>
+            <td>{{el.endTime|date('yyyy-MM-dd')}}</td>
             <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
             <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">停用</span></td>
             <td>
-                <input name="" type="button" ms-click="edit(el.id)" value="修改"/>
-                <input name="" type="button" ms-click="edit(el.id)" value="参加"/>
+                <input name="" type="button" ms-click="edit(el.id)" value="查看"/>
                 <input name="" type="button" value="启用" ms-if="el.status == 1" ms-click="disableOrEnable(0,el.id,0)"/>
                 <input name="" type="button" value="停用" ms-if="el.status == 0" ms-click="disableOrEnable(1,el.id,1)"/>
-                <input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id)"/>
+                <input name="" type="button" value="删除" ms-click="deleteOne(el.id)"/>
             </td>
         </tr>
     </table>

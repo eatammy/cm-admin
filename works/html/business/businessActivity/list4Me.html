@@ -68,9 +68,10 @@
             <!--<th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"-->
                                   <!--data-duplex-changed="checkAll"/></th>-->
             <th width="15%">活动名称</th>
-            <th width="15%">分类</th>
-            <th width="15%">结束时间</th>
-            <th width="15%">开始时间</th>
+            <th width="15%">所属活动</th>
+            <th width="6%">价格</th>
+            <th width="12%">结束时间</th>
+            <th width="12%">开始时间</th>
             <th width="15%">销售库存比</th>
             <th width="5%">状态</th>
             <th width="20%">操作</th>
@@ -79,18 +80,24 @@
             <!--<td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"-->
                                   <!--ms-attr-disabled="el.status===0"/></td>-->
             <td>{{el.name}}</td>
-            <td>{{el.categoryName}}</td>
-            <td>{{el.startTime}}</td>
-            <td>{{el.endTime}}</td>
-            <td>{{el.endTime}}</td>
+            <td>{{el.activityName}}</td>
+            <td>{{el.price}}</td>
+            <td>{{el.startTime|date('yyyy-MM-dd')}}</td>
+            <td>{{el.endTime|date('yyyy-MM-dd')}}</td>
+            <td>
+                <div class="progress" style="margin-bottom: 0">
+                    <div  class="progress-bar" ms-class-1="progress-bar-success: el.process < 50 "
+                          ms-class-2="progress-bar-warning: el.process < 80 && el.process >= 50"
+                          ms-class-3="progress-bar-danger: el.process >=80" style="min-width: 2em;" ms-css-width="el.process+'%'">{{el.process}}%</div>
+                </div>
+            </td>
             <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
             <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">停用</span></td>
             <td>
                 <input name="" type="button" ms-click="edit(el.id)" value="修改"/>
-                <input name="" type="button" ms-click="edit(el.id)" value="参加"/>
                 <input name="" type="button" value="启用" ms-if="el.status == 1" ms-click="disableOrEnable(0,el.id,0)"/>
                 <input name="" type="button" value="停用" ms-if="el.status == 0" ms-click="disableOrEnable(1,el.id,1)"/>
-                <input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id)"/>
+                <!--<input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id)"/>-->
             </td>
         </tr>
     </table>

@@ -39,6 +39,7 @@ ace.load_ajax_scripts(scripts, function () {
             records: 0,     //总数
             total: 0,       //页数
             data: [],
+            userType: JSON.parse(sessionStorage.getItem('CURRENTUSER')).userType,
             category: queryCategory(8),
             allChecked: false,  //是否全选，默认为false
             //勾选

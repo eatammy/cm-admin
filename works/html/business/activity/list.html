@@ -75,14 +75,18 @@
             <td>{{el.categoryName}}</td>
             <td>{{el.startTime}}</td>
             <td>{{el.endTime}}</td>
-            <td ms-if="el.status == 0"><span ms-class="enabled_text:el.status==0">启用</span></td>
-            <td ms-if="el.status == 1"><span ms-class="disabled_text:el.status==1">停用</span></td>
-            <td>
+            <td ms-if="el.isAttend == 0 && userType == 2"><span ms-class="enabled_text:el.isAttend==0">已参加</span></td>
+            <td ms-if="el.isAttend == null && userType == 2"><span ms-class="disabled_text:el.isAttend==null">未参加</span></td>
+            <td ms-if="el.status == 0 && userType != 2"><span ms-class="enabled_text:el.status==0">启用</span></td>
+            <td ms-if="el.status == 1 && userType != 2"><span ms-class="disabled_text:el.status==1">停用</span></td>
+            <td ms-if="userType != 2">
                 <input name="" type="button" ms-click="edit(el.id)" value="修改"/>
-                <input name="" type="button" ms-click="attend(el.id)" value="参加"/>
                 <input name="" type="button" value="启用" ms-if="el.status == 1" ms-click="disableOrEnable(0,el.id,0)"/>
                 <input name="" type="button" value="停用" ms-if="el.status == 0" ms-click="disableOrEnable(1,el.id,1)"/>
                 <input name="" type="button" value="删除" ms-if="el.status == 1" ms-click="deleteOne(el.id)"/>
+            </td>
+            <td ms-if="userType == 2">
+                <input name="" type="button" ms-if="el.isAttend == null" ms-click="attend(el.id)" value="参加"/>
             </td>
         </tr>
     </table>
