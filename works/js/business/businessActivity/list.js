@@ -111,23 +111,17 @@ ace.load_ajax_scripts(scripts, function () {
                 vm.queryPage();
             },
 
-            //添加
-            add: function () {
-                CMADMIN.openDialog("/business/activity/add.html", {}, "新增活动", "700px", "270px", function () {
-                    vm.clear();    //重置
-                });
-            },
 
             //修改
             edit: function (id) {
-                CMADMIN.openDialog("/business/goods/edit.html", {id: id}, "查看用户", "850px", "385px", function () {
+                CMADMIN.openDialog("/business/businessActivity/edit.html", {id: id}, "查看用户", "750px", "550px", function () {
                     vm.clear();    //重置
                 });
             },
 
             //批量删除
             deleteBatch: function () {
-                layer.confirm('确定要删除所选商品？', {icon: 2},function (index) {
+                layer.confirm('确定要删除所选活动？请慎重操作！', {icon: 2},function (index) {
                     var ids = [];
                     vm.data.forEach(function (el) {
                         if (el.checked) {
@@ -139,7 +133,7 @@ ace.load_ajax_scripts(scripts, function () {
                         return;
                     }
                     $.ajax({
-                        url: "/cm/admin/goods/deleteByIds",
+                        url: "/cm/admin/businessActivity/deleteByIds",
                         type: "POST",
                         dataType: 'json',
                         data: {ids: ids.join(",")},
@@ -160,9 +154,9 @@ ace.load_ajax_scripts(scripts, function () {
 
             //单个删除
             deleteOne: function (id) {
-                layer.confirm('确定要删除该商品？', {icon: 2}, function (index) {
+                layer.confirm('确定要删除该互动？请慎重操作！', {icon: 2}, function (index) {
                     $.ajax({
-                        url: "/cm/admin/goods/deleteOne?id=" + id,
+                        url: "/cm/admin/businessActivity/deleteOne?id=" + id,
                         type: "GET",
                         dataType: "json",
                         complete: function () {
@@ -184,9 +178,9 @@ ace.load_ajax_scripts(scripts, function () {
             disableOrEnable: function (status, id, flag) {
                 var action = flag === 1 ? "停用" : "启用";
                 var icon = flag === 1 ? 5 : 6
-                layer.confirm('确定要' + action + '该商品！', {icon: icon}, function (index) {
+                layer.confirm('确定要' + action + '该活动！', {icon: icon}, function (index) {
                     $.ajax({
-                        url: "/cm/admin/goods/disableOrEnable?id=" + id + "&status=" + status,
+                        url: "/cm/admin/businessActivity/disableOrEnable?id=" + id + "&status=" + status,
                         type: "GET",
                         dataType: "json",
                         complete: function () {
