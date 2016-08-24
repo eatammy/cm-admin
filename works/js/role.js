@@ -55,40 +55,51 @@ avalon.ready(function () {
         selectRole: function (role) {
             layer.load(2);
             sessionStorage.setItem(CURRENTUSER, JSON.stringify({
+                "uid": vm.curUser.uid,
+                "salt": vm.curUser.salt,
                 "username": vm.curUser.username,
-                "code": vm.curUser.code,
                 "headIcon": vm.curUser.headIcon,
                 "description": vm.curUser.description,
                 "nickname": vm.curUser.nickname,
                 "phone": vm.curUser.phone,
                 "userTypes": vm.curUser.userTypes,
-                "userType": role.userType,
+                "userType": role.userType
             }));
-            if(role.userType == 1){//普通用户登入，跳转至PC
+            if (role.userType == 1) {//普通用户登入，跳转至PCuid
                 window.location.href = "/login.html";
-            }else {
-                if(role.userType == 2){//商家登录，查询出商家的信息
+            } else {
+                if (role.userType == 2) {//商家登录，查询出商家的信息
                     $.ajax({
-                        url: '/cm/admin/shop/initShop?uid='+vm.curUser.code,
+                        url: '/cm/admin/shop/initShop?uid=' + vm.curUser.uid,
                         dataType: 'json',
                         type: 'get',
+
                         complete: function () {
-                          layer.close('loading');
+                            layer.close('loading');
                         },
                         success: function (result) {
-                            if (isSuccess(result)){
-                                 if(result.bizData.length == 0){
-                                     layer.alert("商店已经停用！",{icon: 2});
-                                 }else{
-                                     sessionStorage.setItem(CURRENTSHOP, JSON.stringify(result.bizData));
-                                 }
+                            if (isSuccess(result)) {
+                                if (result.bizData.length == 0) {
+                                    layer.alert("商店已经停用！", {icon: 2});
+                                } else {
+                                    sessionStorage.setItem(CURRENTSHOP, JSON.stringify(result.bizData));
+                                }
                             }
                         }
                     });
                 }
+                $.ajax({
+                    url: '/cm/admin/user/initUser?uid=' + vm.curUser.uid + '&userType=' + role.userType,
+                    dataType: 'json',
+                    type: 'get',
+                    async: false,
+                    success: function (result) {
+
+                    }
+                });
                 window.setTimeout(function () {
                     window.location.href = "/index.html";
-                },2000);
+                }, 2000);
             }
         },
         init: function () {

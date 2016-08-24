@@ -1,0 +1,54 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important, [ms-controller], [ms-important] {
+        visibility: hidden;
+    }
+</style>
+<!--标签区-->
+<div id="editAuthRole" ms-important="editAuthRole">
+    <div class="form">
+        <form id="editForm">
+            <div class=" user-edit ">
+                <div class="remark"> 注：带 * 号为必填项</div>
+                <input type="hidden" name="id" ms-duplex-number="data.id"/>
+
+                <table class="table_1" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th width="20%"><span>*</span>角色名称：</th>
+                        <td width="30%"><input type="text" name="name" ms-duplex-string="data.name"/></td>
+                        <th width="20%">角色代码：</th>
+                        <td width="30%"><input type="text" name="code" ms-attr-value="data.code" style="width: 200px;"></td>
+                    </tr>
+                    <tr>
+                        <th width="20%">拥有所有权限：</th>
+                        <td>
+                            <label><input type="radio" name="isSuper" value="false" ms-duplex-boolean="data.isSuper">否&nbsp;</label>
+                            <label><input type="radio" name="isSuper" value="true" ms-duplex-boolean="data.isSuper">是</label>
+                        </td>
+                        <th width="20%">默认角色：</th>
+                        <td>
+                            <label><input type="radio" name="isDefault" value="false" ms-duplex-boolean="data.isDefault">否&nbsp;</label>
+                            <label><input type="radio" name="isDefault" value="true" ms-duplex-boolean="data.isDefault">是</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th width="20%"><span></span>描述：</th>
+                        <td colspan="3">
+                            <textarea name="description" name="description" ms-duplex-string="data.description" style="width:490px; height:65px;"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="user-btn">
+                    <input type="button" value="保存" class="oper" ms-click="save" ac-authCode="authRole:update"/>
+                    <input type="button" value="返回" class="oper" ms-click="back"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/auth/authRole/edit.js"></script>

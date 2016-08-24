@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="css/common.css"/>
 
 <!-- 其他样式库-->
+<link rel="stylesheet" href="/libs/zTree/css/zTreeStyle/zTreeStyle.css"/>
 <link rel="stylesheet" href="libs/qtip/jquery.qtip.min.css"/>
 
 
@@ -86,189 +87,265 @@
                 <b class="arrow"></b>
             </li>
 
-            <li class="">
-                <a href="javascript:void(0)" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-desktop"></i>
-                    <span class="menu-text"> 系统管理 </span>
+            <!--<li class="">-->
+                <!--<a href="javascript:void(0)" class="dropdown-toggle">-->
+                    <!--<i class="menu-icon fa fa-desktop"></i>-->
+                    <!--<span class="menu-text"> 系统管理 </span>-->
 
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
+                    <!--<b class="arrow fa fa-angle-down"></b>-->
+                <!--</a>-->
 
-                <b class="arrow"></b>
+                <!--<b class="arrow"></b>-->
 
-                <ul class="submenu">
-                    <li class="">
-                        <a data-url="/sys/category/list.html" href="#/sys/category/list.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            分类管理
-                        </a>
+                <!--<ul class="submenu">-->
+                    <!--<li class="">-->
+                        <!--<a data-url="/sys/category/list.html" href="#/sys/category/list.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--分类管理-->
+                        <!--</a>-->
 
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="">
-                        <a data-url="/sys/cookbook/list.html" href="#/sys/cookbook/list.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            食谱管理
-                        </a>
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
+                    <!--<li class="">-->
+                        <!--<a data-url="/sys/cookbook/list.html" href="#/sys/cookbook/list.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--食谱管理-->
+                        <!--</a>-->
 
-                        <b class="arrow"></b>
-                    </li>
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
 
-                    <li class="">
-                        <a data-url="/sys/user/list.html" href="#/sys/user/list.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            用户管理
-                        </a>
+                    <!--<li class="">-->
+                        <!--<a data-url="/sys/user/list.html" href="#/sys/user/list.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--用户管理-->
+                        <!--</a>-->
 
-                        <b class="arrow"></b>
-                    </li>
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
 
-                </ul>
-            </li>
-            <li class="">
-                <a href="javascript:void(0)" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-shopping-cart"></i>
-                    <span class="menu-text"> 商家管理 </span>
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="">-->
+                <!--<a href="javascript:void(0)" class="dropdown-toggle">-->
+                    <!--<i class="menu-icon fa fa-shopping-cart"></i>-->
+                    <!--<span class="menu-text"> 商家管理 </span>-->
 
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
+                    <!--<b class="arrow fa fa-angle-down"></b>-->
+                <!--</a>-->
 
-                <b class="arrow"></b>
+                <!--<b class="arrow"></b>-->
 
-                <ul class="submenu">
-                    <li class="">
-                        <a data-url="/business/shop/list.html" href="#/business/shop/list.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            商家用户审核
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
+                <!--<ul class="submenu">-->
+                    <!--<li class="">-->
+                        <!--<a data-url="/business/shop/list.html" href="#/business/shop/list.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--商家用户审核-->
+                        <!--</a>-->
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
 
-                    <li class="">
-                        <a data-url="/business/goods/list.html" href="#/business/goods/list.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            商品管理
-                        </a>
+                    <!--<li class="">-->
+                        <!--<a data-url="/business/goods/list.html" href="#/business/goods/list.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--商品管理-->
+                        <!--</a>-->
 
-                        <b class="arrow"></b>
-                    </li>
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
 
-                    <li class="hsub">
-                        <a href="javascript:void(0)" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            活动管理
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
+                    <!--<li class="hsub">-->
+                        <!--<a href="javascript:void(0)" class="dropdown-toggle">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--活动管理-->
+                            <!--<b class="arrow fa fa-angle-down"></b>-->
+                        <!--</a>-->
 
-                        <ul class="submenu nav-show" style="display: none;">
-                            <li class="">
-                                <a data-url="/business/activity/list.html" href="#/business/activity/list.html">
-                                    <i class="menu-icon fa fa-users blue"></i>
-                                    最新活动
-                                </a>
+                        <!--<ul class="submenu nav-show" style="display: none;">-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/activity/list.html" href="#/business/activity/list.html">-->
+                                    <!--<i class="menu-icon fa fa-users blue"></i>-->
+                                    <!--最新活动-->
+                                <!--</a>-->
 
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="">
-                                <a data-url="/business/businessActivity/list4Me.html" href="#/business/businessActivity/list4Me.html">
-                                    <i class="menu-icon fa fa-users blue"></i>
-                                    我的活动
-                                </a>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/businessActivity/list4Me.html" href="#/business/businessActivity/list4Me.html">-->
+                                    <!--<i class="menu-icon fa fa-users blue"></i>-->
+                                    <!--我的活动-->
+                                <!--</a>-->
 
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="">
-                                <a data-url="/business/businessActivity/list.html" href="#/business/businessActivity/list.html">
-                                    <i class="menu-icon fa fa-users blue"></i>
-                                    商家活动
-                                </a>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/businessActivity/list.html" href="#/business/businessActivity/list.html">-->
+                                    <!--<i class="menu-icon fa fa-users blue"></i>-->
+                                    <!--商家活动-->
+                                <!--</a>-->
 
-                                <b class="arrow"></b>
-                            </li>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
 
-                        </ul>
-                    </li>
-                    <li class="">
-                        <a href="javascript:void(0)" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            订单/退单管理
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="">-->
+                        <!--<a href="javascript:void(0)" class="dropdown-toggle">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--订单/退单管理-->
+                            <!--<b class="arrow fa fa-angle-down"></b>-->
+                        <!--</a>-->
 
-                        <ul class="submenu nav-show" style="display: none;">
-                            <li class="">
-                                <a data-url="/business/activity/list.html" href="#/business/activity/list.html">
-                                    <i class="menu-icon fa fa-indent blue"></i>
-                                    订单管理
-                                </a>
+                        <!--<ul class="submenu nav-show" style="display: none;">-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/activity/list.html" href="#/business/activity/list.html">-->
+                                    <!--<i class="menu-icon fa fa-indent blue"></i>-->
+                                    <!--订单管理-->
+                                <!--</a>-->
 
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="">
-                                <a data-url="/business/businessActivity/list4Me.html" href="#/business/businessActivity/list4Me.html">
-                                    <i class="menu-icon fa fa-indent blue"></i>
-                                    退单管理
-                                </a>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/businessActivity/list4Me.html" href="#/business/businessActivity/list4Me.html">-->
+                                    <!--<i class="menu-icon fa fa-indent blue"></i>-->
+                                    <!--退单管理-->
+                                <!--</a>-->
 
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="">
-                                <a data-url="/business/businessActivity/list.html" href="#/business/businessActivity/list.html">
-                                    <i class="menu-icon fa fa-indent blue"></i>
-                                    活动订单管理
-                                </a>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/businessActivity/list.html" href="#/business/businessActivity/list.html">-->
+                                    <!--<i class="menu-icon fa fa-indent blue"></i>-->
+                                    <!--活动订单管理-->
+                                <!--</a>-->
 
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="">
-                                <a data-url="/business/businessActivity/list.html" href="#/business/businessActivity/list.html">
-                                    <i class="menu-icon fa fa-indent blue"></i>
-                                    活动退单管理
-                                </a>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/businessActivity/list.html" href="#/business/businessActivity/list.html">-->
+                                    <!--<i class="menu-icon fa fa-indent blue"></i>-->
+                                    <!--活动退单管理-->
+                                <!--</a>-->
 
-                                <b class="arrow"></b>
-                            </li>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
 
-                        </ul>
-                    </li>
-                    <li class="">
-                        <a href="buttons.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            我的账户
-                        </a>
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="">-->
+                        <!--<a href="buttons.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--我的账户-->
+                        <!--</a>-->
 
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-            <li class="">
-                <a href="javascript:void(0)" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-bar-chart-o"></i>
-                    <span class="menu-text"> 销售统计 </span>
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="">-->
+                <!--<a href="javascript:void(0)" class="dropdown-toggle">-->
+                    <!--<i class="menu-icon fa fa-bar-chart-o"></i>-->
+                    <!--<span class="menu-text"> 运营与分析 </span>-->
 
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
+                    <!--<b class="arrow fa fa-angle-down"></b>-->
+                <!--</a>-->
 
-                <b class="arrow"></b>
+                <!--<b class="arrow"></b>-->
 
-                <ul class="submenu">
+                <!--<ul class="submenu">-->
+                    <!--<li class="">-->
+                        <!--<a href="javascript:void(0)" class="dropdown-toggle">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--平台运营分析-->
+                            <!--<b class="arrow fa fa-angle-down"></b>-->
+                        <!--</a>-->
 
-                </ul>
-            </li>
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-cogs"></i>
-                    <span class="menu-text"> 权限管理 </span>
+                        <!--<ul class="submenu nav-show" style="display: none;">-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/activity/list.html" href="#/business/activity/list.html">-->
+                                    <!--<i class="menu-icon fa fa-indent blue"></i>-->
+                                    <!--用户注册x-->
+                                <!--</a>-->
 
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/businessActivity/list4Me.html" href="#/business/businessActivity/list4Me.html">-->
+                                    <!--<i class="menu-icon fa fa-indent blue"></i>-->
+                                    <!--退单管理-->
+                                <!--</a>-->
 
-                <b class="arrow"></b>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/businessActivity/list.html" href="#/business/businessActivity/list.html">-->
+                                    <!--<i class="menu-icon fa fa-indent blue"></i>-->
+                                    <!--活动订单管理-->
+                                <!--</a>-->
 
-                <ul class="submenu">
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
+                            <!--<li class="">-->
+                                <!--<a data-url="/business/businessActivity/list.html" href="#/business/businessActivity/list.html">-->
+                                    <!--<i class="menu-icon fa fa-indent blue"></i>-->
+                                    <!--活动退单管理-->
+                                <!--</a>-->
 
-                </ul>
-            </li>
+                                <!--<b class="arrow"></b>-->
+                            <!--</li>-->
+
+                        <!--</ul>-->
+                    <!--</li>-->
+
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="">-->
+                <!--<a href="#" class="dropdown-toggle">-->
+                    <!--<i class="menu-icon fa fa-cogs"></i>-->
+                    <!--<span class="menu-text"> 权限管理 </span>-->
+
+                    <!--<b class="arrow fa fa-angle-down"></b>-->
+                <!--</a>-->
+
+                <!--<b class="arrow"></b>-->
+
+                <!--<ul class="submenu">-->
+                    <!--<li class="">-->
+                        <!--<a data-url="/auth/authRole/list.html" href="#/auth/authRole/list.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--角色管理-->
+                        <!--</a>-->
+
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
+                    <!--<li class="">-->
+                        <!--<a data-url="/auth/authModule/list.html" href="#/auth/authModule/list.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--模块管理-->
+                        <!--</a>-->
+
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
+
+                    <!--<li class="">-->
+                        <!--<a data-url="/auth/authOperation/list.html" href="#/auth/authOperation/list.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--功能管理-->
+                        <!--</a>-->
+
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
+                    <!--<li class="">-->
+                        <!--<a data-url="/auth/authRoleUser/list.html" href="#/auth/authRoleUser/list.html">-->
+                            <!--<i class="menu-icon fa fa-caret-right"></i>-->
+                            <!--用户角色管理-->
+                        <!--</a>-->
+
+                        <!--<b class="arrow"></b>-->
+                    <!--</li>-->
+
+                <!--</ul>-->
+            <!--</li>-->
         </ul>
 
         <!-- 侧边栏最小化-菜单底部 -->
@@ -346,25 +423,30 @@
 <!--if('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");-->
 <!--</script>-->
 <!-- bootstrap 脚本-->
-<script src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 
 <!-- ace 脚本 -->
-<script src="assets/js/ace-elements.min.js"></script>
-<script src="assets/js/ace.min.js"></script>
+<script type="text/javascript" src="assets/js/ace-elements.min.js"></script>
+<script type="text/javascript" src="assets/js/ace.min.js"></script>
 
 <!-- 其他依赖库 -->
-<script src="libs/avalon/avalon.shim.js"></script>
-<script src="libs/layer/layer.js"></script>
-<script src="libs/store/store.min.js"></script>
-<script src="libs/cookies/jquery.cookie.js"></script>
-<script src="assets/js/jquery.validate.min.js"></script>
-<script src="libs/qtip/jquery.qtip.min.js"></script>
-<script src="libs/upload/plupload/plupload.full.min.js"></script>
-<script src="libs/upload/qiniu/qiniu.min.js"></script>
-<script src="libs/laydate/laydate.js"></script>
+<script type="text/javascript" src="libs/avalon/avalon.shim.js"></script>
+<script type="text/javascript" src="libs/layer/layer.js"></script>
+<script type="text/javascript" src="libs/zTree/js/jquery.ztree.all-3.5.js"></script>
+<script type="text/javascript" src="libs/zTree/js/jquery.ztree.exhide-3.5.min.js"></script>
+<script type="text/javascript" src="libs/store/store.min.js"></script>
+<script type="text/javascript" src="libs/cookies/jquery.cookie.js"></script>
+<script type="text/javascript" src="assets/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="libs/qtip/jquery.qtip.min.js"></script>
+<script type="text/javascript" src="libs/upload/plupload/plupload.full.min.js"></script>
+<script type="text/javascript" src="libs/upload/qiniu/qiniu.min.js"></script>
+<script type="text/javascript" src="libs/laydate/laydate.js"></script>
+<script type="text/javascript" src="libs/echarts/echarts.min.js"></script>
 <!-- 引入通用脚本 -->
-<script src="js/common.js"></script>
-<script src="js/index.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/jquery.authController.js"></script>
+
 
 </body>
 </html>

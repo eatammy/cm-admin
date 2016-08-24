@@ -52,13 +52,13 @@ function logout() {
             dataType: 'json',
             type: 'get',
             success: function (result) {
-                if (isSuccess(result)) {
-                    layer.alert(result.bizData, {icon: 1});
-                    $.removeCookie(ACCESS_TOKEN);
-                    sessionStorage.clear();
-                } else {
-                    layer.alert("操作失败！", {icon: 5});
-                }
+                //if (isSuccess(result)) {
+                //    layer.alert(result.bizData, {icon: 1});
+                $.removeCookie(ACCESS_TOKEN);
+                sessionStorage.clear();
+                //} else {
+                //    layer.alert("操作失败！", {icon: 5});
+                //}
                 window.setTimeout(function () {
                     window.location = "/login.html";
                 }, 1200);
@@ -68,16 +68,16 @@ function logout() {
     });
 }
 //查询分类
-function queryCategory(type){
+function queryCategory(type) {
     var category = [];
     $.ajax({
-        url: "/cm/admin/category/queryCategory?type="+type,
+        url: "/cm/admin/category/queryCategory?type=" + type,
         dataType: 'json',
         type: 'get',
         async: false,
         success: function (result) {
             if (isSuccess(result)) {
-                category =  result.bizData;
+                category = result.bizData;
             }
         }
     });
@@ -158,6 +158,11 @@ function errorPlacement(error, element) {
     }
 }
 /** 拓展验证规则 **/
+// 判断英文字符
+jQuery.validator.addMethod("isEnglish", function (value, element) {
+    return this.optional(element) || /^[A-Za-z]+$/.test(value);
+}, "只能包含英文字符。");
+
 jQuery.validator.addMethod("isPhone", function (value, element) {
     return this.optional(element) || /^1\d{10}$/.test(value);
 }, "电话号码不正确");
@@ -167,7 +172,7 @@ jQuery.validator.addMethod("isIdCardNo", function (value, element) {
     return this.optional(element) || isIdCardNo(value);
 }, "请输入正确的身份证号码。");
 //身份证号码的验证规则
-function isIdCardNo(num){
+function isIdCardNo(num) {
     //if (isNaN(num)) {alert("输入的不是数字！"); return false;}
     var len = num.length, re;
     if (len == 15)
@@ -179,38 +184,38 @@ function isIdCardNo(num){
         return false;
     }
     var a = num.match(re);
-    if (a != null)
-    {
-        if (len==15)
-        {
-            var D = new Date("19"+a[3]+"/"+a[4]+"/"+a[5]);
-            var B = D.getYear()==a[3]&&(D.getMonth()+1)==a[4]&&D.getDate()==a[5];
+    if (a != null) {
+        if (len == 15) {
+            var D = new Date("19" + a[3] + "/" + a[4] + "/" + a[5]);
+            var B = D.getYear() == a[3] && (D.getMonth() + 1) == a[4] && D.getDate() == a[5];
         }
-        else
-        {
-            var D = new Date(a[3]+"/"+a[4]+"/"+a[5]);
-            var B = D.getFullYear()==a[3]&&(D.getMonth()+1)==a[4]&&D.getDate()==a[5];
+        else {
+            var D = new Date(a[3] + "/" + a[4] + "/" + a[5]);
+            var B = D.getFullYear() == a[3] && (D.getMonth() + 1) == a[4] && D.getDate() == a[5];
         }
         if (!B) {
             //alert("输入的身份证号 "+ a[0] +" 里出生日期不对。");
             return false;
         }
     }
-    if(!re.test(num)){
+    if (!re.test(num)) {
         //alert("身份证最后一位只能是数字和字母。");
         return false;
     }
     return true;
 }
 // 字符验证，只能包含中文、英文、数字、下划线等字符。
-jQuery.validator.addMethod("stringCheck", function(value, element) {
+jQuery.validator.addMethod("stringCheck", function (value, element) {
     return this.optional(element) || /^[a-zA-Z0-9\u4e00-\u9fa5-_]+$/.test(value);
 }, "只能包含中文、英文、数字、下划线等字符");
 // 判断数值类型，包括整数和浮点数
-jQuery.validator.addMethod("isNumber", function(value, element) {
+jQuery.validator.addMethod("isNumber", function (value, element) {
     return this.optional(element) || /^[-\+]?\d+$/.test(value) || /^[-\+]?\d+(\.\d+)?$/.test(value);
 }, "匹配数值类型，包括整数和浮点数");
-
+//权限代码校验
+jQuery.validator.addMethod("isAuthCode", function (value, element) {
+    return this.optional(element) || /[A-Za-z]+:[A-Za-z]+/.test(value);
+}, "验证码格式必须为模块名:操作");
 //关闭所有提示
 function closeAllTip() {
     $('.qtip').each(function () {
@@ -235,6 +240,35 @@ avalon.filters.userTypeFilter = function (value) {
     var index = (Math.log(value)) / (Math.log(2));
     return roleNames[index];
 };
+avalon.filters.getRolesFilter = function (value) {
+    var arr = "";
+    for (var i = 1; i <= 8; i *= 2) {
+        var userType = value & i;
+        if (userType != 0) {
+            arr += roleNames[(Math.log(i)) / (Math.log(2))] + "，";
+        }
+    }
+    return arr.substr(0, arr.length - 1);
+};
+/**
+ * @return {string}
+ */
+avalon.filters.TORFFilter = function (value, args, args2) {
+    return value == true ? "是" : "否";
+};
+avalon.filters.statusFilter = function (value, args, args2) {
+    return value == 0 ? "<font color='green'>启用</font>" : "<font color='red'>停用</font>";
+};
+avalon.filters.fullNameFilter = function (value, args, args2) {
+    var moduleNames = value.split("|");
+    var moduleName = "";
+    if (moduleNames.length > 1) {
+        moduleName = moduleNames[moduleNames.length - 2];
+    }
+    return moduleName;
+};
+
+
 /** 七牛云上传 **/
 var bucket = {
     "headIcon": "http://7xtefm.com2.z0.glb.qiniucdn.com/",

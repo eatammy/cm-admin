@@ -1,0 +1,52 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important, [ms-controller], [ms-important] {
+        visibility: hidden;
+    }
+</style>
+<!--标签区-->
+<div id="addAuthRole" ms-important="addAuthRole">
+    <div class="form">
+        <form id="addForm">
+            <div class=" user-edit ">
+                <div class="remark"> 注：带 * 号为必填项</div>
+
+                <table class="table_1" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th width="20%"><span>*</span>角色名称：</th>
+                        <td width="30%"><input type="text" name="name"/></td>
+                        <th width="20%"><span>*</span>创建时间：</th>
+                        <td width="30%" style="border-right: none;">{{currentDate|date('yyyy-MM-dd')}}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span>*</span>拥有所有权限</th>
+                        <td>
+                            <label><input type="radio" name="isSuper" value="false" checked>否&nbsp;</label>
+                            <label><input type="radio" name="isSuper" value="true">是</label>
+                        </td>
+                        <th width="20%"><span>*</span>默认角色</th>
+                        <td>
+                            <label><input type="radio" name="isDefault" value="false" checked>否&nbsp;</label>
+                            <label><input type="radio" name="isDefault" value="true">是</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span></span>描述：</th>
+                        <td colspan="3">
+                            <textarea name="description" name="description" style="width:490px; height:65px;"></textarea>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="user-btn">
+                    <input type="button" value="保存" class="oper" ms-click="save"/>
+                    <input type="button" value="返回" class="oper" ms-click="back"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/auth/authRole/add.js"></script>

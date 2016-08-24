@@ -72,9 +72,52 @@ avalon.ready(function () {
                 });
             }
         },
+        initUser: function () {
+            $.ajax({
+                url: "/cm/admin/user/index",
+                type: "POST",
+                dataType: 'json',
+                beforeSend: function () {
+                    layer.load(0)
+                },
+                complete: function () {
+                    layer.closeAll('loading');
+                },
+                //data: $("#loginForm").serialize(),
+                success: function (result) {
+                    if (isSuccess(result)) {
+                        //if (vm.rememberMe) {
+                        //    var loginInfo = {
+                        //        username: vm.username,
+                        //        passowrd: vm.password,
+                        //        rememberMe: vm.rememberMe
+                        //    };
+                        //    avalon.log(loginInfo);
+                        //    localStorage.setItem("LOGININFO", JSON.stringify(loginInfo));
+                        sessionStorage.setItem("CURRENTUSER", JSON.stringify(result.bizData));
+                        vm.getRoles();
+                        sessionStorage.setItem("ISLOAD", true);
+                        //}
+                        layer.alert("登录成功", {icon: 1});
+                        window.setTimeout(function () {//1.2秒后自动跳转
+                            if (result.bizData.userTypes == 1) {  //只有普通用户身份，直接跳转至PC端
+                                window.location.href = "/";
+                            } else {//具有多种用户身份
+                                window.location.href = "/html/role.html";
+                            }
+                        }, 1200);
+
+                    } else {
+                        layer.alert(result.msg, {icon: 2});
+                    }
+                }
+            });
+        },
+
 
         //初始化登录页面信息
         init: function () {
+            //vm.index();
             var loginInfo = JSON.parse(localStorage.getItem("LOGININFO"));
             if (loginInfo != null) {
                 vm.username = loginInfo.username;

@@ -1,0 +1,61 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important, [ms-controller], [ms-important] {
+        visibility: hidden;
+    }
+</style>
+<!--标签区-->
+<div id="editAuthModule" ms-important="editAuthModule">
+    <div class="form">
+        <form id="editForm">
+            <div class=" user-edit ">
+                <div class="remark"> 注：带 * 号为必填项</div>
+                <input type="hidden" name="id" ms-attr-value="data.id">
+
+                <table class="table_1" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th width="20%"><span>*</span>模块名称：</th>
+                        <td width="30%"><input type="text" name="name" ms-duplex="data.name"/></td>
+                        <th width="20%"><span>*</span> 上级模块：</th>
+                        <td width="30%">
+                            <select name="pCode" ms-change="selectModule" ms-duplex="data.pCode">
+                                <option level="0" value="0">根节点</option>
+                                <option ms-repeat="modules" ms-attr-level="el.level" ms-attr-value="el.code">{{el.name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="20%"><span>*</span> 排序：</th>
+                        <td width="30%"><input type="text" name="priority" ms-duplex="data.priority"/></td>
+                        <th width="20%"><span>*</span>模块层级：</th>
+                        <td width="30%"><input type="hidden" name="level" ms-attr-value="data.level"/>{{data.level}}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%"> 图标：</th>
+                        <td width="30%"><input type="text" name="icon" ms-duplex="data.icon"/></td>
+                        <th width="20%"><span>*</span> 是否为菜单：</th>
+                        <td width="30%">
+                            <select name="isMenu" ms-duplex="data.isMenu">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="20%"> 模块地址：</th>
+                        <td colspan="3" width="30%"><input type="text" name="url" ms-duplex="data.url"/></td>
+                    </tr>
+                </table>
+
+                <div class="user-btn">
+                    <input type="button" value="保存" class="oper" ms-click="save" ac-authCode="module:update"/>
+                    <input type="button" value="返回" class="oper" ms-click="back"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/auth/authModule/edit.js"></script>

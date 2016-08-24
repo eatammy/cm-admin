@@ -1,0 +1,103 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important {
+        visibility: hidden
+    }
+</style>
+
+<!--标签区-->
+<div id="listAuthRoleUser" ms-important="listAuthRoleUser" class="page-content">
+    <div class=" search user-c-box">
+        <form id="searchCondition">
+            <div class="user-c">
+                <div class="tj">
+                    <span class="search-label"><b>账号：</b><input class="txt" name="username" ms-keydown="enter($event)"
+                                                                type="text"
+                                                                placeholder="请输入"/></span>
+                    <span class="search-label"><b>电话：</b><input class="txt" name="phone" ms-keydown="enter($event)"
+                                                                type="text"
+                                                                placeholder="请输入"/></span>
+                    <span class="search-label">
+                        <b>性别：</b>
+                        <select name="sex">
+                            <option value="-1">默认</option>
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select>
+                    </span>
+
+                    <span class="search-label">
+                        <b>状态：</b>
+                        <select name="status">
+                            <option value="-1">默认</option>
+                            <option value="0">启用</option>
+                            <option value="1">停用</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <!--机构/学校-->
+            <div class="user-c">
+                <div class="tj">
+                     <span class="search-label">
+                        <b>区域：</b>
+                        <select name="province" ms-change="changeCity(this.value)">
+                            <option value="-1">请选择省份</option>
+                            <option ms-repeat="province" ms-attr-value="el.ProID">{{el.name}}</option>
+                        </select>&nbsp;
+                        <select name="city" ms-change="changeTown(this.value)">
+                            <option value="-1">请选择城市</option>
+                            <option ms-repeat="selectedCity" ms-attr-value="el.CityID">{{el.name}}</option>
+                        </select>&nbsp;
+                        <select name="town">
+                            <option value="-1">请选择区县</option>
+                            <option ms-repeat="selectedTown" ms-attr-value="el.Id">{{el.DisName}}</option>
+                        </select>
+                    </span>
+                    <a href="javascript:void(0)" ms-click="query(1)" ac-authCode="userRole:query" class=" bt_org">查询</a>
+                    <a href="javascript:void(0)" ms-click="clear" ac-authCode="userRole:query" class=" bt_org">重置</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <table class="table_1" cellpadding="0" cellspacing="0">
+        <tr>
+            <th width="10%">用户姓名</th>
+            <th width="20%">身份</th>
+            <th width="10%">账号</th>
+            <th width="30%">地区</th>
+            <th width="10%">手机号码</th>
+            <th width="20%">操作</th>
+        </tr>
+        <tr ms-repeat="data">
+            <td>{{el.nickname}}</td>
+            <td>{{el.userTypes|getRolesFilter}}</td>
+            <td>{{el.username}}</td>
+            <td>{{el.address}}</td>
+            <td>{{el.phone}}</td>
+            <td>
+                <input name="" type="button" value="设置角色" ac-authCode="userRole:setRole" ms-click="edit(pageNo,el.code)"/>
+                <input name="" type="button" value="刷新缓存" ac-authCode="userRole:refreshCache"
+                       ms-click="refreshAuth"/>
+            </td>
+        </tr>
+    </table>
+    <div class="page_num"><a ms-class="disabled:pageNo===1" ms-click="selectPage(-9999)">首页</a> <a
+            ms-class="disabled:pageNo===1" ms-click="selectPage(-1)">上页</a> <a
+            ms-class="disabled:pageNo===total" ms-click="selectPage(1)">下页</a> <a
+            ms-class="disabled:pageNo===total" ms-click="selectPage(9999)">末页</a>
+        &emsp;当前第{{pageNo}}页/共{{total}}页，跳转至第
+        <input typt="text" id="selectPageNo" ms-blur="toPage" value="1">
+        页，每页
+        <select id="pageSize" ms-change="selectSize" ms-duplex="pageSize">
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
+        条，共<em>{{records}}</em>条记录
+    </div>
+</div>
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/auth/authRoleUser/list.js"></script>

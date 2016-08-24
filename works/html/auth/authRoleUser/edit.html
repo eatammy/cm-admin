@@ -1,0 +1,63 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important, [ms-controller], [ms-important] {
+        visibility: hidden;
+    }
+</style>
+
+<!--标签区-->
+<div id="editAuthRoleUser" ms-important="editAuthRoleUser">
+    <div class="form">
+        <form id="editForm">
+            <div class=" user-edit ">
+                <div class="remark"> 用户信息</div>
+                <table class="table_1" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th width="20%">用户：</th>
+                        <td width="30%">{{baseUserDto.nickname}}</td>
+                        <th width="20%">账号：</th>
+                        <td width="30%">{{baseUserDto.username}}</td>
+                    </tr>
+                    <tr>
+                        <th width="20%">身份：</th>
+                        <td width="30%" colspan="3">
+                            <label ms-repeat="roles" style="margin-right: 20px">
+                                <input type="radio" data-duplex-changed="changeUserType" ms-duplex-number="userType" ms-attr-value="{{el.userType}}" style="vertical-align: -2px;"/>&nbsp;{{el.name}}
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <label style="margin-left: 20px;"><b><input type="checkbox" ms-duplex-checked="allChecked"
+                                                                        data-duplex-changed="checkAll"/>全选</b></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div style="overflow:auto;width:650px;height:90px; margin: 0 auto;">
+                                <table class="table_permission">
+                                    <tr>
+                                        <td>
+                                            <label ms-repeat="data">
+                                                <input type="checkbox" name="funcIds" ms-attr-value="el.code"
+                                                       ms-duplex-checked="el.checked" data-duplex-changed="checkOne"/>{{el.name}}
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="user-btn">
+                    <input type="button" value="设置" class="oper" ms-click="save" ac-authCode="userRole:setRole"/>
+                    <input type="button" value="返回" class="oper" ms-click="back"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/auth/authRoleUser/edit.js"></script>

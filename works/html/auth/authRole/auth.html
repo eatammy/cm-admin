@@ -1,0 +1,37 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important, [ms-controller], [ms-important] {
+        visibility: hidden;
+    }
+</style>
+<!--标签区-->
+<div id="authAuthRole" ms-important="authAuthRole">
+    <div class="form">
+        <form id="editForm">
+            <div class=" user-edit ">
+
+                <table class="table_1" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <div style="margin-left:20px;height: 450px;overflow:auto;">
+                                <ul id="treeDemo" class="ztree"></ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="user-btn">
+                    <label style="color: black;position: absolute; left: 20px;bottom: 20px;">
+                        <input type="checkbox" value="false" ms-duplex-checked="allChecked" ms-click="checkAll"/>全选/全不选
+                    </label>
+                    <input type="button" value="保存" class="oper" ms-click="save" ac-authCode="authRole:saveAuth"/>
+                    <input type="button" value="返回" class="oper" ms-click="back"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/auth/authRole/auth.js"></script>

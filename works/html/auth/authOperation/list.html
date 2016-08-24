@@ -1,0 +1,80 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important {
+        visibility: hidden
+    }
+</style>
+<!--标签区-->
+<div id="listAuthOperation" ms-important="listAuthOperation" class="page-content">
+    <div class=" search user-c-box">
+        <form id="searchCondition">
+            <div class="user-c">
+                <div class="tj">
+                    <span class="search-label">
+                        <b>所属模块：</b>
+                        <select name="moduleCode">
+                            <option value="">请选择</option>
+                            <option ms-repeat="modules" ms-attr-value="el.code">{{el.name}}</option>
+                        </select>
+                    </span>
+                    <span class="search-label">
+                        <b>功能名称：</b>
+                        <input class="txt" ms-keydown="enter($event)" name="name" type="text" placeholder="请输入"/>
+                    </span>
+                    <a href="javascript:void(0)" ms-click="query(1)" ac-authCode="operation:query" class=" bt_org">查询</a>
+                    <a href="javascript:void(0)" ms-click="clear" ac-authCode="operation:query" class=" bt_org">重置</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 顶部操作-->
+    <div class="top_bt"><a href="javascript:void(0);" ms-click="add(1)" ac-authCode="operation:add">添 加</a>
+        <a href="javascript:void(0);" ms-click="deleteBatch" ac-authCode="operation:delete">删 除</a></div>
+    <table class="table_1" cellpadding="0" cellspacing="0">
+        <tr>
+            <th width="5%"><input type="checkbox" ms-duplex-checked="allChecked"
+                                  data-duplex-changed="checkAll"/></th>
+            <th width="20%">功能名称</th>
+            <th width="15%">功能代码</th>
+            <th width="20%">所属模块</th>
+            <th width="10%">状态</th>
+            <th width="10%">创建时间</th>
+            <th width="20%">操作</th>
+        </tr>
+        <tr ms-repeat="data">
+            <td width="5%"><input type="checkbox" ms-duplex-checked="el.checked" data-duplex-changed="checkOne"
+                                  ms-attr-disabled="el.status===0"/></td>
+            <td>{{el.name}}</td>
+            <td>{{el.authCode}}</td>
+            <td>{{el.moduleName}}</td>
+            <td>{{el.status | statusFilter|html}}</td>
+            <td>{{el.createDate | date}}</td>
+            <td>
+                <input name="" type="button" value="修改" ms-click="edit(pageNo, el.id)" ac-authCode="operation:update" />
+                <input name="" type="button" value="启用" ms-if="el.status==1"
+                       ms-click="disableOrEnable(pageNo, el.id,0)" ac-authCode="operation:disableOrEnable"/>
+                <input name="" type="button" value="停用" ms-if="el.status==0"
+                       ms-click="disableOrEnable(pageNo, el.id,1)" ac-authCode="operation:disableOrEnable"/>
+                <input name="" type="button" value="删除" ms-if="el.status==1" ms-click="deleteOne(pageNo, el.id, el.code)" ac-authCode="operation:delete"/>
+            </td>
+        </tr>
+    </table>
+    <div class="page_num"><a ms-class="disabled:pageNo===1" ms-click="selectPage(-9999)">首页</a> <a
+            ms-class="disabled:pageNo===1" ms-click="selectPage(-1)">上页</a> <a
+            ms-class="disabled:pageNo===total" ms-click="selectPage(1)">下页</a> <a
+            ms-class="disabled:pageNo===total" ms-click="selectPage(9999)">末页</a>
+        &emsp;当前第{{pageNo}}页/共{{total}}页，跳转至第
+        <input typt="text" id="selectPageNo" ms-blur="toPage" value="1">
+        页，每页
+        <select ms-change="selectSize" ms-duplex="pageSize">
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
+        条，共<em>{{records}}</em>条记录
+    </div>
+</div>
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/auth/authOperation/list.js"></script>
