@@ -1,0 +1,235 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important {
+        visibility: hidden
+    }
+
+    .chart {
+        background-color: rgba(197, 208, 220, 0.15);
+        border-top: 1px #cccccc;
+        border-bottom: 1px #cccccc;
+        float: right;
+        width: 73%;
+        height: 93.5%;
+        margin: 32px 6px;
+    }
+    .chart-display{
+        width: 100%;height: 514px;
+    }
+
+
+    .box-topic {
+        background-color: rgba(197, 208, 220, 0.15);
+        width: 100%;
+        height: 30.5%;
+        margin: 5px;
+        border: 1px solid #ededed;;
+        border-left: 0;
+        border-right: 0;
+    }
+
+    .box-label {
+        height: 30%;
+    }
+
+    .box-label .span-1 {
+        margin: 10px 10px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        float: left;
+    }
+
+    .box-label .span-2 {
+        margin: 15px 10px;
+        float: right;
+        background-color: #428bca;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 5px 9px;
+        text-shadow: none;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+        display: inline;
+        line-height: 1;
+    }
+
+    .box-container {
+        border-top: 1px solid #ededed;
+    }
+
+    .box-container h1 {
+        font-size: 36px;
+        font-weight: 100;
+        line-height: 1.1;
+        display: block;
+        -webkit-margin-before: 0.67em;
+        -webkit-margin-after: 0.67em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        color: #ff4b5a;
+        margin: 25px;
+    }
+
+    .box-container div {
+        float: right;
+        margin-right: 25px;
+        color: #1c84c6;
+    }
+
+    .box-container small {
+        margin-left: 15px;
+    }
+
+</style>
+<!--标签区-->
+<div id="listPlatform" ms-important="listPlatform" class="page-content">
+    <div class=" search user-c-box bi">
+        <span>
+            <b>用户地图 &nbsp;></b>
+        </span>
+        <div class="user-c">
+            <div class="tj" style="border-bottom: 0">
+                <span class="search-label">
+                    <b>性别：</b>
+                    <select ms-duplex-number="sex">
+                        <option value="-1">默认</option>
+                        <option value="0">男</option>
+                        <option value="1">女</option>
+                    </select>
+                </span>
+                <span class="search-label">
+                    <b>年龄：</b><input type="text" class="txt" style="width: 35px" ms-duplex-number="minAge">
+                </span>
+                <span class="search-label"><b>-&nbsp;&nbsp;&nbsp;</b>
+                    <input type="text" class="txt" style="width: 35px" ms-duplex-number="maxAge">
+                </span>
+                <a href="javascript:void(0)" ms-click="queryUserMap" class="bt_org" style="text-decoration: none">查询</a>
+                <a href="javascript:void(0)" ms-click="clear" class=" bt_org" style="text-decoration: none">重置</a>
+            </div>
+        </div>
+
+        <div id="userMap" style="width: 100%;height: 700px;"></div>
+    </div>
+    <div class="search user-c-box">
+        <div style="width: 34%;height: 600px;float:left; border-right: 1px solid #ededed; border-top: 1px solid #ededed;border-bottom: 1px solid #ededed;">
+            <span><b>注册统计 &nbsp;></b></span>
+            <div class="user-c">
+                <div class="tj" style="border-bottom: 0;">
+                <span class="search-label">
+                    <b>总注册量：</b> <b style="color: #ff4b5a">{{grossRegister}}&nbsp;&nbsp;</b>
+                </span>
+                <span class="search-label">
+                    <b>本月注册量：</b> <b style="color: #ff4b5a">{{monthRegister}}&nbsp;&nbsp;</b>
+                </span>
+                <span class="search-label">
+                    <b>本周注册量：</b> <b style="color: #ff4b5a">{{weekRegister}}&nbsp;&nbsp;</b>
+                </span>
+                <span class="search-label">
+                    <b>本日注册量：</b> <b style="color: #ff4b5a">{{dayRegister}}</b>
+                </span>
+                </div>
+            </div>
+            <div class="user-c">
+                <div class="tj" style="border-bottom: 0;">
+                <span class="search-label">
+                    <b>月份：</b>
+                    <select ms-duplex="curMonth" style="width: 60px;">
+                        <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                    </select>
+                </span>
+                    <a href="javascript:void(0)" ms-click="queryRegisterCharts" class="bt_org"
+                       style="text-decoration: none">查询</a>
+                </div>
+            </div>
+            <div id="registerCharts" class="chart" style="width: 100%;height: 480px; "></div>
+        </div>
+
+        <div style="width: 65%;height: 600px; float:right; border: 1px solid #ededed; border-right: 0 ">
+            <div style="float: left ;width: 25%; height: 100%; ">
+                <span style="margin-bottom: 2px;padding-bottom: 10px;margin-left:6px; "><b>访问统计 &nbsp;></b></span>
+                <br>
+                <div class="box-topic" ms-click="changeIndex(0)">
+                    <div class="box-label">
+                        <span class="span-1"><b>访客</b></span>
+                        <span class="span-2"><b>今天</b></span>
+                    </div>
+                    <div class="box-container">
+                        <h1>
+                            1623456
+                        </h1>
+                        <div>44%
+                            <i class="fa fa-level-up"></i>
+                        </div>
+                        <small><b>新访客</b></small>
+                    </div>
+                </div>
+                <div class="box-topic" ms-click="changeIndex(1)" >
+                    <div class="box-label">
+                        <span class="span-1"><b>活跃用户</b></span>
+                        <span class="span-2" style="background-color: #ed5565;"><b>最近一个月</b></span>
+                    </div>
+                    <div class="box-container">
+                        <h1>
+                            6819
+                        </h1>
+                        <div style="color:#ed5565;">33%&nbsp;
+                            <i class="fa fa-level-down"></i>
+                        </div>
+                        <small><b>用户数</b></small>
+                    </div>
+                </div>
+                <div class="box-topic" ms-click="changeIndex(2)">
+                    <div class="box-label">
+                        <span class="span-1"><b>设备统计</b></span>
+                        <span class="span-2" style="background-color:#1ab394"><b>最近一个月</b></span>
+                    </div>
+                    <div class="box-container">
+                        <h1 style="font-size: 23px; margin: 30px 25px;">
+                            PC：192&nbsp;&nbsp;&nbsp;App: 3123
+                        </h1>
+                        <div style="color:#1ab394">
+                            <i class="fa fa-bolt"></i>
+                        </div>
+                        <small><b>设备数</b></small>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="chart">
+                <div class="user-c">
+                    <div class="tj" style="border-bottom: 0;margin: 5px 0 0 10px;">
+                        <span class="search-label">
+                            <b>年份：</b>
+                            <select ms-duplex="curMonth" style="width: 60px;">
+                                <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                            </select>
+                        </span>
+                        <span class="search-label">
+                            <b>月份：</b>
+                            <select ms-duplex="curMonth" style="width: 60px;">
+                                <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                            </select>
+                        </span>
+                        <a href="javascript:void(0)" ms-click="queryRegisterCharts" class="bt_org"
+                           style="text-decoration: none">查询</a>
+                        <a href="javascript:void(0)" ms-click="queryRegisterCharts" class="bt_org"
+                           style="text-decoration: none">重置</a>
+                    </div>
+                    <div id="visitor" class="chart-display" ms-if="curIndex == 0"></div>
+                    <div id="activeUser" class="chart-display" ms-if="curIndex == 1"></div>
+                    <div id="device" class="chart-display" ms-if="curIndex == 2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/bi/platform/list.js"></script>

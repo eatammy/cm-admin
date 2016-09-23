@@ -247,3 +247,8 @@ a.bt_org{ padding:0 10px; text-align:center; color:#fff; background:#428bca; dis
 .table_permission td label{ width: 140px;}
 
 .select_disable:disabled { background-color: #F2F2F2;cursor: not-allowed }
+
+/* BI 分析页面*/
+.bi{
+    border-bottom: 1px solid #ededed;
+}
