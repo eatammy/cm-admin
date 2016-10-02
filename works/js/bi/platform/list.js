@@ -28,13 +28,19 @@ ace.load_ajax_scripts(scripts, function () {
                     "11月": 11,
                     "12月": 12
                 },
-                curMonth: new Date().getMonth() + 1,
+                year: [2015, 2016, 2017],
+                curMonth: new Date().getMonth() + 1, //用于注册查询
+                curMonth1: new Date().getMonth() + 1, //用于用户访问查询
+                curYear: new Date().getFullYear(),
                 grossRegister: 0,       //注册总量
                 monthRegister: 0,        //月注册量
                 weekRegister: 0,         //周注册量
                 dayRegister: 0,          //日注册量
                 curIndex: 0,      //标签切换
-                topic: 0,       //用户访问主题，0：按性别，1：按年龄区间
+                isDefault: 0,       //用户访问主题，0：按性别，1：按年龄区间
+                todayUserPv: {content:'',rate: '', upOrDown: 0},     //今日访问量
+                activePV: {content:'',rate: '', upOrDown: 0},     //本月活跃量
+                devicePV: '',       //设备统计
                 changeIndex: function (value) {
                     vm.curIndex = value;
                     vm.getUserCharts(value);
@@ -114,7 +120,7 @@ ace.load_ajax_scripts(scripts, function () {
                                             data: result.bizData.data
                                         }
                                     ]
-                                }
+                                };
                                 userMap.setOption(option);
                             } else {
                                 layer.alert(result.msg);
@@ -145,6 +151,7 @@ ace.load_ajax_scripts(scripts, function () {
                         }
                     })
                 },
+
                 getRegisterCharts: function () {
                     var stCurMonth = new Date().getMonth() + 1;
                     if (vm.curMonth > stCurMonth) {
@@ -194,7 +201,20 @@ ace.load_ajax_scripts(scripts, function () {
                                             name: '每天数据',
                                             type: 'line',
                                             stack: '总量',
-                                            data: result.bizData.data
+                                            data: result.bizData.data,
+                                            smooth: true,
+                                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                            markPoint: {
+                                                data: [
+                                                    {type: 'max', name: '最大值'},
+                                                    {type: 'min', name: '最小值'}
+                                                ]
+                                            },
+                                            markLine: {
+                                                data: [
+                                                    {type: 'average', name: '平均值'}
+                                                ]
+                                            }
                                         }
                                     ]
                                 };
@@ -206,18 +226,53 @@ ace.load_ajax_scripts(scripts, function () {
 
                     })
                 },
+
                 queryRegisterCharts: function () {
                     vm.getRegisterCharts();
+                },
+
+                getStatisticalData: function () {
+                    $.ajax({
+                        url: '/cm/admin/userFlow/getStatisticalData',
+                        type:'get',
+                        dataType: 'json',
+                        success: function (result) {
+                            if(isSuccess(result)){
+                                //本日访问量
+                                vm.todayUserPv.content = result.bizData.userPV.content;
+                                vm.todayUserPv.rate = result.bizData.userPV.rate;
+                                vm.todayUserPv.upOrDown = result.bizData.userPV.upOrDown;
+
+                                //本月活跃量
+                                vm.activePV.content = result.bizData.activePV.content;
+                                vm.activePV.rate = result.bizData.activePV.rate;
+                                vm.activePV.upOrDown = result.bizData.activePV.upOrDown;
+
+                                //设备统计
+                                vm.devicePV = result.bizData.devicePV.content;
+                            }else{
+                                layer.alert("暂无数据", {icon: 2});
+                            }
+                        }
+                    })
                 },
                 getUserCharts: function (type) {
                     var stCurYear = new Date().getFullYear();
                     var stCurMonth = new Date().getMonth() + 1;
+                    if (vm.curYear > stCurYear) {
+                        layer.alert("所选年限不能超过当前年限", {icon: 2});
+                        return;
+                    }
+                    if (vm.curMonth1 > stCurMonth) {
+                        layer.alert("所选月份不能超过当前月份", {icon: 2});
+                        return;
+                    }
 
                     $.ajax({
                         url: '/cm/admin/userFlow/' + type + "/getUserCharts",
                         type: 'get',
                         dataType: 'json',
-                        data: {year: stCurYear, month: stCurMonth},
+                        data: {year: vm.curYear, month: vm.curMonth1, isDefault: vm.isDefault},
                         success: function (result) {
                             if (isSuccess(result)) {
                                 if (type == 0) {
@@ -275,7 +330,7 @@ ace.load_ajax_scripts(scripts, function () {
                                 } else if (type == 1) {
                                     var activePV = echarts.init($('#activeUser')[0]);
                                     var activePVOption = {};
-                                    if (vm.topic == 0) {
+                                    if (vm.isDefault == 0) {
                                         activePVOption = {
                                             title: {
                                                 text: result.bizData.text,
@@ -312,7 +367,7 @@ ace.load_ajax_scripts(scripts, function () {
                                                 {
                                                     name: '男',
                                                     type: 'line',
-                                                    data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                                                    data: result.bizData.male,
                                                     markPoint: {
                                                         data: [
                                                             {type: 'max', name: '最大值'},
@@ -328,7 +383,13 @@ ace.load_ajax_scripts(scripts, function () {
                                                 {
                                                     name: '女',
                                                     type: 'line',
-                                                    data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
+                                                    data: result.bizData.females,
+                                                    markPoint: {
+                                                        data: [
+                                                            {type: 'max', name: '最大值'},
+                                                            {type: 'min', name: '最小值'}
+                                                        ]
+                                                    },
                                                     markLine: {
                                                         data: [
                                                             {type: 'average', name: '平均值'}
@@ -337,8 +398,12 @@ ace.load_ajax_scripts(scripts, function () {
                                                 }
                                             ]
                                         };
-                                    } else if (vm.topic == 1) {
+                                    } else if (vm.isDefault == 1) {
                                         activePVOption = {
+                                            title: {
+                                                text: result.bizData.text,
+                                                subtext: result.bizData.subtext
+                                            },
                                             tooltip: {
                                                 trigger: 'axis',
                                                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -346,7 +411,7 @@ ace.load_ajax_scripts(scripts, function () {
                                                 }
                                             },
                                             legend: {
-                                                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+                                                data: ['10-19岁', '20-29岁', '30-39岁', '40-49岁', '50-59岁', '60以上']
                                             },
                                             toolbox: {
                                                 show: true,
@@ -354,7 +419,7 @@ ace.load_ajax_scripts(scripts, function () {
                                                 x: 'right',
                                                 y: 'center',
                                                 feature: {
-                                                    mark: {show: true},
+                                                    //mark: {show: true},
                                                     dataView: {show: true, readOnly: false},
                                                     magicType: {show: true, type: ['stack', 'tiled']},
                                                     restore: {show: true},
@@ -365,7 +430,7 @@ ace.load_ajax_scripts(scripts, function () {
                                             xAxis: [
                                                 {
                                                     type: 'category',
-                                                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                                                    data: result.bizData.xAxis
                                                 }
                                             ],
                                             yAxis: [
@@ -373,30 +438,36 @@ ace.load_ajax_scripts(scripts, function () {
                                                     type: 'value'
                                                 }
                                             ],
-                                            series: [
-                                                {
-                                                    name: '直接访问',
-                                                    type: 'bar',
-                                                    data: [320, 332, 301, 334, 390, 330, 320]
-                                                },
-                                                {
-                                                    name: '邮件营销',
-                                                    type: 'bar',
-                                                    stack: '广告',
-                                                    data: [120, 132, 101, 134, 90, 230, 210]
-                                                },
-                                                {
-                                                    name: '联盟广告',
-                                                    type: 'bar',
-                                                    stack: '广告',
-                                                    data: [220, 182, 191, 234, 290, 330, 310]
-                                                },
-                                                {
-                                                    name: '视频广告',
-                                                    type: 'bar',
-                                                    stack: '广告',
-                                                    data: [150, 232, 201, 154, 190, 330, 410]
-                                                }
+                                            series: [{
+                                                name: '10-19岁',
+                                                type: 'bar',
+                                                data: result.bizData.data[0]
+                                            }, {
+                                                name: '20-29岁',
+                                                type: 'bar',
+                                                stack: '广告',
+                                                data: result.bizData.data[1]
+                                            }, {
+                                                name: '30-39岁',
+                                                type: 'bar',
+                                                stack: '广告',
+                                                data: result.bizData.data[2]
+                                            }, {
+                                                name: '40-49岁',
+                                                type: 'bar',
+                                                stack: '广告',
+                                                data: result.bizData.data[3]
+                                            }, {
+                                                name: '50-59岁',
+                                                type: 'bar',
+                                                stack: '广告',
+                                                data: result.bizData.data[4]
+                                            }, {
+                                                name: '60以上',
+                                                type: 'bar',
+                                                stack: '广告',
+                                                data: result.bizData.data[5]
+                                            }
                                             ]
                                         }
                                     }
@@ -405,8 +476,8 @@ ace.load_ajax_scripts(scripts, function () {
                                     var devicePV = echarts.init($('#device')[0]);
                                     var devicePVOption = {
                                         title: {
-                                            text: '某站点用户访问来源',
-                                            subtext: '纯属虚构',
+                                            text: result.bizData.text,
+                                            subtext: result.bizData.subtext,
                                             x: 'center'
                                         },
                                         tooltip: {
@@ -421,7 +492,7 @@ ace.load_ajax_scripts(scripts, function () {
                                         toolbox: {
                                             show: true,
                                             feature: {
-                                                mark: {show: true},
+                                                //mark: {show: true},
                                                 dataView: {show: true, readOnly: false},
                                                 magicType: {
                                                     show: true,
@@ -430,8 +501,7 @@ ace.load_ajax_scripts(scripts, function () {
                                                         funnel: {
                                                             x: '25%',
                                                             width: '50%',
-                                                            funnelAlign: 'left',
-                                                            max: 1548
+                                                            funnelAlign: 'left'
                                                         }
                                                     }
                                                 },
@@ -442,17 +512,11 @@ ace.load_ajax_scripts(scripts, function () {
                                         calculable: true,
                                         series: [
                                             {
-                                                name: '访问来源',
+                                                name: '设备类型',
                                                 type: 'pie',
                                                 radius: '55%',
                                                 center: ['50%', '60%'],
-                                                data: [
-                                                    {value: 335, name: '直接访问'},
-                                                    {value: 310, name: '邮件营销'},
-                                                    {value: 234, name: '联盟广告'},
-                                                    {value: 135, name: '视频广告'},
-                                                    {value: 1548, name: '搜索引擎'}
-                                                ]
+                                                data: result.bizData.data
                                             }
                                         ]
                                     };
@@ -465,17 +529,36 @@ ace.load_ajax_scripts(scripts, function () {
                     })
                 },
 
+                //查询访客信息
+                queryUserPV: function () {
+                    vm.getUserCharts(0);
+                },
+
+                //查询活跃用户信息
+                queryActivePV: function () {
+                    vm.getUserCharts(1);
+                },
+
+                // 查询登入设备信息
+                queryDevicePV: function () {
+                    vm.getUserCharts(2);
+                },
                 clear: function () {
                     vm.sex = -1;
                     vm.minAge = 0;
                     vm.maxAge = 0;
+                    vm.curMonth1 = new Date().getMonth() + 1;
+                    vm.curYear = new Date().getFullYear();
+                    vm.isDefault = 0;
                 }
                 ,
                 init: function () {
                     vm.getUserMap();
                     vm.getRegisterInfo();
                     vm.getRegisterCharts();
+                    vm.getStatisticalData();
                     vm.getUserCharts(0);
+
                 }
             })
             ;
