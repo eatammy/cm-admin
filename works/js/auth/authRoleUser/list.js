@@ -113,7 +113,7 @@ ace.load_ajax_scripts(scripts, function () {
             edit: function (pageNum, uid) {
                 CMADMIN.openDialog("/auth/authRoleUser/edit.html", {
                     uid: uid
-                }, "设置权限", "690px", "485px", function () {
+                }, "设置角色", "690px", "390px", function () {
                     vm.query(pageNum);    //查询
                 });
             },

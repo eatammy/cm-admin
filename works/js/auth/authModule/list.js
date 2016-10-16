@@ -139,7 +139,7 @@ ace.load_ajax_scripts(scripts, function () {
             },
             //添加
             add: function (pageNum) {
-                CMADMIN.openDialog("/auth/authModule/add.html", {appCode: vm.appCode}, "添加", "800px", "355px", function () {
+                CMADMIN.openDialog("/auth/authModule/add.html", {appCode: vm.appCode}, "添加模块", "800px", "355px", function () {
                     if (vm.appCode != '') {
                         vm.query(pageNum);    //查询
                         vm.queryModules();
@@ -148,7 +148,7 @@ ace.load_ajax_scripts(scripts, function () {
             },
             //修改
             edit: function (pageNum, id) {
-                CMADMIN.openDialog("/auth/authModule/edit.html", {id: id}, "修改", "800px", "350px", function () {
+                CMADMIN.openDialog("/auth/authModule/edit.html", {id: id}, "修改模块", "800px", "350px", function () {
                     vm.query(pageNum);    //查询
                     vm.queryModules();
                 });

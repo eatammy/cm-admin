@@ -24,8 +24,8 @@
                             <option value="1">停用</option>
                         </select>
                     </span>
-                </div>
-                <div class="tj">
+                <!--</div>-->
+                <!--<div class="tj">-->
                     <span class="search-label"><b>价格区间：</b>
                         <input class="txt" name="plow" ms-keydown="enter($event)" type="text" placeholder="最低价格"/>
                     </span>
@@ -66,9 +66,10 @@
             <td>{{el.price}}</td>
             <td>
                 <div class="progress" style="margin-bottom: 0">
-                    <div  class="progress-bar" ms-class-1="progress-bar-success: el.process < 50 "
+                    <!--<div  class="progress-bar" ms-css-width="80%"  style="min-width: 1em;" >{{el.process}}%</div>-->
+                    <div  class="progress-bar" ms-css-width="el.process+'%'" ms-class-1="progress-bar-success: el.process < 50 "
                           ms-class-2="progress-bar-warning: el.process < 80 && el.process >= 50"
-                          ms-class-3="progress-bar-danger: el.process >=80" style="min-width: 2em;" ms-css-width="el.process+'%'">{{el.process}}%</div>
+                          ms-class-3="progress-bar-danger: el.process >=80">{{el.process}}%</div>
                 </div>
             </td>
             <td>{{el.createDate|date("yyyy-MM-dd")}}</td>

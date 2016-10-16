@@ -138,7 +138,7 @@ ace.load_ajax_scripts(scripts, function () {
 
             //单个删除
             deleteOne: function (id) {
-                layer.confirm('确定要删除该分类？', {icon: 2}, function (index) {
+                layer.confirm('确定要删除该用户？', {icon: 2}, function (index) {
                     $.ajax({
                         url: "/cm/admin/user/deleteOne?id=" + id,
                         type: "GET",
@@ -162,7 +162,7 @@ ace.load_ajax_scripts(scripts, function () {
             disableOrEnable: function (status, id, flag) {
                 var action = flag === 1 ? "停用" : "启用";
                 var icon = flag === 1 ? 5 : 6
-                layer.confirm('确定要' + action + '该分类！', {icon: icon}, function (index) {
+                layer.confirm('确定要' + action + '该用户！', {icon: icon}, function (index) {
                     $.ajax({
                         url: "/cm/admin/user/disableOrEnable?id=" + id + "&status=" + status,
                         type: "GET",

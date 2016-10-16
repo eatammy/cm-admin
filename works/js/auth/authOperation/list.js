@@ -138,7 +138,7 @@ ace.load_ajax_scripts(scripts, function () {
             },
             //添加
             add: function (pageNum) {
-                CMADMIN.openDialog("/auth/authOperation/add.html", {appCode:vm.appCode}, "添加", "800px", "265px", function () {
+                CMADMIN.openDialog("/auth/authOperation/add.html", {appCode:vm.appCode}, "添加操作", "800px", "265px", function () {
                     if (vm.appCode != '') {
                         vm.query(pageNum);    //重置
                     }
@@ -146,7 +146,7 @@ ace.load_ajax_scripts(scripts, function () {
             },
             //修改
             edit: function (pageNum, id) {
-                CMADMIN.openDialog("/auth/authOperation/edit.html", {id: id}, "修改", "800px", "265px", function () {
+                CMADMIN.openDialog("/auth/authOperation/edit.html", {id: id}, "修改操作", "800px", "265px", function () {
                     vm.query(pageNum);    //重置
                 });
             },

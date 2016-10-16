@@ -84,7 +84,8 @@ ace.load_ajax_scripts(scripts, function () {
                                     },
                                     dataRange: {
                                         min: 0,
-                                        max: result.bizData.max,
+                                        //max: result.bizData.max,
+                                        max: 500,
                                         x: 'left',
                                         y: 'bottom',
                                         text: ['高', '低'],           // 文本，默认为数值文本

@@ -93,14 +93,14 @@ ace.load_ajax_scripts(scripts, function () {
 
             //添加
             add: function () {
-                CMADMIN.openDialog("/business/goods/add.html", {}, "添加用户", "750px", "385px", function () {
+                CMADMIN.openDialog("/business/goods/add.html", {}, "添加商品", "750px", "385px", function () {
                     vm.clear();    //重置
                 });
             },
 
             //修改
             edit: function (id) {
-                CMADMIN.openDialog("/business/goods/edit.html", {id: id}, "查看用户", "850px", "385px", function () {
+                CMADMIN.openDialog("/business/goods/edit.html", {id: id}, "查看商品", "850px", "385px", function () {
                     vm.clear();    //重置
                 });
             },
