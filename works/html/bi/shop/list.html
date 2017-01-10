@@ -1,0 +1,288 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important {
+        visibility: hidden
+    }
+
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+
+    }
+
+    .ibox {
+        clear: both;
+        margin-bottom: 25px;
+        margin-top: 0;
+        padding: 0;
+        background-color: rgba(197, 208, 220, 0.15);
+    }
+
+    .ibox-title {
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        border-color: #e7eaec;
+        -webkit-border-image: none;
+        -o-border-image: none;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 4px 0 0;
+        color: inherit;
+        margin-bottom: 0;
+        padding: 14px 15px 7px;
+        min-height: 48px;
+    }
+
+    .ibox-title .span-1 {
+        margin: -3px 0;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        float: left;
+    }
+
+    .ibox-title .span-2 {
+        color: #fff;
+        margin: -3px 0;
+        float: right;
+        background-color: #428bca;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 5px 9px;
+        text-shadow: none;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+        display: inline;
+        line-height: 1;
+    }
+
+    .ibox-title div {
+        float: right;
+        margin: -2px 0;
+    }
+
+    .ibox-title div label > select {
+        width: 62px;
+        height: 21px;
+        padding-top: 0;
+    }
+
+    .ibox-content {
+        border-top: 1px solid #ededed;
+    }
+
+    .ibox-content {
+        clear: both;
+    }
+
+    .ibox-content {
+        color: inherit;
+        padding: 15px 20px 20px;
+        border-color: #e7eaec;
+        -webkit-border-image: none;
+        -o-border-image: none;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .ibox-content .icon {
+        float: right;
+        color: #1c84c6;
+    }
+
+    .ibox-content small {
+
+    }
+
+    .ibox-content h1 {
+        font-weight: 100;
+        line-height: 1.1;
+        display: block;
+        -webkit-margin-before: 0.67em;
+        -webkit-margin-after: 0.67em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        color: rgba(147, 147, 147, 0.85);
+        font-size: 30px;
+        margin: 15px 0;
+    }
+
+    .flot-chart {
+        display: block;
+        height: 250px;
+    }
+
+    .stat-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        height: 250px;
+    }
+
+    .stat-list li:first-child {
+        margin-top: 0;
+    }
+
+    .stat-list li {
+        margin-top: 15px;
+        position: relative;
+        text-align: -webkit-match-parent;
+        height: 33%;
+    }
+
+    .stat-percent {
+        float: right;
+    }
+
+    .no-margin {
+        margin: 0 !important;
+    }
+
+    .progress.progress-mini {
+        height: 5px;
+    }
+
+    h2 {
+        font-size: 30px;
+        font-weight: 120;
+        line-height: 1.1;
+        display: block;
+        -webkit-margin-before: 0.83em;
+        -webkit-margin-after: 0.83em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        color: rgba(49, 186, 223, 0.74);;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    table {
+        background-color: transparent;
+    }
+
+    table {
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    .table > tbody > tr > th {
+        border-top: none;
+    }
+
+    .feed-element {
+        padding-bottom: 15px;
+    }
+    .feed-element, .feed-element .media {
+        margin-top: 15px;
+    }
+    .feed-element:first-child {
+        margin-top: 0;
+    }
+    .feed-activity-list .feed-element {
+        border-bottom: 1px solid #e7eaec;
+    }
+    .feed-element, .media-body {
+        overflow: hidden;
+    }
+    .text-navy {
+        color: #1ab394;
+    }
+    .text-muted {
+        color: #888;
+    }
+    .small, small {
+        font-size: 85%;
+    }
+    h5 {
+        display: block;
+        font-size: 0.83em;
+        -webkit-margin-before: 1.67em;
+        -webkit-margin-after: 1.67em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: bold;
+    }
+
+    .search-btn{
+        background-color: #fff;
+        margin: 0;
+        padding: 0px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 40px;
+    }
+    .search-btn:hover{
+        border: 1px solid rgba(147, 147, 147, 0.85);
+    }
+
+
+</style>
+<!--标签区-->
+<div id="listPlatform" ms-important="listPlatform" class="page-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1"><b><i class="fa fa-users">&nbsp;用户分布</i></b></span>
+                    <div>
+                        <label>年份：<select ms-duplex-number="curYear" data-duplex-changed="queryIndentChart">
+                            <option value="-1">默认</option>
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select></label>&nbsp;
+                        <label>年龄区间：<input type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"> - <input type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"></label>
+                        <button class="search-btn">确定</button>
+                        <button class="search-btn">重置</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="flot-chart" id="userMap" style="height: 700px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1"><b><i class="fa fa-users">&nbsp;用户分布</i></b></span>
+                    <div>
+                        <label>年份：<select ms-duplex-number="curYear" data-duplex-changed="queryIndentChart">
+                            <option value="-1">默认</option>
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select></label>&nbsp;
+                        <label>年龄区间：<input type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"> - <input type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"></label>
+                        <button class="search-btn">确定</button>
+                        <button class="search-btn">重置</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="flot-chart" style="height: 700px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8"></div>
+    </div>
+</div>
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/bi/platform/list_new.js"></script>
