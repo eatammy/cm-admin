@@ -38,8 +38,8 @@ ace.load_ajax_scripts(scripts, function () {
                 dayRegister: 0,          //日注册量
                 curIndex: 0,      //标签切换
                 isDefault: 0,       //用户访问主题，0：按性别，1：按年龄区间
-                todayUserPv: {content:'',rate: '', upOrDown: 0},     //今日访问量
-                activePV: {content:'',rate: '', upOrDown: 0},     //本月活跃量
+                todayUserPv: {content: '', rate: '', upOrDown: 0},     //今日访问量
+                activePV: {content: '', rate: '', upOrDown: 0},     //本月活跃量
                 devicePV: '',       //设备统计
                 changeIndex: function (value) {
                     vm.curIndex = value;
@@ -70,7 +70,7 @@ ace.load_ajax_scripts(scripts, function () {
                         },
                         success: function (result) {
                             if (isSuccess(result)) {
-                                var userMap = echarts.init($('#userMap')[0],'macarons');
+                                var userMap = echarts.init($('#userMap')[0], 'macarons');
                                 option = {
                                     title: {
                                         text: result.bizData.text,
@@ -90,7 +90,7 @@ ace.load_ajax_scripts(scripts, function () {
                                         y: 'bottom',
                                         text: ['高', '低'],           // 文本，默认为数值文本
                                         calculable: true,
-                                        show:false
+                                        show: true
                                     },
                                     toolbox: {
                                         show: true,
@@ -118,7 +118,34 @@ ace.load_ajax_scripts(scripts, function () {
                                             mapType: 'china',
                                             roam: false,
                                             itemStyle: {
-                                                normal: {label: {show: true}}
+                                                normal: {
+                                                    color: ['#fff'],
+                                                    borderColor: '#DF7783',
+                                                    borderWidth: 1,
+                                                    areaStyle: {
+                                                        color: '#DF7783'//rgba(135,206,250,0.8)
+                                                    },
+                                                    label: {
+                                                        show: false,
+                                                        textStyle: {
+                                                            color: 'rgba(139,69,19,1)'
+                                                        }
+                                                    }
+                                                },
+                                                emphasis: {                 // 也是选中样式
+                                                    // color: 各异,
+                                                    borderColor: 'rgba(0,0,0,0)',
+                                                    borderWidth: 1,
+                                                    areaStyle: {
+                                                        color: '#DF7783'
+                                                    },
+                                                    label: {
+                                                        show: false,
+                                                        textStyle: {
+                                                            color: 'rgba(139,69,19,1)'
+                                                        }
+                                                    }
+                                                }
                                             },
                                             data: result.bizData.data
                                         }
@@ -237,10 +264,10 @@ ace.load_ajax_scripts(scripts, function () {
                 getStatisticalData: function () {
                     $.ajax({
                         url: '/cm/admin/userFlow/getStatisticalData',
-                        type:'get',
+                        type: 'get',
                         dataType: 'json',
                         success: function (result) {
-                            if(isSuccess(result)){
+                            if (isSuccess(result)) {
                                 //本日访问量
                                 vm.todayUserPv.content = result.bizData.userPV.content;
                                 vm.todayUserPv.rate = result.bizData.userPV.rate;
@@ -253,7 +280,7 @@ ace.load_ajax_scripts(scripts, function () {
 
                                 //设备统计
                                 vm.devicePV = result.bizData.devicePV.content;
-                            }else{
+                            } else {
                                 layer.alert("暂无数据", {icon: 2});
                             }
                         }
