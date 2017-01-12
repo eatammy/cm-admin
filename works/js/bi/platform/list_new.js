@@ -28,7 +28,7 @@ ace.load_ajax_scripts(scripts, function () {
                     "11月": 11,
                     "12月": 12
                 },
-                year: [2015, 2016, 2017],
+                years: [],
                 curMonth: new Date().getMonth() + 1, //用于注册查询
                 curMonth1: new Date().getMonth() + 1, //用于用户访问查询
                 curYear: new Date().getFullYear(),
@@ -157,12 +157,10 @@ ace.load_ajax_scripts(scripts, function () {
                             }
                         }
                     })
-                }
-                ,
+                },
                 queryUserMap: function () {
                     vm.getUserMap();
-                }
-                ,
+                },
 
                 getRegisterInfo: function () {
                     $.ajax({
@@ -175,6 +173,7 @@ ace.load_ajax_scripts(scripts, function () {
                                 vm.monthRegister = result.bizData.monthRegister;
                                 vm.weekRegister = result.bizData.weekRegister;
                                 vm.dayRegister = result.bizData.dayRegister;
+                                vm.years = result.bizData.years;
                             } else {
                                 layer.alert(result.msg);
                             }
@@ -189,16 +188,17 @@ ace.load_ajax_scripts(scripts, function () {
                         return;
                     }
                     $.ajax({
-                        url: '/cm/admin/userFlow/getRegisterCharts?month=' + vm.curMonth,
+                        url: '/cm/admin/userFlow/getRegisterCharts',
                         type: 'get',
+                        data: {year: vm.curYear,month: vm.curMonth},
                         dataType: 'json',
                         success: function (result) {
                             if (isSuccess(result)) {
-                                var registerCharts = echarts.init($('#registerCharts')[0]);
+                                var allRegisterPv = echarts.init($('#allRegisterPv')[0],'macarons');
                                 var option = {
                                     title: {
-                                        text: result.bizData.text,
-                                        subtext: result.bizData.subtext,
+                                        text: result.bizData.allRegisterPV.text,
+                                        subtext: result.bizData.allRegisterPV.subtext,
                                         x: 'center'
                                     },
                                     tooltip: {
@@ -211,19 +211,22 @@ ace.load_ajax_scripts(scripts, function () {
                                             magicType: {show: true, type: ['line', 'bar']},
                                             restore: {show: true},
                                             saveAsImage: {show: true}
-                                        }
+                                        },
+                                        x:'10px'
                                     },
                                     calculable: true,
                                     xAxis: [
                                         {
                                             type: 'category',
                                             boundaryGap: false,
-                                            data: result.bizData.xAxis
+                                            data: result.bizData.allRegisterPV.xAxis,
+                                            splitLine:{show: false}
                                         }
                                     ],
                                     yAxis: [
                                         {
-                                            type: 'value'
+                                            type: 'value',
+                                            splitLine:{show: true}
                                         }
                                     ],
                                     series: [
@@ -231,9 +234,18 @@ ace.load_ajax_scripts(scripts, function () {
                                             name: '每天数据',
                                             type: 'line',
                                             stack: '总量',
-                                            data: result.bizData.data,
+                                            data: result.bizData.allRegisterPV.data,
                                             smooth: true,
-                                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                            itemStyle: {
+                                                normal: {
+                                                    color:'#51E2D9',
+                                                    areaStyle: {type: 'default',color: 'rgba(81,226,217,0.1)'},
+                                                    lineStyle:{
+                                                        color:'#51E2D9'
+                                                    }
+                                                },
+
+                                            },
                                             markPoint: {
                                                 data: [
                                                     {type: 'max', name: '最大值'},
@@ -248,7 +260,76 @@ ace.load_ajax_scripts(scripts, function () {
                                         }
                                     ]
                                 };
-                                registerCharts.setOption(option);
+                                allRegisterPv.setOption(option);
+                                var ageRangeRegisterPv = echarts.init($('#ageRegisterPv')[0],'macarons');
+                                var option1 = {
+                                    // title: {
+                                    //     text: result.bizData.allRegisterPV.text,
+                                    //     subtext: result.bizData.allRegisterPV.subtext
+                                    // },
+                                    tooltip: {
+                                        trigger: 'axis',
+                                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                        }
+                                    },
+                                    legend: {
+                                        data: ['10-19岁', '20-29岁', '30-39岁', '40-49岁', '50-59岁', '60以上']
+                                    },
+                                    toolbox: {
+                                        show: true,
+                                        orient: 'vertical',
+                                        x: 'right',
+                                        y: 'center',
+                                        feature: {
+                                            //mark: {show: true},
+                                            dataView: {show: true, readOnly: false},
+                                            magicType: {show: true, type: ['bar', 'stack', 'line']},
+                                            restore: {show: true},
+                                            saveAsImage: {show: true}
+                                        }
+                                    },
+                                    calculable: true,
+                                    xAxis: [
+                                        {
+                                            type: 'category',
+                                            data: result.bizData.ageRangeRegisterPV.xAxis,
+                                            splitLine:{show: false}
+                                        }
+                                    ],
+                                    yAxis: [
+                                        {
+                                            type: 'value'
+                                        }
+                                    ],
+                                    series: [{
+                                        name: '10-19岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[0]
+                                    }, {
+                                        name: '20-29岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[1]
+                                    }, {
+                                        name: '30-39岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[2]
+                                    }, {
+                                        name: '40-49岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[3]
+                                    }, {
+                                        name: '50-59岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[4]
+                                    }, {
+                                        name: '60以上',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[5]
+                                    }
+                                    ]
+                                }
+                                ageRangeRegisterPv.setOption(option1);
                             } else {
                                 //todo,页面应该显示暂无注册统计数据，整个div应该更换为无数据呈现状态
                             }
