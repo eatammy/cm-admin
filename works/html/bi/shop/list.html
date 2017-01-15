@@ -70,6 +70,9 @@
         height: 21px;
         padding-top: 0;
     }
+    input[type='radio'] {
+        vertical-align: text-bottom;margin-bottom: 2px;*margin-bottom: -2px;
+    }
 
     .ibox-content {
         border-top: 1px solid #ededed;
@@ -90,9 +93,14 @@
         border-width: 1px 0;
     }
 
-    .ibox-content .icon {
-        float: right;
-        color: #1c84c6;
+    .ibox-content .icon-up {
+        color: #1ab394;
+    }
+    .ibox-content .icon-down{
+        color: #ed5565;
+    }
+    .ibox-content .icon-normal{
+        color: #38bbff;
     }
 
     .ibox-content small {
@@ -289,79 +297,133 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-4" >
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="span-1">
                         <b><i class="fa fa-street-view"></i>&nbsp;访客统计</b>
                     </span>
                     <div>
-                        <span>今天</span>
+                        <span class="span-2" style="background-color:#1ab394"><b>今天</b></span>
                     </div>
                 </div>
-                <div class="ibox-content">
+                <div class="ibox-content" ms-click="changeIndex(0)">
                     <div>
-                        <h2><b>12312</b></h2>
+                        <h2><b>{{todayUserPv.content}}</b></h2>
                     </div>
                     <div style="height: 5px">
-                        <div class="pull-left">新设备</div>
-                        <div class="pull-right"><i class="fa fa-street-view"></i></div>
+                        <div class="pull-left"><small><b>新访客</b></small></div>
+                        <div class="pull-right">
+                            <div ms-class-1="icon-up:todayUserPv.upOrDown == 1" ms-class-2="icon-down:todayUserPv.upOrDown == 0">{{todayUserPv.rate}}&nbsp;
+                                <i class="fa fa-level-up" ms-if="todayUserPv.upOrDown == 1"></i>
+                                <i class="fa fa-level-down" ms-if="todayUserPv.upOrDown == 0"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <b><i class="fa fa-fire"></i>&nbsp;活跃用户</b>
-                    <div><span>最近一个月</span></div>
+                    <div><span class="span-2" style="background-color:#1ab394"><b>近一个月</b></span></div>
                 </div>
-                <div class="ibox-content">
+                <div class="ibox-content" ms-click="changeIndex(1)">
                     <div>
-                        <h2><b>12312</b></h2>
+                        <h2><b>{{activePV.content}}</b></h2>
                     </div>
                     <div style="height: 5px">
-                        <div class="pull-left">新设备</div>
-                        <div class="pull-right"><i class="fa fa-street-view"></i></div>
+                        <div class="pull-left"><small><b>用户数</b></small></div>
+                        <div class="pull-right" ms-class-1="icon-up:activePV.upOrDown == 1" ms-class-2="icon-down:activePV.upOrDown == 0">
+                            {{activePV.rate}}&nbsp;
+                            <i class="fa fa-level-up" ms-if="activePV.upOrDown == 1"></i>
+                            <i class="fa fa-level-down" ms-if="activePV.upOrDown == 0"></i>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <b><i class="fa fa-newspaper-o"></i>&nbsp;设备统计</b>
-                    <div><span>最近一个月</span></div>
+                    <div><span class="span-2" style="background-color:#1ab394"><b>近一个月</b></span></div>
                 </div>
-                <div class="ibox-content">
+                <div class="ibox-content" ms-click="changeIndex(2)">
                     <div>
-                        <h2><b>12312</b></h2>
+                        <h2><b>{{devicePV}}</b></h2>
                     </div>
                     <div style="height: 5px">
-                        <div class="pull-left">新设备</div>
-                        <div class="pull-right"><i class="fa fa-street-view"></i></div>
+                        <div class="pull-left"><small><b>新设备</b></small></div>
+                        <div class="pull-right icon-normal">
+                            <i class="fa fa-bolt"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-8">
+        <!--访客统计-->
+        <div class="col-sm-8" ms-if="curIndex == 0">
            <div class="ibox float-e-margins">
                <div class="ibox-title">
                     <span class="span-1">
-                        <b><i class="fa fa-users">&nbsp;注册量</i></b>
-                        年：3123 &nbsp; 月：3123 &nbsp;轴：0
+                        <b><i class="fa fa-street-view">&nbsp;访客统计</i></b>
                     </span>
                    <div>
-                       <label>年份：<select ms-duplex-number="curYear" data-duplex-changed="queryIndentChart">
-                           <option value="-1">默认</option>
-                           <option value="0">男</option>
-                           <option value="1">女</option>
+                       <label>年份：<select ms-duplex-number="curYear">
+                           <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
                        </select></label>&nbsp;
-                       <label>月份：<input type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"> - <input type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"></label>
+                       <label>月份：<select ms-duplex="curMonth1">
+                           <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                       </select></label>&nbsp;
                        <button class="search-btn">确定</button>
                        <button class="search-btn">重置</button>
                    </div>
                </div>
                <div class="ibox-content">
-                  <div style="height: 482px;"></div>
+                  <div id="visitorPv" style="height: 482px;"></div>
                </div>
            </div>
+        </div>
+        <!--活跃用户统计-->
+        <div class="col-sm-8" ms-if="curIndex == 1">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1">
+                        <b><i class="fa fa-fire">&nbsp;活跃用户</i></b>
+                    </span>
+                    <div>
+                        <label>呈现方式：
+                            <input type="radio" name="isDefault" ms-duplex-number="isDefault" value="0" checked>按性别
+                            <input type="radio" name="isDefault" ms-duplex-number="isDefault" value="1">按年龄区间
+                        </label>&nbsp;
+                        <button class="search-btn">确定</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div id="activeUserPv" style="height: 482px;"></div>
+                </div>
+            </div>
+        </div>
+        <!--设备统计-->
+        <div class="col-sm-8" ms-if="curIndex == 2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1">
+                        <b><i class="fa fa-newspaper-o">&nbsp;设别统计</i></b>
+                    </span>
+                    <div>
+                        <label>年份：<select ms-duplex-number="curYear">
+                            <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
+                        </select></label>&nbsp;
+                        <label>月份：<select ms-duplex="curMonth1">
+                            <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                        </select></label>&nbsp;
+                        <button class="search-btn">确定</button>
+                        <button class="search-btn">重置</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div id="devicePv" style="height: 482px;"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

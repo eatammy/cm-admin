@@ -387,11 +387,12 @@ ace.load_ajax_scripts(scripts, function () {
                         success: function (result) {
                             if (isSuccess(result)) {
                                 if (type == 0) {
-                                    var userPV = echarts.init($('#visitor')[0]);
+                                    var userPV = echarts.init($('#visitorPv')[0],"macarons");
                                     var userPVOption = {
                                         title: {
                                             text: result.bizData.text,
-                                            subtext: result.bizData.subtext
+                                            subtext: result.bizData.subtext,
+                                            x: 'center'
                                         },
                                         tooltip: {
                                             trigger: 'axis'
@@ -439,7 +440,7 @@ ace.load_ajax_scripts(scripts, function () {
                                     };
                                     userPV.setOption(userPVOption);
                                 } else if (type == 1) {
-                                    var activePV = echarts.init($('#activeUser')[0]);
+                                    var activePV = echarts.init($('#activeUserPv')[0],"macarons");
                                     var activePVOption = {};
                                     if (vm.isDefault == 0) {
                                         activePVOption = {
@@ -584,7 +585,7 @@ ace.load_ajax_scripts(scripts, function () {
                                     }
                                     activePV.setOption(activePVOption);
                                 } else if (type == 2) {
-                                    var devicePV = echarts.init($('#device')[0]);
+                                    var devicePV = echarts.init($('#devicePv')[0],"macarons");
                                     var devicePVOption = {
                                         title: {
                                             text: result.bizData.text,
