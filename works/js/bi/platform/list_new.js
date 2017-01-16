@@ -347,6 +347,7 @@ ace.load_ajax_scripts(scripts, function () {
                         url: '/cm/admin/userFlow/getStatisticalData',
                         type: 'get',
                         dataType: 'json',
+                        data:{month: new Date().getMonth() + 1},
                         success: function (result) {
                             if (isSuccess(result)) {
                                 //本日访问量
