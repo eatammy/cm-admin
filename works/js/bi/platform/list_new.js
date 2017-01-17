@@ -183,7 +183,8 @@ ace.load_ajax_scripts(scripts, function () {
 
                 getRegisterCharts: function () {
                     var stCurMonth = new Date().getMonth() + 1;
-                    if (vm.curMonth > stCurMonth) {
+                    var stCurYear= new Date().getYear();
+                    if (vm.curYear == stCurYear && vm.curMonth > stCurMonth) {
                         layer.alert("所选月份不能大于当前月份！");
                         return;
                     }
@@ -412,7 +413,8 @@ ace.load_ajax_scripts(scripts, function () {
                                         xAxis: [
                                             {
                                                 type: 'category',
-                                                data: result.bizData.xAxis
+                                                data: result.bizData.xAxis,
+                                                splitLine:{show: false}
                                             }
                                         ],
                                         yAxis: [
@@ -468,7 +470,8 @@ ace.load_ajax_scripts(scripts, function () {
                                             xAxis: [
                                                 {
                                                     type: 'category',
-                                                    data: result.bizData.xAxis
+                                                    data: result.bizData.xAxis,
+                                                    splitLine:{show: false}
                                                 }
                                             ],
                                             yAxis: [

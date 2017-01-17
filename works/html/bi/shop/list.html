@@ -242,14 +242,14 @@
                 <div class="ibox-title">
                     <span class="span-1"><b><i class="fa fa-users">&nbsp;用户分布</i></b></span>
                     <div>
-                        <label>年份：<select ms-duplex-number="curYear" data-duplex-changed="queryIndentChart">
+                        <label>年份：<select ms-duplex-number="sex" data-duplex-changed="queryIndentChart">
                             <option value="-1">默认</option>
                             <option value="0">男</option>
                             <option value="1">女</option>
                         </select></label>&nbsp;
-                        <label>年龄区间：<input type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"> - <input type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"></label>
-                        <button class="search-btn">确定</button>
-                        <button class="search-btn">重置</button>
+                        <label>年龄区间：<input ms-duplex-number="minAge" type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"> - <input ms-duplex-number="maxAge" type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"></label>
+                        <button class="search-btn" ms-click="queryUserMap">确定</button>
+                        <button class="search-btn" ms-click="clear">重置</button>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -269,7 +269,10 @@
                 <div class="ibox-title">
                     <span class="span-1">
                         <b><i class="fa fa-user-plus">&nbsp;注册量</i></b>
-                        年：{{grossRegister}} &nbsp; 月：{{monthRegister}} &nbsp;周：{{weekRegister}}&nbsp;日：{{dayRegister}}
+                        <span>年：<span style="color:rgba(251, 56, 97, 0.94);">{{grossRegister}}</span></span>
+                        <span>月：<span style="color:rgba(251, 56, 97, 0.94);">{{monthRegister}}</span></span>
+                        <span>周：<span style="color:rgba(251, 56, 97, 0.94); ">{{weekRegister}}</span></span>
+                        <span>日：<span style="color:rgba(251, 56, 97, 0.94); ">{{dayRegister}}</span></span>
                     </span>
                     <div>
                         <label>年份：<select ms-duplex-number="curYear">
@@ -278,8 +281,8 @@
                         <label>月份：<select ms-duplex="curMonth">
                             <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
                         </select></label>&nbsp;
-                        <button class="search-btn">确定</button>
-                        <button class="search-btn">重置</button>
+                        <button class="search-btn" ms-click="queryRegisterCharts">确定</button>
+                        <button class="search-btn" ms-click="clear">重置</button>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -373,8 +376,8 @@
                        <label>月份：<select ms-duplex="curMonth1">
                            <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
                        </select></label>&nbsp;
-                       <button class="search-btn">确定</button>
-                       <button class="search-btn">重置</button>
+                       <button class="search-btn" ms-click="queryUserPV">确定</button>
+                       <button class="search-btn" ms-click="clear">重置</button>
                    </div>
                </div>
                <div class="ibox-content">
@@ -394,7 +397,7 @@
                             <input type="radio" name="isDefault" ms-duplex-number="isDefault" value="0" checked>按性别
                             <input type="radio" name="isDefault" ms-duplex-number="isDefault" value="1">按年龄区间
                         </label>&nbsp;
-                        <button class="search-btn">确定</button>
+                        <button class="search-btn" ms-click="queryActivePV">确定</button>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -416,8 +419,8 @@
                         <label>月份：<select ms-duplex="curMonth1">
                             <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
                         </select></label>&nbsp;
-                        <button class="search-btn">确定</button>
-                        <button class="search-btn">重置</button>
+                        <button class="search-btn" ms-click="queryDevicePV">确定</button>
+                        <button class="search-btn" ms-click="clear">重置</button>
                     </div>
                 </div>
                 <div class="ibox-content">
