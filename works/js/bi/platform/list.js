@@ -28,7 +28,7 @@ ace.load_ajax_scripts(scripts, function () {
                     "11月": 11,
                     "12月": 12
                 },
-                year: [2015, 2016, 2017],
+                years: [],
                 curMonth: new Date().getMonth() + 1, //用于注册查询
                 curMonth1: new Date().getMonth() + 1, //用于用户访问查询
                 curYear: new Date().getFullYear(),
@@ -38,8 +38,8 @@ ace.load_ajax_scripts(scripts, function () {
                 dayRegister: 0,          //日注册量
                 curIndex: 0,      //标签切换
                 isDefault: 0,       //用户访问主题，0：按性别，1：按年龄区间
-                todayUserPv: {content:'',rate: '', upOrDown: 0},     //今日访问量
-                activePV: {content:'',rate: '', upOrDown: 0},     //本月活跃量
+                todayUserPv: {content: '', rate: '', upOrDown: 0},     //今日访问量
+                activePV: {content: '', rate: '', upOrDown: 0},     //本月活跃量
                 devicePV: '',       //设备统计
                 changeIndex: function (value) {
                     vm.curIndex = value;
@@ -70,7 +70,7 @@ ace.load_ajax_scripts(scripts, function () {
                         },
                         success: function (result) {
                             if (isSuccess(result)) {
-                                var userMap = echarts.init($('#userMap')[0]);
+                                var userMap = echarts.init($('#userMap')[0], 'macarons');
                                 option = {
                                     title: {
                                         text: result.bizData.text,
@@ -89,7 +89,8 @@ ace.load_ajax_scripts(scripts, function () {
                                         x: 'left',
                                         y: 'bottom',
                                         text: ['高', '低'],           // 文本，默认为数值文本
-                                        calculable: true
+                                        calculable: true,
+                                        show: true
                                     },
                                     toolbox: {
                                         show: true,
@@ -108,6 +109,7 @@ ace.load_ajax_scripts(scripts, function () {
                                         mapTypeControl: {
                                             'china': true
                                         }
+
                                     },
                                     series: [
                                         {
@@ -116,7 +118,34 @@ ace.load_ajax_scripts(scripts, function () {
                                             mapType: 'china',
                                             roam: false,
                                             itemStyle: {
-                                                normal: {label: {show: true}}
+                                                normal: {
+                                                    color: ['#fff'],
+                                                    borderColor: '#DF7783',
+                                                    borderWidth: 1,
+                                                    areaStyle: {
+                                                        color: '#DF7783'//rgba(135,206,250,0.8)
+                                                    },
+                                                    label: {
+                                                        show: false,
+                                                        textStyle: {
+                                                            color: 'rgba(139,69,19,1)'
+                                                        }
+                                                    }
+                                                },
+                                                emphasis: {                 // 也是选中样式
+                                                    // color: 各异,
+                                                    borderColor: 'rgba(0,0,0,0)',
+                                                    borderWidth: 1,
+                                                    areaStyle: {
+                                                        color: '#DF7783'
+                                                    },
+                                                    label: {
+                                                        show: false,
+                                                        textStyle: {
+                                                            color: 'rgba(139,69,19,1)'
+                                                        }
+                                                    }
+                                                }
                                             },
                                             data: result.bizData.data
                                         }
@@ -128,12 +157,10 @@ ace.load_ajax_scripts(scripts, function () {
                             }
                         }
                     })
-                }
-                ,
+                },
                 queryUserMap: function () {
                     vm.getUserMap();
-                }
-                ,
+                },
 
                 getRegisterInfo: function () {
                     $.ajax({
@@ -146,6 +173,7 @@ ace.load_ajax_scripts(scripts, function () {
                                 vm.monthRegister = result.bizData.monthRegister;
                                 vm.weekRegister = result.bizData.weekRegister;
                                 vm.dayRegister = result.bizData.dayRegister;
+                                vm.years = result.bizData.years;
                             } else {
                                 layer.alert(result.msg);
                             }
@@ -155,21 +183,23 @@ ace.load_ajax_scripts(scripts, function () {
 
                 getRegisterCharts: function () {
                     var stCurMonth = new Date().getMonth() + 1;
-                    if (vm.curMonth > stCurMonth) {
+                    var stCurYear= new Date().getYear();
+                    if (vm.curYear == stCurYear && vm.curMonth > stCurMonth) {
                         layer.alert("所选月份不能大于当前月份！");
                         return;
                     }
                     $.ajax({
-                        url: '/cm/admin/userFlow/getRegisterCharts?month=' + vm.curMonth,
+                        url: '/cm/admin/userFlow/getRegisterCharts',
                         type: 'get',
+                        data: {year: vm.curYear,month: vm.curMonth},
                         dataType: 'json',
                         success: function (result) {
                             if (isSuccess(result)) {
-                                var registerCharts = echarts.init($('#registerCharts')[0]);
+                                var allRegisterPv = echarts.init($('#allRegisterPv')[0],'macarons');
                                 var option = {
                                     title: {
-                                        text: result.bizData.text,
-                                        subtext: result.bizData.subtext,
+                                        text: result.bizData.allRegisterPV.text,
+                                        subtext: result.bizData.allRegisterPV.subtext,
                                         x: 'center'
                                     },
                                     tooltip: {
@@ -182,19 +212,22 @@ ace.load_ajax_scripts(scripts, function () {
                                             magicType: {show: true, type: ['line', 'bar']},
                                             restore: {show: true},
                                             saveAsImage: {show: true}
-                                        }
+                                        },
+                                        x:'10px'
                                     },
                                     calculable: true,
                                     xAxis: [
                                         {
                                             type: 'category',
                                             boundaryGap: false,
-                                            data: result.bizData.xAxis
+                                            data: result.bizData.allRegisterPV.xAxis,
+                                            splitLine:{show: false}
                                         }
                                     ],
                                     yAxis: [
                                         {
-                                            type: 'value'
+                                            type: 'value',
+                                            splitLine:{show: true}
                                         }
                                     ],
                                     series: [
@@ -202,9 +235,18 @@ ace.load_ajax_scripts(scripts, function () {
                                             name: '每天数据',
                                             type: 'line',
                                             stack: '总量',
-                                            data: result.bizData.data,
+                                            data: result.bizData.allRegisterPV.data,
                                             smooth: true,
-                                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                                            itemStyle: {
+                                                normal: {
+                                                    color:'#51E2D9',
+                                                    areaStyle: {type: 'default',color: 'rgba(81,226,217,0.1)'},
+                                                    lineStyle:{
+                                                        color:'#51E2D9'
+                                                    }
+                                                },
+
+                                            },
                                             markPoint: {
                                                 data: [
                                                     {type: 'max', name: '最大值'},
@@ -219,7 +261,76 @@ ace.load_ajax_scripts(scripts, function () {
                                         }
                                     ]
                                 };
-                                registerCharts.setOption(option);
+                                allRegisterPv.setOption(option);
+                                var ageRangeRegisterPv = echarts.init($('#ageRegisterPv')[0],'macarons');
+                                var option1 = {
+                                    // title: {
+                                    //     text: result.bizData.allRegisterPV.text,
+                                    //     subtext: result.bizData.allRegisterPV.subtext
+                                    // },
+                                    tooltip: {
+                                        trigger: 'axis',
+                                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                                        }
+                                    },
+                                    legend: {
+                                        data: ['10-19岁', '20-29岁', '30-39岁', '40-49岁', '50-59岁', '60以上']
+                                    },
+                                    toolbox: {
+                                        show: true,
+                                        orient: 'vertical',
+                                        x: 'right',
+                                        y: 'center',
+                                        feature: {
+                                            //mark: {show: true},
+                                            dataView: {show: true, readOnly: false},
+                                            magicType: {show: true, type: ['bar', 'stack', 'line']},
+                                            restore: {show: true},
+                                            saveAsImage: {show: true}
+                                        }
+                                    },
+                                    calculable: true,
+                                    xAxis: [
+                                        {
+                                            type: 'category',
+                                            data: result.bizData.ageRangeRegisterPV.xAxis,
+                                            splitLine:{show: false}
+                                        }
+                                    ],
+                                    yAxis: [
+                                        {
+                                            type: 'value'
+                                        }
+                                    ],
+                                    series: [{
+                                        name: '10-19岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[0]
+                                    }, {
+                                        name: '20-29岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[1]
+                                    }, {
+                                        name: '30-39岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[2]
+                                    }, {
+                                        name: '40-49岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[3]
+                                    }, {
+                                        name: '50-59岁',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[4]
+                                    }, {
+                                        name: '60以上',
+                                        type: 'line',
+                                        data: result.bizData.ageRangeRegisterPV.data[5]
+                                    }
+                                    ]
+                                }
+                                ageRangeRegisterPv.setOption(option1);
                             } else {
                                 //todo,页面应该显示暂无注册统计数据，整个div应该更换为无数据呈现状态
                             }
@@ -235,10 +346,11 @@ ace.load_ajax_scripts(scripts, function () {
                 getStatisticalData: function () {
                     $.ajax({
                         url: '/cm/admin/userFlow/getStatisticalData',
-                        type:'get',
+                        type: 'get',
                         dataType: 'json',
+                        data:{month: new Date().getMonth() + 1},
                         success: function (result) {
-                            if(isSuccess(result)){
+                            if (isSuccess(result)) {
                                 //本日访问量
                                 vm.todayUserPv.content = result.bizData.userPV.content;
                                 vm.todayUserPv.rate = result.bizData.userPV.rate;
@@ -251,7 +363,7 @@ ace.load_ajax_scripts(scripts, function () {
 
                                 //设备统计
                                 vm.devicePV = result.bizData.devicePV.content;
-                            }else{
+                            } else {
                                 layer.alert("暂无数据", {icon: 2});
                             }
                         }
@@ -264,7 +376,7 @@ ace.load_ajax_scripts(scripts, function () {
                         layer.alert("所选年限不能超过当前年限", {icon: 2});
                         return;
                     }
-                    if (vm.curMonth1 > stCurMonth) {
+                    if (stCurYear == vm.curYear && vm.curMonth1 > stCurMonth) {
                         layer.alert("所选月份不能超过当前月份", {icon: 2});
                         return;
                     }
@@ -277,11 +389,12 @@ ace.load_ajax_scripts(scripts, function () {
                         success: function (result) {
                             if (isSuccess(result)) {
                                 if (type == 0) {
-                                    var userPV = echarts.init($('#visitor')[0]);
+                                    var userPV = echarts.init($('#visitorPv')[0],"macarons");
                                     var userPVOption = {
                                         title: {
                                             text: result.bizData.text,
-                                            subtext: result.bizData.subtext
+                                            subtext: result.bizData.subtext,
+                                            x: 'center'
                                         },
                                         tooltip: {
                                             trigger: 'axis'
@@ -300,7 +413,8 @@ ace.load_ajax_scripts(scripts, function () {
                                         xAxis: [
                                             {
                                                 type: 'category',
-                                                data: result.bizData.xAxis
+                                                data: result.bizData.xAxis,
+                                                splitLine:{show: false}
                                             }
                                         ],
                                         yAxis: [
@@ -329,7 +443,7 @@ ace.load_ajax_scripts(scripts, function () {
                                     };
                                     userPV.setOption(userPVOption);
                                 } else if (type == 1) {
-                                    var activePV = echarts.init($('#activeUser')[0]);
+                                    var activePV = echarts.init($('#activeUserPv')[0],"macarons");
                                     var activePVOption = {};
                                     if (vm.isDefault == 0) {
                                         activePVOption = {
@@ -356,7 +470,8 @@ ace.load_ajax_scripts(scripts, function () {
                                             xAxis: [
                                                 {
                                                     type: 'category',
-                                                    data: result.bizData.xAxis
+                                                    data: result.bizData.xAxis,
+                                                    splitLine:{show: false}
                                                 }
                                             ],
                                             yAxis: [
@@ -474,7 +589,7 @@ ace.load_ajax_scripts(scripts, function () {
                                     }
                                     activePV.setOption(activePVOption);
                                 } else if (type == 2) {
-                                    var devicePV = echarts.init($('#device')[0]);
+                                    var devicePV = echarts.init($('#devicePv')[0],"macarons");
                                     var devicePVOption = {
                                         title: {
                                             text: result.bizData.text,

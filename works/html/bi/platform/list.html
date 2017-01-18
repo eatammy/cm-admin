@@ -4,48 +4,51 @@
         visibility: hidden
     }
 
-    .chart {
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+
+    }
+
+    .ibox {
+        clear: both;
+        margin-bottom: 25px;
+        margin-top: 0;
+        padding: 0;
         background-color: rgba(197, 208, 220, 0.15);
-        border-top: 1px #cccccc;
-        border-bottom: 1px #cccccc;
-        float: right;
-        width: 73%;
-        height: 93.5%;
-        margin: 32px 6px;
     }
 
-    .chart-display {
-        width: 100%;
-        height: 514px;
+    .ibox-title {
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        border-color: #e7eaec;
+        -webkit-border-image: none;
+        -o-border-image: none;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 4px 0 0;
+        color: inherit;
+        margin-bottom: 0;
+        padding: 14px 15px 7px;
+        min-height: 48px;
     }
 
-    .box-topic {
-        background-color: rgba(197, 208, 220, 0.15);
-        width: 100%;
-        height: 30.5%;
-        margin: 5px;
-        border: 1px solid #ededed;;
-        border-left: 0;
-        border-right: 0;
-    }
-
-    .box-label {
-        height: 30%;
-    }
-
-    .box-label .span-1 {
-        margin: 10px 10px;
+    .ibox-title .span-1 {
+        margin: -3px 0;
         font-size: 14px;
         font-weight: 600;
         text-align: center;
+        font-style: inherit;
         float: left;
     }
 
-    .box-label .span-2 {
-        margin: 15px 10px;
+    .ibox-title .span-2 {
+        color: #fff;
+        margin: -3px 0;
         float: right;
         background-color: #428bca;
-        color: #fff;
         font-size: 10px;
         font-weight: 600;
         padding: 5px 9px;
@@ -58,12 +61,54 @@
         line-height: 1;
     }
 
-    .box-container {
+    .ibox-title div {
+        float: right;
+        margin: -2px 0;
+    }
+
+    .ibox-title div label > select {
+        width: 62px;
+        height: 21px;
+        padding-top: 0;
+    }
+    input[type='radio'] {
+        vertical-align: text-bottom;margin-bottom: 2px;*margin-bottom: -2px;
+    }
+
+    .ibox-content {
         border-top: 1px solid #ededed;
     }
 
-    .box-container h1 {
-        font-size: 36px;
+    .ibox-content {
+        clear: both;
+    }
+
+    .ibox-content {
+        color: inherit;
+        padding: 15px 20px 20px;
+        border-color: #e7eaec;
+        -webkit-border-image: none;
+        -o-border-image: none;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .ibox-content .icon-up {
+        color: #1ab394;
+    }
+    .ibox-content .icon-down{
+        color: #ed5565;
+    }
+    .ibox-content .icon-normal{
+        color: #38bbff;
+    }
+
+    .ibox-content small {
+
+    }
+
+    .ibox-content h1 {
         font-weight: 100;
         line-height: 1.1;
         display: block;
@@ -71,206 +116,321 @@
         -webkit-margin-after: 0.67em;
         -webkit-margin-start: 0px;
         -webkit-margin-end: 0px;
-        color: #939393;
-        margin: 25px;
+        color: rgba(147, 147, 147, 0.85);
+        font-size: 30px;
+        margin: 15px 0;
     }
 
-    .box-container div {
+    .flot-chart {
+        display: block;
+        height: 250px;
+    }
+
+    .stat-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        height: 250px;
+    }
+
+    .stat-list li:first-child {
+        margin-top: 0;
+    }
+
+    .stat-list li {
+        margin-top: 15px;
+        position: relative;
+        text-align: -webkit-match-parent;
+        height: 33%;
+    }
+
+    .stat-percent {
         float: right;
-        margin-right: 25px;
-        color: #1c84c6;
     }
 
-    .box-container small {
-        margin-left: 15px;
+    .no-margin {
+        margin: 0 !important;
     }
+
+    .progress.progress-mini {
+        height: 5px;
+    }
+
+    h2 {
+        font-size: 30px;
+        font-weight: 120;
+        line-height: 1.1;
+        display: block;
+        -webkit-margin-before: 0.83em;
+        -webkit-margin-after: 0.83em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        color: rgba(49, 186, 223, 0.74);;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    table {
+        background-color: transparent;
+    }
+
+    table {
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    .table > tbody > tr > th {
+        border-top: none;
+    }
+
+    .feed-element {
+        padding-bottom: 15px;
+    }
+    .feed-element, .feed-element .media {
+        margin-top: 15px;
+    }
+    .feed-element:first-child {
+        margin-top: 0;
+    }
+    .feed-activity-list .feed-element {
+        border-bottom: 1px solid #e7eaec;
+    }
+    .feed-element, .media-body {
+        overflow: hidden;
+    }
+    .text-navy {
+        color: #1ab394;
+    }
+    .text-muted {
+        color: #888;
+    }
+    .small, small {
+        font-size: 85%;
+    }
+    h5 {
+        display: block;
+        font-size: 0.83em;
+        -webkit-margin-before: 1.67em;
+        -webkit-margin-after: 1.67em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: bold;
+    }
+
+    .search-btn{
+        background-color: #fff;
+        margin: 0;
+        padding: 0px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 40px;
+    }
+    .search-btn:hover{
+        border: 1px solid rgba(147, 147, 147, 0.85);
+    }
+
 
 </style>
 <!--标签区-->
 <div id="listPlatform" ms-important="listPlatform" class="page-content">
-    <div class=" search user-c-box bi">
-        <span>
-            <b>用户地图 &nbsp;></b>
-        </span>
-       <div style="background-color: rgba(197, 208, 220, 0.15); margin-top: 5px;">
-           <div class="user-c">
-               <div class="tj" style="border-bottom: 0">
-                <span class="search-label">
-                    <b>性别：</b>
-                    <select ms-duplex-number="sex">
-                        <option value="-1">默认</option>
-                        <option value="0">男</option>
-                        <option value="1">女</option>
-                    </select>
-                </span>
-                <span class="search-label">
-                    <b>年龄：</b><input type="text" class="txt" style="width: 35px" ms-duplex-number="minAge">
-                </span>
-                <span class="search-label"><b>-&nbsp;&nbsp;&nbsp;</b>
-                    <input type="text" class="txt" style="width: 35px" ms-duplex-number="maxAge">
-                </span>
-                   <a href="javascript:void(0)" ms-click="queryUserMap" class="bt_org" style="text-decoration: none">查询</a>
-                   <a href="javascript:void(0)" ms-click="clear" class=" bt_org" style="text-decoration: none">重置</a>
-               </div>
-           </div>
-
-           <div id="userMap" style="width: 100%;height: 700px;"></div>
-       </div>
-    </div>
-    <div class="search user-c-box">
-        <div style="width: 34%;height: 600px;float:left; border-right: 1px solid #ededed; border-top: 1px solid #ededed;border-bottom: 1px solid #ededed;">
-            <span><b>注册统计 &nbsp;></b></span>
-            <div style="background-color: rgba(197, 208, 220, 0.15); margin-top: 5px;">
-                <div class="user-c">
-                    <div class="tj" style="border-bottom: 0;">
-                <span class="search-label">
-                    <b>总注册量：</b> <b style="color: #ff4b5a">{{grossRegister}}&nbsp;&nbsp;</b>
-                </span>
-                <span class="search-label">
-                    <b>本月注册量：</b> <b style="color: #ff4b5a">{{monthRegister}}&nbsp;&nbsp;</b>
-                </span>
-                <span class="search-label">
-                    <b>本周注册量：</b> <b style="color: #ff4b5a">{{weekRegister}}&nbsp;&nbsp;</b>
-                </span>
-                <span class="search-label">
-                    <b>本日注册量：</b> <b style="color: #ff4b5a">{{dayRegister}}</b>
-                </span>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1"><b><i class="fa fa-users"></i>&nbsp;用户分布</b>
+                    </span>
+                    <div>
+                        <label>性别：<select ms-duplex-number="sex" data-duplex-changed="queryIndentChart">
+                            <option value="-1">默认</option>
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select></label>&nbsp;
+                        <label>年龄区间：<input ms-duplex-number="minAge" type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"> - <input ms-duplex-number="maxAge" type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"></label>
+                        <button class="search-btn" ms-click="queryUserMap">确定</button>
+                        <button class="search-btn" ms-click="clear">重置</button>
                     </div>
                 </div>
-                <div class="user-c">
-                    <div class="tj" style="border-bottom: 0;">
-                <span class="search-label">
-                    <b>月份：</b>
-                    <select ms-duplex="curMonth" style="width: 60px;">
-                        <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
-                    </select>
-                </span>
-                        <a href="javascript:void(0)" ms-click="queryRegisterCharts" class="bt_org"
-                           style="text-decoration: none">查询</a>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="flot-chart" id="userMap" style="height: 700px;"></div>
+                        </div>
                     </div>
                 </div>
-                <div id="registerCharts" style="width: 100%;height: 480px; "></div>
             </div>
         </div>
+    </div>
 
-        <div style="width: 65%;height: 600px; float:right; border: 1px solid #ededed; border-right: 0 ">
-            <div style="float: left ;width: 25%; height: 100%; ">
-                <span style="margin-bottom: 2px;padding-bottom: 10px;margin-left:6px; "><b>访问统计 &nbsp;></b></span>
-                <br>
-                <div class="box-topic" ms-click="changeIndex(0)">
-                    <div class="box-label">
-                        <span class="span-1"><b>访客</b></span>
-                        <span class="span-2"><b>今天</b></span>
-                    </div>
-                    <div class="box-container">
-                        <h1>
-                            <b>{{todayUserPv.content}}</b>
-                        </h1>
-                        <div>{{todayUserPv.rate}}&nbsp;
-                            <i class="fa fa-level-up" ms-if="todayUserPv.upOrDown == 1"></i>
-                            <i class="fa fa-level-down" ms-if="todayUserPv.upOrDown == 0"></i>
-                        </div>
-                        <small><b>新访客</b></small>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1">
+                        <b><i class="fa fa-user-plus"></i>&nbsp;注册量</b>
+                        <span>年：<span style="color:rgba(251, 56, 97, 0.94);">{{grossRegister}}</span></span>
+                        <span>月：<span style="color:rgba(251, 56, 97, 0.94);">{{monthRegister}}</span></span>
+                        <span>周：<span style="color:rgba(251, 56, 97, 0.94); ">{{weekRegister}}</span></span>
+                        <span>日：<span style="color:rgba(251, 56, 97, 0.94); ">{{dayRegister}}</span></span>
+                    </span>
+                    <div>
+                        <label>年份：<select ms-duplex-number="curYear">
+                            <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
+                        </select></label>&nbsp;
+                        <label>月份：<select ms-duplex="curMonth">
+                            <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                        </select></label>&nbsp;
+                        <button class="search-btn" ms-click="queryRegisterCharts">确定</button>
+                        <button class="search-btn" ms-click="clear">重置</button>
                     </div>
                 </div>
-                <div class="box-topic" ms-click="changeIndex(1)">
-                    <div class="box-label">
-                        <span class="span-1"><b>活跃用户</b></span>
-                        <span class="span-2" style="background-color: #ed5565;"><b>最近一个月</b></span>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="flot-chart" id="allRegisterPv" style="height: 350px;"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="flot-chart" id="ageRegisterPv" style="height: 350px;"></div>
+                        </div>
                     </div>
-                    <div class="box-container">
-                        <h1>
-                            <b>{{activePV.content}}</b>
-                        </h1>
-                        <div style="color:#ed5565;">{{activePV.rate}}&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4" >
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1">
+                        <b><i class="fa fa-street-view"></i>&nbsp;访客统计</b>
+                    </span>
+                    <div>
+                        <span class="span-2" style="background-color:#1ab394"><b>今天</b></span>
+                    </div>
+                </div>
+                <div class="ibox-content" ms-click="changeIndex(0)">
+                    <div>
+                        <h2><b>{{todayUserPv.content}}</b></h2>
+                    </div>
+                    <div style="height: 5px">
+                        <div class="pull-left"><small><b>新访客</b></small></div>
+                        <div class="pull-right">
+                            <div ms-class-1="icon-up:todayUserPv.upOrDown == 1" ms-class-2="icon-down:todayUserPv.upOrDown == 0">{{todayUserPv.rate}}&nbsp;
+                                <i class="fa fa-level-up" ms-if="todayUserPv.upOrDown == 1"></i>
+                                <i class="fa fa-level-down" ms-if="todayUserPv.upOrDown == 0"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <b><i class="fa fa-fire"></i>&nbsp;活跃用户</b>
+                    <div><span class="span-2" style="background-color:#1ab394"><b>近一个月</b></span></div>
+                </div>
+                <div class="ibox-content" ms-click="changeIndex(1)">
+                    <div>
+                        <h2><b>{{activePV.content}}</b></h2>
+                    </div>
+                    <div style="height: 5px">
+                        <div class="pull-left"><small><b>用户数</b></small></div>
+                        <div class="pull-right" ms-class-1="icon-up:activePV.upOrDown == 1" ms-class-2="icon-down:activePV.upOrDown == 0">
+                            {{activePV.rate}}&nbsp;
                             <i class="fa fa-level-up" ms-if="activePV.upOrDown == 1"></i>
                             <i class="fa fa-level-down" ms-if="activePV.upOrDown == 0"></i>
                         </div>
-                        <small><b>用户数</b></small>
                     </div>
                 </div>
-                <div class="box-topic" ms-click="changeIndex(2)">
-                    <div class="box-label">
-                        <span class="span-1"><b>设备统计</b></span>
-                        <span class="span-2" style="background-color:#1ab394"><b>最近一个月</b></span>
+            </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <b><i class="fa fa-newspaper-o"></i>&nbsp;设备统计</b>
+                    <div><span class="span-2" style="background-color:#1ab394"><b>近一个月</b></span></div>
+                </div>
+                <div class="ibox-content" ms-click="changeIndex(2)">
+                    <div>
+                        <h2><b>{{devicePV}}</b></h2>
                     </div>
-                    <div class="box-container">
-                        <h1 style="font-size: 23px; margin: 30px 25px;">
-                            <b>{{devicePV}}</b>
-                        </h1>
-                        <div style="color:#1ab394">
+                    <div style="height: 5px">
+                        <div class="pull-left"><small><b>新设备</b></small></div>
+                        <div class="pull-right icon-normal">
                             <i class="fa fa-bolt"></i>
                         </div>
-                        <small><b>设备数</b></small>
                     </div>
                 </div>
-
             </div>
-
-            <div class="chart">
-                <div class="user-c">
-                    <div class="tj" style="border-bottom: 0;margin: 5px 0 0 10px;" ms-if="curIndex == 0">
-                        <span class="search-label">
-                            <b>年份：</b>
-                            <select ms-duplex="curYear" style="width: 60px;">
-                                <option ms-repeat="year" ms-attr-value="el">{{el}}</option>
-                            </select>
-                        </span>
-                        <span class="search-label">
-                            <b>月份：</b>
-                            <select ms-duplex="curMonth1" style="width: 60px;">
-                                <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
-                            </select>
-                        </span>
-                        <a href="javascript:void(0)" ms-click="queryUserPV" class="bt_org"
-                           style="text-decoration: none">查询</a>
-                        <a href="javascript:void(0)" ms-click="clear" class="bt_org"
-                           style="text-decoration: none">重置</a>
+        </div>
+        <!--访客统计-->
+        <div class="col-sm-8" ms-if="curIndex == 0">
+           <div class="ibox float-e-margins">
+               <div class="ibox-title">
+                    <span class="span-1">
+                        <b><i class="fa fa-street-view"></i>&nbsp;访客统计</b>
+                    </span>
+                   <div>
+                       <label>年份：<select ms-duplex-number="curYear">
+                           <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
+                       </select></label>&nbsp;
+                       <label>月份：<select ms-duplex="curMonth1">
+                           <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                       </select></label>&nbsp;
+                       <button class="search-btn" ms-click="queryUserPV">确定</button>
+                       <button class="search-btn" ms-click="clear">重置</button>
+                   </div>
+               </div>
+               <div class="ibox-content">
+                  <div id="visitorPv" style="height: 482px;"></div>
+               </div>
+           </div>
+        </div>
+        <!--活跃用户统计-->
+        <div class="col-sm-8" ms-if="curIndex == 1">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1">
+                        <b><i class="fa fa-fire"></i>&nbsp;活跃用户</b>
+                    </span>
+                    <div>
+                        <label>呈现方式：
+                            <input type="radio" name="isDefault" ms-duplex-number="isDefault" value="0" checked>按性别
+                            <input type="radio" name="isDefault" ms-duplex-number="isDefault" value="1">按年龄区间
+                        </label>&nbsp;
+                        <button class="search-btn" ms-click="queryActivePV">确定</button>
                     </div>
-                    <div class="tj" style="border-bottom: 0;margin: 5px 0 0 10px;" ms-if="curIndex == 1">
-                        <span class="search-label">
-                           <b>呈现方式：</b>
-                                <label style="float: left"><input
-                                        style="vertical-align: text-bottom;margin-bottom: 2px;*margin-bottom: -2px; "
-                                        type="radio" name="isDefault" ms-duplex-number="isDefault" value="0" checked/>
-                                    按性别&nbsp;&nbsp;</label>
-                                <label style="float: left"><input
-                                        style="vertical-align: text-bottom;margin-bottom: 2px;*margin-bottom: -2px; "
-                                        type="radio" name="isDefault" ms-duplex-number="isDefault" value="1"/>
-                                    按年龄区间</label>
-                        </span>
-                        <a href="javascript:void(0)" ms-click="queryActivePV" class="bt_org"
-                           style="text-decoration: none;margin-left: 10px;">查询</a>
-                        <a href="javascript:void(0)" ms-click="clear" class="bt_org"
-                           style="text-decoration: none">重置</a>
+                </div>
+                <div class="ibox-content">
+                    <div id="activeUserPv" style="height: 482px;"></div>
+                </div>
+            </div>
+        </div>
+        <!--设备统计-->
+        <div class="col-sm-8" ms-if="curIndex == 2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1">
+                        <b><i class="fa fa-newspaper-o"></i>&nbsp;设别统计</b>
+                    </span>
+                    <div>
+                        <label>年份：<select ms-duplex-number="curYear">
+                            <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
+                        </select></label>&nbsp;
+                        <label>月份：<select ms-duplex="curMonth1">
+                            <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                        </select></label>&nbsp;
+                        <button class="search-btn" ms-click="queryDevicePV">确定</button>
+                        <button class="search-btn" ms-click="clear">重置</button>
                     </div>
-                    <div class="tj" style="border-bottom: 0;margin: 5px 0 0 10px;" ms-if="curIndex == 2">
-                        <!--<span class="search-label">-->
-                        <!--<b>年份：</b>-->
-                        <!--<select ms-duplex="curYear" style="width: 60px;">-->
-                        <!--<option ms-repeat="year" ms-attr-value="el">{{el}}</option>-->
-                        <!--</select>-->
-                        <!--</span>-->
-                        <span class="search-label">
-                            <b>月份：</b>
-                            <select ms-duplex="curMonth1" style="width: 60px;">
-                                <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
-                            </select>
-                        </span>
-                        <a href="javascript:void(0)" ms-click="queryDevicePV" class="bt_org"
-                           style="text-decoration: none">查询</a>
-                        <a href="javascript:void(0)" ms-click="clear" class="bt_org"
-                           style="text-decoration: none">重置</a>
-                    </div>
-                    <div id="visitor" class="chart-display" ms-if="curIndex == 0"></div>
-                    <div id="activeUser" class="chart-display" ms-if="curIndex == 1"></div>
-                    <div id="device" class="chart-display" ms-if="curIndex == 2"></div>
+                </div>
+                <div class="ibox-content">
+                    <div id="devicePv" style="height: 482px;"></div>
                 </div>
             </div>
         </div>
     </div>
-
-
 </div>
 
 <!--脚本区-->

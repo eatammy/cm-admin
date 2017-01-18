@@ -1,0 +1,476 @@
+<!--样式区-->
+<style>
+    .ms-controller, .ms-important {
+        visibility: hidden
+    }
+
+    .row {
+        margin-right: -15px;
+        margin-left: -15px;
+
+    }
+
+    .ibox {
+        clear: both;
+        margin-bottom: 25px;
+        margin-top: 0;
+        padding: 0;
+        background-color: rgba(197, 208, 220, 0.15);
+    }
+
+    .ibox-title {
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        border-color: #e7eaec;
+        -webkit-border-image: none;
+        -o-border-image: none;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 4px 0 0;
+        color: inherit;
+        margin-bottom: 0;
+        padding: 14px 15px 7px;
+        min-height: 48px;
+    }
+
+    .ibox-title .span-1 {
+        margin: -3px 0;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        float: left;
+    }
+
+    .ibox-title .span-2 {
+        color: #fff;
+        margin: -3px 0;
+        float: right;
+        background-color: #428bca;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 5px 9px;
+        text-shadow: none;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25em;
+        display: inline;
+        line-height: 1;
+    }
+
+    .ibox-title div {
+        float: right;
+        margin: -2px 0;
+    }
+
+    .ibox-title div label > select {
+        width: 62px;
+        height: 21px;
+        padding-top: 0;
+    }
+
+    .ibox-content {
+        border-top: 1px solid #ededed;
+    }
+
+    .ibox-content {
+        clear: both;
+    }
+
+    .ibox-content {
+        color: inherit;
+        padding: 15px 20px 20px;
+        border-color: #e7eaec;
+        -webkit-border-image: none;
+        -o-border-image: none;
+        border-image: none;
+        border-style: solid solid none;
+        border-width: 1px 0;
+    }
+
+    .ibox-content .icon {
+        float: right;
+        color: #1c84c6;
+    }
+
+    .ibox-content small {
+
+    }
+
+    .ibox-content h1 {
+        font-weight: 100;
+        line-height: 1.1;
+        display: block;
+        -webkit-margin-before: 0.67em;
+        -webkit-margin-after: 0.67em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        color: rgba(147, 147, 147, 0.85);
+        font-size: 30px;
+        margin: 15px 0;
+    }
+
+    .flot-chart {
+        display: block;
+        height: 250px;
+    }
+
+    .stat-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        height: 250px;
+    }
+
+    .stat-list li:first-child {
+        margin-top: 0;
+    }
+
+    .stat-list li {
+        margin-top: 15px;
+        position: relative;
+        text-align: -webkit-match-parent;
+        height: 33%;
+    }
+
+    .stat-percent {
+        float: right;
+    }
+
+    .no-margin {
+        margin: 0 !important;
+    }
+
+    .progress.progress-mini {
+        height: 5px;
+    }
+
+    h2 {
+        font-size: 30px;
+        font-weight: 120;
+        line-height: 1.1;
+        display: block;
+        -webkit-margin-before: 0.83em;
+        -webkit-margin-after: 0.83em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        color: rgba(49, 186, 223, 0.74);;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    table {
+        background-color: transparent;
+    }
+
+    table {
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+
+    .table > tbody > tr > th {
+        border-top: none;
+    }
+
+    .feed-element {
+        padding-bottom: 15px;
+    }
+    .feed-element, .feed-element .media {
+        margin-top: 15px;
+    }
+    .feed-element:first-child {
+        margin-top: 0;
+    }
+    .feed-activity-list .feed-element {
+        border-bottom: 1px solid #e7eaec;
+    }
+    .feed-element, .media-body {
+        overflow: hidden;
+    }
+    .text-navy {
+        color: #1ab394;
+    }
+    .text-muted {
+        color: #888;
+    }
+    .small, small {
+        font-size: 85%;
+    }
+    h5 {
+        display: block;
+        font-size: 0.83em;
+        -webkit-margin-before: 1.67em;
+        -webkit-margin-after: 1.67em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        font-weight: bold;
+    }
+</style>
+<!--标签区-->
+<div id="listBusiness" ms-important="listBusiness" class="page-content">
+    <div class="row" style="height: 180px;">
+        <div class="col-sm-3 ">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1"><b>交易总量</b></span>
+                    <span class="span-2"><b>年</b></span>
+                </div>
+                <div class="ibox-content">
+                    <h1>
+                        <b>{{totalTrade}}</b>
+                    </h1>
+                    <div class="icon">
+                        <i class="fa fa-bolt"></i>
+                    </div>
+                    <small><b>总收入</b></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="span-1"><b>订单</b></span>
+                        <span class="span-2" style="background-color: #23C6C8"><b>近一周</b></span>
+                    </div>
+                    <div class="ibox-content">
+                        <h1>
+                            <b>{{indent.content}}</b>
+                        </h1>
+                        <div class="icon" style="color: #23C6C8;">{{indent.rate}}&nbsp;
+                            <i class="fa fa-level-up" ms-if="indent.upOrDown == 1"></i>
+                            <i class="fa fa-level-down" ms-if="indent.upOrDown == 0"></i>
+                        </div>
+                        <small><b>新订单</b></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="span-1"><b>商家</b></span>
+                        <span class="span-2" style="background-color: #1AB394"><b>近一个月</b></span>
+                    </div>
+                    <div class="ibox-content">
+                        <h1>
+                            <b>{{shop.content}}</b>
+                        </h1>
+                        <div class="icon" style="color: #1AB394">{{shop.rate}} &nbsp;
+                            <i class="fa fa-level-up" ms-if="shop.upOrDown == 1"></i>
+                            <i class="fa fa-level-down" ms-if="shop.upOrDown == 0"></i>
+                        </div>
+                        <small><b>新商家</b></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="span-1"><b>商品总量</b></span>
+                        <span class="span-2" style="background-color: #ED5565"><b>近一周</b></span>
+                    </div>
+                    <div class="ibox-content">
+                        <h1>
+                            <b>{{goods.content}}</b>
+                        </h1>
+                        <div class="icon" style="color: #ED5565">{{goods.rate}} &nbsp;
+                            <i class="fa fa-level-up" ms-if="goods.upOrDown == 1"></i>
+                            <i class="fa fa-level-down" ms-if="goods.upOrDown == 0"></i>
+                        </div>
+                        <small><b>新商品</b></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1"><b>订单</b></span>
+                    <div>
+                        <label>年份：<select ms-duplex-number="curYear" data-duplex-changed="queryIndentChart">
+                            <option ms-repeat="year" ms-attr-value="el">{{el}}</option>
+                        </select></label>&nbsp;
+                        <label>月份：<select ms-duplex-number="curMonth" data-duplex-changed="queryIndentChart">
+                            <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                        </select></label>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="flot-chart" id="indentChart"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <ul class="stat-list">
+                                <li ms-repeat="indentDataInfo">
+                                    <h2 class="no-margin">{{el.content}}</h2>
+                                    <small>{{el.title}}</small>
+                                    <div class="stat-percent">{{el.rate}}
+                                        <i class="fa fa-level-up text-navy" ms-if="el.upOrDown == 1"></i>
+                                        <i class="fa fa-level-down text-navy" ms-if="el.upOrDown == 0"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div ms-css-width="el.rate" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="span-1"><b>反馈或投诉</b></span>
+                    <div style="color:#1AB394">
+                        <i class="fa fa-comments"></i>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="feed-activity-list">
+                        <div class="feed-element" ms-repeat="feedback">
+                            <div>
+                                <!--<small class="pull-right text-navy">1月前</small>-->
+                                <strong><b>{{el.nickName}}</b></strong>
+                                <div>{{el.content}}</div>
+                                <small class="pull-right text-muted">{{el.createTime|date('MM月dd日 hh:mm')}}</small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="page_num">
+                        <a ms-class="disabled:pageNo===1" ms-click="selectPage(-9999)">首页</a>
+                        <a ms-class="disabled:pageNo===1" ms-click="selectPage(-1)">上页</a>
+                        <a ms-class="disabled:pageNo===total" ms-click="selectPage(1)">下页</a>
+                        <a ms-class="disabled:pageNo===total" ms-click="selectPage(9999)">末页</a>
+                        &emsp;当前第{{pageNo}}页/共{{total}}页，跳转至第
+                        <input typt="text" id="selectPageNo" ms-blur="toPage" value="1">
+                        页，共<em>{{records}}</em>条记录
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="span-1"><b>热门商家</b></span>
+                            <div style="color: rgba(255, 45, 50, 0.84);">
+                                Top 10 &nbsp;<i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                <tr>
+                                    <th width="40%"><b>商家</b></th>
+                                    <th width="40%"><b>商家代码</b></th>
+                                    <th width="20%"><b>销售额</b></th>
+                                </tr>
+                                <tbody>
+                                <tr ms-repeat="hotShop">
+                                    <td>
+                                        <small>{{el.shopName}}</small>
+                                    </td>
+                                    <td>{{el.code}}</td>
+                                    <td><i style="color: rgba(255, 45, 50, 0.84);" class="fa fa-rmb"></i>&nbsp;{{el.income4Sum}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="span-1" ><b>热销商品</b></span>
+                            <div style="color: rgba(255, 45, 50, 0.84);">
+                                Top 10 &nbsp;<i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                <tr>
+                                    <th width="43%"><b>商品名称</b></th>
+                                    <th width="45%"><b>商品代码</b></th>
+                                    <th width="12%"><b>销售量</b></th>
+                                </tr>
+                                <tbody>
+                                <tr ms-repeat="hotGoods">
+                                    <td>
+                                        <small>{{el.goodsName}}</small>
+                                    </td>
+                                    <td>{{el.code}}</td>
+                                    <td>{{el.sale}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="span-1"><b>交易地区</b></span>
+                            <div style="color: rgba(56, 187, 255, 0.84);">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <table class="table table-hover no-margins">
+                                        <tr>
+                                            <th><b>地区</b></th>
+                                            <th><b>销售额</b></th>
+                                            <th><b>订单量（单）</b></th>
+                                        </tr>
+                                        <tbody>
+                                        <tr ms-repeat="zooIndent">
+                                            <td>
+                                                <small>{{el.name}}</small>
+                                            </td>
+                                            <td>{{el.total}}</td>
+                                            <td>{{el.value}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div>
+                                        <label> <input type="radio" name="type" checked ms-click="changeZooTrade(0)">&nbsp;按订单数</label>&nbsp;
+                                        <label><input type="radio" name="type"
+                                                      ms-click="changeZooTrade(1)">&nbsp;按销售额</label>
+                                    </div>
+                                    <div style="width: 100%; height: 600px" id="zooChart"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--脚本区-->
+<script type="text/javascript" src="../../../js/bi/business/list.js"></script>
