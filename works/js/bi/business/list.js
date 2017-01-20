@@ -25,7 +25,7 @@ ace.load_ajax_scripts(scripts, function () {
                     "11月": 11,
                     "12月": 12
                 },
-                year: [2015, 2016, 2017],
+                year: [],
                 curMonth: new Date().getMonth() + 1, //用于注册查询
                 curYear: new Date().getFullYear(),
                 totalTrade: 0,      //交易总量
@@ -53,6 +53,7 @@ ace.load_ajax_scripts(scripts, function () {
                                 vm.indent = result.bizData.INDENT;
                                 vm.shop = result.bizData.SHOP;
                                 vm.goods = result.bizData.GOODS;
+                                vm.years = result.bizData.years;
                             } else {
                                 layer.alert(result.msg, {icon: 2});
                             }
@@ -78,7 +79,7 @@ ace.load_ajax_scripts(scripts, function () {
                         data: {year: vm.curYear, month: vm.curMonth},
                         success: function (result) {
                             if (isSuccess(result)) {
-                                var indentChart = echarts.init($('#indentChart')[0]);
+                                var indentChart = echarts.init($('#indentChart')[0],"macarons");
                                 var indentOption = {
                                     tooltip: {
                                         trigger: 'axis'
@@ -90,7 +91,8 @@ ace.load_ajax_scripts(scripts, function () {
                                     xAxis: [
                                         {
                                             type: 'category',
-                                            data: result.bizData.xAxis
+                                            data: result.bizData.xAxis,
+                                            splitLine:{show: false}
                                         }
                                     ],
                                     yAxis: [
@@ -118,7 +120,7 @@ ace.load_ajax_scripts(scripts, function () {
                                         },
                                         {
                                             name: '付款数',
-                                            type: 'line',
+                                                type: result.bizData.chartData.allIndentsCount.length <= 15 ? 'bar': 'line',
                                             //yAxisIndex: 1,
                                             smooth: true,
                                             itemStyle: {normal: {areaStyle: {type: 'default'}}},

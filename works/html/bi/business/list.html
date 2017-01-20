@@ -47,7 +47,7 @@
         color: #fff;
         margin: -3px 0;
         float: right;
-        background-color: #428bca;
+        background-color: #1AB394;
         font-size: 10px;
         font-weight: 600;
         padding: 5px 9px;
@@ -90,9 +90,14 @@
         border-width: 1px 0;
     }
 
-    .ibox-content .icon {
-        float: right;
-        color: #1c84c6;
+    .ibox-content .icon-up {
+        color: #1ab394;
+    }
+    .ibox-content .icon-down{
+        color: #ed5565;
+    }
+    .ibox-content .icon-normal{
+        color: #38bbff;
     }
 
     .ibox-content small {
@@ -212,6 +217,17 @@
         -webkit-margin-end: 0px;
         font-weight: bold;
     }
+    .search-btn{
+        background-color: #fff;
+        margin: 0;
+        padding: 0px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 40px;
+    }
+    .search-btn:hover{
+        border: 1px solid rgba(147, 147, 147, 0.85);
+    }
 </style>
 <!--标签区-->
 <div id="listBusiness" ms-important="listBusiness" class="page-content">
@@ -220,16 +236,18 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <span class="span-1"><b>交易总量</b></span>
-                    <span class="span-2"><b>年</b></span>
+                    <span class="span-2" ><b>年</b></span>
                 </div>
                 <div class="ibox-content">
-                    <h1>
-                        <b>{{totalTrade}}</b>
-                    </h1>
-                    <div class="icon">
-                        <i class="fa fa-bolt"></i>
+                    <div>
+                        <h2><b>{{totalTrade}}</b></h2>
                     </div>
-                    <small><b>总收入</b></small>
+                    <div style="height: 5px">
+                        <div class="pull-left"><small><b>总收入</b></small></div>
+                        <div class="pull-right icon-normal" >
+                            <i class="fa fa-bolt"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -238,17 +256,21 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="span-1"><b>订单</b></span>
-                        <span class="span-2" style="background-color: #23C6C8"><b>近一周</b></span>
+                        <span class="span-2"><b>近一周</b></span>
                     </div>
                     <div class="ibox-content">
-                        <h1>
-                            <b>{{indent.content}}</b>
-                        </h1>
-                        <div class="icon" style="color: #23C6C8;">{{indent.rate}}&nbsp;
-                            <i class="fa fa-level-up" ms-if="indent.upOrDown == 1"></i>
-                            <i class="fa fa-level-down" ms-if="indent.upOrDown == 0"></i>
+                        <div>
+                            <h2><b>{{indent.content}}</b></h2>
                         </div>
-                        <small><b>新订单</b></small>
+                        <div style="height: 5px">
+                            <div class="pull-left"><small><b>新订单</b></small></div>
+                            <div class="pull-right">
+                                <div ms-class-1="icon-up:indent.upOrDown == 1" ms-class-2="icon-down:indent.upOrDown == 0">{{indent.rate}}&nbsp;
+                                    <i class="fa fa-level-up" ms-if="indent.upOrDown == 1"></i>
+                                    <i class="fa fa-level-down" ms-if="indent.upOrDown == 0"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -258,17 +280,21 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="span-1"><b>商家</b></span>
-                        <span class="span-2" style="background-color: #1AB394"><b>近一个月</b></span>
+                        <span class="span-2"><b>近一个月</b></span>
                     </div>
                     <div class="ibox-content">
-                        <h1>
-                            <b>{{shop.content}}</b>
-                        </h1>
-                        <div class="icon" style="color: #1AB394">{{shop.rate}} &nbsp;
-                            <i class="fa fa-level-up" ms-if="shop.upOrDown == 1"></i>
-                            <i class="fa fa-level-down" ms-if="shop.upOrDown == 0"></i>
+                        <div>
+                            <h2><b>{{shop.content}}</b></h2>
                         </div>
-                        <small><b>新商家</b></small>
+                        <div style="height: 5px">
+                            <div class="pull-left"><small><b>新商家</b></small></div>
+                            <div class="pull-right">
+                                <div ms-class-1="icon-up:shop.upOrDown == 1" ms-class-2="icon-down:shop.upOrDown == 0">{{shop.rate}}&nbsp;
+                                    <i class="fa fa-level-up" ms-if="indent.upOrDown == 1"></i>
+                                    <i class="fa fa-level-down" ms-if="indent.upOrDown == 0"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -278,17 +304,21 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="span-1"><b>商品总量</b></span>
-                        <span class="span-2" style="background-color: #ED5565"><b>近一周</b></span>
+                        <span class="span-2"><b>近一周</b></span>
                     </div>
                     <div class="ibox-content">
-                        <h1>
-                            <b>{{goods.content}}</b>
-                        </h1>
-                        <div class="icon" style="color: #ED5565">{{goods.rate}} &nbsp;
-                            <i class="fa fa-level-up" ms-if="goods.upOrDown == 1"></i>
-                            <i class="fa fa-level-down" ms-if="goods.upOrDown == 0"></i>
+                        <div>
+                            <h2><b>{{goods.content}}</b></h2>
                         </div>
-                        <small><b>新商品</b></small>
+                        <div style="height: 5px">
+                            <div class="pull-left"><small><b>新商品</b></small></div>
+                            <div class="pull-right">
+                                <div ms-class-1="icon-up:goods.upOrDown == 1" ms-class-2="icon-down:goods.upOrDown == 0">{{goods.rate}}&nbsp;
+                                    <i class="fa fa-level-up" ms-if="indent.upOrDown == 1"></i>
+                                    <i class="fa fa-level-down" ms-if="indent.upOrDown == 0"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -300,10 +330,10 @@
                 <div class="ibox-title">
                     <span class="span-1"><b>订单</b></span>
                     <div>
-                        <label>年份：<select ms-duplex-number="curYear" data-duplex-changed="queryIndentChart">
+                        <label>年份：<select ms-duplex-number="curYear">
                             <option ms-repeat="year" ms-attr-value="el">{{el}}</option>
                         </select></label>&nbsp;
-                        <label>月份：<select ms-duplex-number="curMonth" data-duplex-changed="queryIndentChart">
+                        <label>月份：<select ms-duplex-number="curMonth">
                             <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
                         </select></label>
                     </div>
@@ -379,16 +409,16 @@
                         <div class="ibox-content">
                             <table class="table table-hover no-margins">
                                 <tr>
-                                    <th width="40%"><b>商家</b></th>
-                                    <th width="40%"><b>商家代码</b></th>
-                                    <th width="20%"><b>销售额</b></th>
+                                    <th width="60%"><b>商家</b></th>
+                                    <!--<th width="40%"><b>商家代码</b></th>-->
+                                    <th width="40%"><b>销售额</b></th>
                                 </tr>
                                 <tbody>
                                 <tr ms-repeat="hotShop">
                                     <td>
                                         <small>{{el.shopName}}</small>
                                     </td>
-                                    <td>{{el.code}}</td>
+                                    <!--<td>{{el.code}}</td>-->
                                     <td><i style="color: rgba(255, 45, 50, 0.84);" class="fa fa-rmb"></i>&nbsp;{{el.income4Sum}}</td>
                                 </tr>
 
@@ -408,16 +438,16 @@
                         <div class="ibox-content">
                             <table class="table table-hover no-margins">
                                 <tr>
-                                    <th width="43%"><b>商品名称</b></th>
-                                    <th width="45%"><b>商品代码</b></th>
-                                    <th width="12%"><b>销售量</b></th>
+                                    <th width="70%"><b>商品名称</b></th>
+                                    <!--<th width="45%"><b>商品代码</b></th>-->
+                                    <th width="30%"><b>销售量</b></th>
                                 </tr>
                                 <tbody>
                                 <tr ms-repeat="hotGoods">
                                     <td>
                                         <small>{{el.goodsName}}</small>
                                     </td>
-                                    <td>{{el.code}}</td>
+                                    <!--<td>{{el.code}}</td>-->
                                     <td>{{el.sale}}</td>
                                 </tr>
                                 </tbody>
@@ -430,9 +460,15 @@
                 <div class="col-sm-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <span class="span-1"><b>交易地区</b></span>
-                            <div style="color: rgba(56, 187, 255, 0.84);">
-                                <i class="fa fa-map-marker"></i>
+                            <span class="span-1"><b><i class="fa fa-map-marker"></i>&nbsp;交易地区</b></span>
+                            <div>
+                                <label>年份：<select ms-duplex-number="curYear">
+                                    <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
+                                </select></label>&nbsp;
+                                <label>月份：<select ms-duplex="curMonth1">
+                                    <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                                </select></label>&nbsp;
+                                <button class="search-btn" ms-click="queryUserPV">确定</button>
                             </div>
                         </div>
                         <div class="ibox-content">
