@@ -214,7 +214,6 @@ ace.load_ajax_scripts(scripts, function () {
                                     zooIndent.push(indent);
                                     indent = {name: null, value: null};
                                 });
-
                                 var zooChart = echarts.init($('#zooMapChart')[0], "macarons");
                                 var zooOption = {
                                     tooltip: {
@@ -229,12 +228,12 @@ ace.load_ajax_scripts(scripts, function () {
                                     dataRange: {
                                         min: 0,
                                         //max: result.bizData.max,
-                                        max: 500,
+                                        max: zooIndent[0].value,
                                         x: 'left',
                                         y: 'bottom',
                                         text: ['高', '低'],           // 文本，默认为数值文本
                                         calculable: true,
-                                        show: false
+                                        show: true
                                     },
                                     series: [
                                         {
