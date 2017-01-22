@@ -330,12 +330,13 @@
                 <div class="ibox-title">
                     <span class="span-1"><b>订单</b></span>
                     <div>
-                        <label>年份：<select ms-duplex-number="curYear">
-                            <option ms-repeat="year" ms-attr-value="el">{{el}}</option>
+                        <label>年份：<select ms-duplex-number="curYear1">
+                            <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
                         </select></label>&nbsp;
-                        <label>月份：<select ms-duplex-number="curMonth">
+                        <label>月份：<select ms-duplex-number="curMonth1">
                             <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
                         </select></label>
+                        <button class="search-btn" ms-click="queryIndentChart">确定</button>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -465,10 +466,14 @@
                                 <label>年份：<select ms-duplex-number="curYear">
                                     <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
                                 </select></label>&nbsp;
-                                <label>月份：<select ms-duplex="curMonth1">
+                                <label>月份：<select ms-duplex="curMonth">
                                     <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
                                 </select></label>&nbsp;
-                                <button class="search-btn" ms-click="queryUserPV">确定</button>
+                                <!--<label>模式：<select style="width: 85px">-->
+                                    <!--<option value="0" name="type">按订单数</option>-->
+                                    <!--<option value="1" name="type">按销售额</option>-->
+                                <!--</select></label>&nbsp;-->
+                                <button class="search-btn" ms-click="queryTradesZoo">确定</button>
                             </div>
                         </div>
                         <div class="ibox-content">
@@ -492,12 +497,13 @@
                                     </table>
                                 </div>
                                 <div class="col-sm-9">
-                                    <div>
-                                        <label> <input type="radio" name="type" checked ms-click="changeZooTrade(0)">&nbsp;按订单数</label>&nbsp;
-                                        <label><input type="radio" name="type"
-                                                      ms-click="changeZooTrade(1)">&nbsp;按销售额</label>
-                                    </div>
-                                    <div style="width: 100%; height: 600px" id="zooChart"></div>
+                                    <!--<div>-->
+                                        <!--<label> <input type="radio" name="type" checked ms-click="changeZooTrade(0)">&nbsp;按订单数</label>&nbsp;-->
+                                        <!--<label><input type="radio" name="type"-->
+                                                      <!--ms-click="changeZooTrade(1)">&nbsp;按销售额</label>-->
+                                    <!--</div>-->
+                                    <div style="width: 100%; height: 600px" id="zooMapChart"></div>
+                                    <div style="width: 100%; height: 300px" id="zooChart"></div>
                                 </div>
                             </div>
 

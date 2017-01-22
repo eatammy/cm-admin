@@ -198,8 +198,8 @@ ace.load_ajax_scripts(scripts, function () {
                                 var allRegisterPv = echarts.init($('#allRegisterPv')[0],'macarons');
                                 var option = {
                                     title: {
-                                        text: result.bizData.allRegisterPV.text,
-                                        subtext: result.bizData.allRegisterPV.subtext,
+                                        text: result.bizData.text,
+                                        subtext: result.bizData.subtext,
                                         x: 'center'
                                     },
                                     tooltip: {

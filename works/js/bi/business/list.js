@@ -25,9 +25,11 @@ ace.load_ajax_scripts(scripts, function () {
                     "11月": 11,
                     "12月": 12
                 },
-                year: [],
-                curMonth: new Date().getMonth() + 1, //用于注册查询
-                curYear: new Date().getFullYear(),
+                years: [],
+                curMonth1: new Date().getMonth() + 1, //用于订单查询
+                curMonth: new Date().getMonth() + 1, // 用于地区销量查询
+                curYear1: new Date().getFullYear(),//用于订单查询
+                curYear: new Date().getFullYear(),// 用于地区销量查询
                 totalTrade: 0,      //交易总量
                 indent: null,   //订单量
                 shop: null,     //新商家
@@ -36,7 +38,7 @@ ace.load_ajax_scripts(scripts, function () {
                 hotShop: [],      //热门商店
                 hotGoods: [],    //热门商品
                 zooIndent: [],   //地区订单
-                feedback:[],    //反馈或建议
+                feedback: [],    //反馈或建议
                 pageNo: 1,       //页码
                 pageSize: 10,
                 total: 1,        //总页数
@@ -68,7 +70,8 @@ ace.load_ajax_scripts(scripts, function () {
                 //查询订单数据
                 queryBusinessChart: function () {
                     var curMonth = new Date().getMonth() + 1;
-                    if (vm.curMonth > curMonth) {
+                    var curYear = new Date().getFullYear();
+                    if (vm.curYear1 == curYear && vm.curMonth1 > curMonth) {
                         layer.alert("所选月份不能大于当前月份", {icon: 2});
                         return;
                     }
@@ -76,10 +79,10 @@ ace.load_ajax_scripts(scripts, function () {
                         url: '/cm/admin/bibusiness/queryBusinessChart',
                         type: 'get',
                         dataType: 'json',
-                        data: {year: vm.curYear, month: vm.curMonth},
+                        data: {year: vm.curYear1, month: vm.curMonth1},
                         success: function (result) {
                             if (isSuccess(result)) {
-                                var indentChart = echarts.init($('#indentChart')[0],"macarons");
+                                var indentChart = echarts.init($('#indentChart')[0], "macarons");
                                 var indentOption = {
                                     tooltip: {
                                         trigger: 'axis'
@@ -92,7 +95,7 @@ ace.load_ajax_scripts(scripts, function () {
                                         {
                                             type: 'category',
                                             data: result.bizData.xAxis,
-                                            splitLine:{show: false}
+                                            splitLine: {show: false}
                                         }
                                     ],
                                     yAxis: [
@@ -120,7 +123,7 @@ ace.load_ajax_scripts(scripts, function () {
                                         },
                                         {
                                             name: '付款数',
-                                                type: result.bizData.chartData.allIndentsCount.length <= 15 ? 'bar': 'line',
+                                            type: result.bizData.chartData.allIndentsCount.length <= 15 ? 'bar' : 'line',
                                             //yAxisIndex: 1,
                                             smooth: true,
                                             itemStyle: {normal: {areaStyle: {type: 'default'}}},
@@ -189,124 +192,158 @@ ace.load_ajax_scripts(scripts, function () {
 
                 //获取交易地区信息
                 queryTradesZoo: function () {
+                    var curMonth = new Date().getMonth() + 1;
+                    var curYear = new Date().getFullYear();
+                    if (vm.curYear == curYear && vm.curMonth > curMonth) {
+                        layer.alert("所选月份不能大于当前月份", {icon: 2});
+                        return;
+                    }
                     $.ajax({
                         url: '/cm/admin/bibusiness/queryTradesZoo',
                         type: 'get',
                         dataType: 'json',
+                        data: {year: vm.curYear, month: vm.curMonth},
                         success: function (result) {
                             if (isSuccess(result)) {
                                 vm.zooIndent = result.bizData.data;
-                                var max = 0;
-                                vm.zooIndent.forEach(function (el) {
-                                    if (el.value > max) {
-                                        max = el.value;
-                                    }
+                                var zooIndent = [];
+                                var indent = {name: null, value: null};
+                                result.bizData.data.forEach(function (el) {
+                                    indent.name = el.name;
+                                    indent.value = el.total;
+                                    zooIndent.push(indent);
+                                    indent = {name: null, value: null};
                                 });
-                                var zooChart = echarts.init($('#zooChart')[0]);
+
+                                var zooChart = echarts.init($('#zooMapChart')[0], "macarons");
                                 var zooOption = {
-                                    dataRange: {
-                                        min: 0,
-                                        max: max,
-                                        x: 'left',
-                                        y: 'bottom',
-                                        text: ['高', '低'],           // 文本，默认为数值文本
-                                        calculable: true
-                                    },
                                     tooltip: {
                                         trigger: 'item',
                                         islandFormatter: '{a} < br/>{b} : {c}',
                                         showDelay: 20
                                     },
-                                    roamController: {
-                                        show: true,
-                                        x: 'right',
-                                        mapTypeControl: {
-                                            'china': true
-                                        }
+                                    title: {
+                                        text: "销售额分布",
+                                        x: "center"
+                                    },
+                                    dataRange: {
+                                        min: 0,
+                                        //max: result.bizData.max,
+                                        max: 500,
+                                        x: 'left',
+                                        y: 'bottom',
+                                        text: ['高', '低'],           // 文本，默认为数值文本
+                                        calculable: true,
+                                        show: false
                                     },
                                     series: [
                                         {
-                                            name: '用户分布',
+                                            name: '销售总量',
                                             type: 'map',
                                             mapType: 'china',
                                             roam: false,
                                             itemStyle: {
-                                                normal: {label: {show: true}}
+                                                normal: {
+                                                    // color: ['#1ab394'],
+                                                    borderColor: '#fff',
+                                                    borderWidth: 1,
+                                                    areaStyle: {
+                                                        color: '#ccc'//rgba(135,206,250,0.8)
+                                                    },
+                                                    label: {
+                                                        show: false,
+                                                        textStyle: {
+                                                            color: 'rgba(139,69,19,1)'
+                                                        }
+                                                    }
+                                                },
+                                                emphasis: {                 // 也是选中样式
+                                                    // color: 各异,
+                                                    borderColor: 'rgba(0,0,0,0)',
+                                                    borderWidth: 1,
+                                                    areaStyle: {
+                                                        color: '#DF7783'
+                                                    },
+                                                    label: {
+                                                        show: false,
+                                                        textStyle: {
+                                                            color: 'rgba(139,69,19,1)'
+                                                        }
+                                                    }
+                                                }
                                             },
-                                            data: result.bizData.data
+                                            data: zooIndent
                                         }
                                     ]
                                 };
                                 zooChart.setOption(zooOption);
+
+                                //订单
+                                var allRegisterPv = echarts.init($('#zooChart')[0], 'macarons');
+                                var xAxis = [];
+                                var data = [];
+                                vm.zooIndent.forEach(function (el) {
+                                    xAxis.push(el.name);
+                                    data.push(el.value);
+                                });
+                                var option = {
+                                    title: {
+                                        text: '省份订单统计',
+                                        subtext: vm.curYear + "年-" + vm.curMonth + '月订单数',
+                                        x: "center"
+                                    },
+                                    tooltip: {
+                                        trigger: 'axis'
+                                    },
+                                    toolbox: {
+                                        show: true,
+                                        feature: {
+                                            mark: {show: true},
+                                            dataView: {show: true, readOnly: false},
+                                            saveAsImage: {show: true}
+                                        },
+                                        orient: "vertical",
+                                        x: "right"
+
+                                    },
+                                    calculable: true,
+                                    xAxis: [
+                                        {
+                                            type: 'category',
+                                            data: xAxis,
+                                            splitLine: {show: false}
+                                        }
+                                    ],
+                                    yAxis: [
+                                        {
+                                            type: 'value'
+                                        }
+                                    ],
+                                    series: [
+                                        {
+                                            name: '省份订单数',
+                                            type: 'bar',
+                                            data: data,
+                                            markPoint: {
+                                                data: [
+                                                    {type: 'max', name: '最大值'},
+                                                    {type: 'min', name: '最小值'}
+                                                ]
+                                            },
+                                            markLine: {
+                                                data: [
+                                                    {type: 'average', name: '平均值'}
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                };
+                                allRegisterPv.setOption(option);
                             } else {
                                 layer.alert(result.msg, {icon: 2});
                             }
                         }
                     })
-                },
-                changeZooTrade: function (type) {
-                    var zooIndent = [];
-                    var indent = {name: null, value: null};
-                    var max = 0;
-                    if (type == 0) {
-                        vm.zooIndent.forEach(function (el) {
-                            indent.name = el.name;
-                            indent.value = el.value;
-                            zooIndent.push(indent);
-                            if (el.value > max) {
-                                max = el.value;
-                            }
-                            indent = {name: null, value: null};
-                        });
-                    } else {
-                        vm.zooIndent.forEach(function (el) {
-                            indent.name = el.name;
-                            indent.value = el.total;
-                            zooIndent.push(indent);
-                            if (el.total > max) {
-                                max = el.total;
-                            }
-                            indent = {name: null, value: null};
-                        });
-                        avalon.log(zooIndent);
-                    }
-                    var zooChart = echarts.init($('#zooChart')[0]);
-                    var zooOption = {
-                        dataRange: {
-                            min: 0,
-                            max: max,
-                            x: 'left',
-                            y: 'bottom',
-                            text: ['高', '低'],           // 文本，默认为数值文本
-                            calculable: true
-                        },
-                        tooltip: {
-                            trigger: 'item',
-                            islandFormatter: '{a} < br/>{b} : {c}',
-                            showDelay: 20
-                        },
-                        roamController: {
-                            show: true,
-                            x: 'right',
-                            mapTypeControl: {
-                                'china': true
-                            }
-                        },
-                        series: [
-                            {
-                                name: '用户分布',
-                                type: 'map',
-                                mapType: 'china',
-                                roam: false,
-                                itemStyle: {
-                                    normal: {label: {show: true}}
-                                },
-                                data: zooIndent
-                            }
-                        ]
-                    };
-                    zooChart.setOption(zooOption);
-
                 },
                 init: function () {
                     vm.getBusinessInfo();
