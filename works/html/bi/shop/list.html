@@ -40,7 +40,6 @@
         font-size: 14px;
         font-weight: 600;
         text-align: center;
-        font-style: inherit;
         float: left;
     }
 
@@ -48,7 +47,7 @@
         color: #fff;
         margin: -3px 0;
         float: right;
-        background-color: #428bca;
+        background-color: #1AB394;
         font-size: 10px;
         font-weight: 600;
         padding: 5px 9px;
@@ -70,9 +69,6 @@
         width: 62px;
         height: 21px;
         padding-top: 0;
-    }
-    input[type='radio'] {
-        vertical-align: text-bottom;margin-bottom: 2px;*margin-bottom: -2px;
     }
 
     .ibox-content {
@@ -97,10 +93,12 @@
     .ibox-content .icon-up {
         color: #1ab394;
     }
-    .ibox-content .icon-down{
+
+    .ibox-content .icon-down {
         color: #ed5565;
     }
-    .ibox-content .icon-normal{
+
+    .ibox-content .icon-normal {
         color: #38bbff;
     }
 
@@ -116,8 +114,9 @@
         -webkit-margin-after: 0.67em;
         -webkit-margin-start: 0px;
         -webkit-margin-end: 0px;
-        color: rgba(147, 147, 147, 0.85);
-        font-size: 30px;
+        /*color: rgba(147, 147, 147, 0.85);*/
+        color: rgba(49, 186, 223, 0.74);
+        font-size: 25px;
         margin: 15px 0;
     }
 
@@ -157,7 +156,7 @@
     }
 
     h2 {
-        font-size: 30px;
+        font-size: 25px;
         font-weight: 120;
         line-height: 1.1;
         display: block;
@@ -165,7 +164,7 @@
         -webkit-margin-after: 0.83em;
         -webkit-margin-start: 0px;
         -webkit-margin-end: 0px;
-        color: rgba(49, 186, 223, 0.74);;
+        color: rgba(49, 186, 223, 0.74);
     }
 
     .table {
@@ -187,30 +186,10 @@
         border-top: none;
     }
 
-    .feed-element {
-        padding-bottom: 15px;
-    }
-    .feed-element, .feed-element .media {
-        margin-top: 15px;
-    }
-    .feed-element:first-child {
-        margin-top: 0;
-    }
-    .feed-activity-list .feed-element {
-        border-bottom: 1px solid #e7eaec;
-    }
-    .feed-element, .media-body {
-        overflow: hidden;
-    }
-    .text-navy {
-        color: #1ab394;
-    }
-    .text-muted {
-        color: #888;
-    }
     .small, small {
         font-size: 85%;
     }
+
     h5 {
         display: block;
         font-size: 0.83em;
@@ -221,7 +200,7 @@
         font-weight: bold;
     }
 
-    .search-btn{
+    .search-btn {
         background-color: #fff;
         margin: 0;
         padding: 0px;
@@ -229,204 +208,155 @@
         border-radius: 5px;
         width: 40px;
     }
-    .search-btn:hover{
+
+    .search-btn:hover {
         border: 1px solid rgba(147, 147, 147, 0.85);
     }
-
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        border-color: #e7eaec #e7eaec transparent;
+        border-top: 2px solid #e7eaec;
+        box-shadow: none;
+        /*border-width: 4px 0 0;*/
+    }
+    .tab-content{
+        border:1px solid #e7eaec;
+    }
 
 </style>
 <!--标签区-->
-<div id="listPlatform" ms-important="listPlatform" class="page-content">
+<div id="listShopBusiness" ms-important="listShopBusiness" class="page-content">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-9">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <span class="span-1"><b><i class="fa fa-users"></i>&nbsp;用户分布</b>
-                    </span>
+                    <span class="span-1"><b>订单</b></span>
                     <div>
-                        <label>性别：<select ms-duplex-number="sex" data-duplex-changed="queryIndentChart">
-                            <option value="-1">默认</option>
-                            <option value="0">男</option>
-                            <option value="1">女</option>
+                        <label>年份：<select ms-duplex-number="curYear">
+                            <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
                         </select></label>&nbsp;
-                        <label>年龄区间：<input ms-duplex-number="minAge" type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"> - <input ms-duplex-number="maxAge" type="text" style="padding: 0;margin: 0; width: 35px;height: 19px"></label>
-                        <button class="search-btn" ms-click="queryUserMap">确定</button>
-                        <button class="search-btn" ms-click="clear">重置</button>
+                        <label>月份：<select ms-duplex-number="curMonth">
+                            <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
+                        </select></label>
+                        <button class="search-btn" ms-click="queryIndentChart">确定</button>
                     </div>
                 </div>
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="flot-chart" id="userMap" style="height: 700px;"></div>
+                            <div class="flot-chart" id="indentChart"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="span-1">
-                        <b><i class="fa fa-user-plus"></i>&nbsp;注册量</b>
-                        <span>年：<span style="color:rgba(251, 56, 97, 0.94);">{{grossRegister}}</span></span>
-                        <span>月：<span style="color:rgba(251, 56, 97, 0.94);">{{monthRegister}}</span></span>
-                        <span>周：<span style="color:rgba(251, 56, 97, 0.94); ">{{weekRegister}}</span></span>
-                        <span>日：<span style="color:rgba(251, 56, 97, 0.94); ">{{dayRegister}}</span></span>
-                    </span>
-                    <div>
-                        <label>年份：<select ms-duplex-number="curYear">
-                            <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
-                        </select></label>&nbsp;
-                        <label>月份：<select ms-duplex="curMonth">
-                            <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
-                        </select></label>&nbsp;
-                        <button class="search-btn" ms-click="queryRegisterCharts">确定</button>
-                        <button class="search-btn" ms-click="clear">重置</button>
+        <div class="col-sm-3" >
+            <div class="ibox float-e-margins" style="background-color: #fff">
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        今日销售额
+                    </div>
+                    <div class="panel-body">
+                        <span><b>订单数：</b>{{sales.day4Sales.value}}</span><span style="margin-left: 10px;"><b>销售额：</b>{{sales.day4Sales.total|currency}}</span>
                     </div>
                 </div>
-                <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="flot-chart" id="allRegisterPv" style="height: 350px;"></div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="flot-chart" id="ageRegisterPv" style="height: 350px;"></div>
-                        </div>
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        近一周销售额
+                    </div>
+                    <div class="panel-body">
+                        <span><b>订单数：</b>{{sales.week4Sales.value}}</span><span style="margin-left: 10px;"><b>销售额：</b>{{sales.week4Sales.total|currency}}</span>
+                    </div>
+                </div>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        近一个月销售额
+                    </div>
+                    <div class="panel-body">
+                        <span><b>订单数：</b>{{sales.month4Sales.value}}</span><span style="margin-left: 10px;"><b>销售额：</b>{{sales.month4Sales.total|currency}}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row">
-        <div class="col-sm-4" >
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="span-1">
-                        <b><i class="fa fa-street-view"></i>&nbsp;访客统计</b>
-                    </span>
-                    <div>
-                        <span class="span-2" style="background-color:#1ab394"><b>今天</b></span>
+        <div class="col-sm-5">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs" style="border-bottom: none">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">商品仓储预警</a>
+                    </li>
+                    <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">商店访问流量</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <table class="table_1">
+                            <tr>
+                                <th width="45%">商品名称</th>
+                                <th width="40%">仓储销售比</th>
+                                <th width="15%">操作</th>
+                            </tr>
+                            <tr ms-repeat="goodsStorage">
+                                <td>{{el.goodsName}}</td>
+                                <td><div  class="progress-bar" ms-css-width="el.rate" ms-class-1="progress-bar-warning: el.sale/(el.sale+el.stock) < 0.85 "
+                                          ms-class-2="progress-bar-danger: el.sale/(el.sale+el.stock) >=0.85">{{el.rate}}</div></td>
+                                <td> <input name="" type="button" value="存仓" ms-click="updateStorageGoods(el.id, el.stock)"/></td>
+                            </tr>
+                        </table>
+                        <div class="page_num">
+                            <a ms-class="disabled:pageNo===1" ms-click="selectPage(-9999)">首页</a>
+                            <a ms-class="disabled:pageNo===1" ms-click="selectPage(-1)">上页</a>
+                            <a ms-class="disabled:pageNo===total" ms-click="selectPage(1)">下页</a>
+                            <a ms-class="disabled:pageNo===total" ms-click="selectPage(9999)">末页</a>
+                            &emsp;当前第{{pageNo}}页/共{{total}}页，跳转至第
+                            <input typt="text" id="selectPageNo" ms-blur="toPage" value="1">
+                            页,共<em>{{records}}</em>条记录
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <b>暂未实现</b>
+                        </div>
                     </div>
                 </div>
-                <div class="ibox-content" ms-click="changeIndex(0)">
-                    <div>
-                        <h2><b>{{todayUserPv.content}}</b></h2>
-                    </div>
-                    <div style="height: 5px">
-                        <div class="pull-left"><small><b>新访客</b></small></div>
-                        <div class="pull-right">
-                            <div ms-class-1="icon-up:todayUserPv.upOrDown == 1" ms-class-2="icon-down:todayUserPv.upOrDown == 0">{{todayUserPv.rate}}&nbsp;
-                                <i class="fa fa-level-up" ms-if="todayUserPv.upOrDown == 1"></i>
-                                <i class="fa fa-level-down" ms-if="todayUserPv.upOrDown == 0"></i>
+
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="span-1"><b>热销商品</b></span>
+                            <div style="color: rgba(255, 45, 50, 0.84);">
+                                Top 5 &nbsp;<i class="fa fa-star"></i>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <b><i class="fa fa-fire"></i>&nbsp;活跃用户</b>
-                    <div><span class="span-2" style="background-color:#1ab394"><b>近一个月</b></span></div>
-                </div>
-                <div class="ibox-content" ms-click="changeIndex(1)">
-                    <div>
-                        <h2><b>{{activePV.content}}</b></h2>
-                    </div>
-                    <div style="height: 5px">
-                        <div class="pull-left"><small><b>用户数</b></small></div>
-                        <div class="pull-right" ms-class-1="icon-up:activePV.upOrDown == 1" ms-class-2="icon-down:activePV.upOrDown == 0">
-                            {{activePV.rate}}&nbsp;
-                            <i class="fa fa-level-up" ms-if="activePV.upOrDown == 1"></i>
-                            <i class="fa fa-level-down" ms-if="activePV.upOrDown == 0"></i>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                <tr>
+                                    <th width="40%"><b>商品名称</b></th>
+                                    <th width="15%"><b>已卖</b></th>
+                                    <th width="15%"><b>销售额</b></th>
+                                    <th width="30%"><b>销售总占比</b></th>
+                                </tr>
+                                <tbody>
+                                <tr ms-repeat="hotGoods">
+                                    <td>
+                                        <small>{{el.goodsName}}</small>
+                                    </td>
+                                    <td>{{el.sale}}</td>
+                                    <td>{{(el.sale*el.price)|currency}}</td>
+                                    <!--<td>{{el.code}}</td>-->
+                                    <td>{{el.rate}}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <b><i class="fa fa-newspaper-o"></i>&nbsp;设备统计</b>
-                    <div><span class="span-2" style="background-color:#1ab394"><b>近一个月</b></span></div>
-                </div>
-                <div class="ibox-content" ms-click="changeIndex(2)">
-                    <div>
-                        <h2><b>{{devicePV}}</b></h2>
-                    </div>
-                    <div style="height: 5px">
-                        <div class="pull-left"><small><b>新设备</b></small></div>
-                        <div class="pull-right icon-normal">
-                            <i class="fa fa-bolt"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--访客统计-->
-        <div class="col-sm-8" ms-if="curIndex == 0">
-           <div class="ibox float-e-margins">
-               <div class="ibox-title">
-                    <span class="span-1">
-                        <b><i class="fa fa-street-view"></i>&nbsp;访客统计</b>
-                    </span>
-                   <div>
-                       <label>年份：<select ms-duplex-number="curYear">
-                           <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
-                       </select></label>&nbsp;
-                       <label>月份：<select ms-duplex="curMonth1">
-                           <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
-                       </select></label>&nbsp;
-                       <button class="search-btn" ms-click="queryUserPV">确定</button>
-                       <button class="search-btn" ms-click="clear">重置</button>
-                   </div>
-               </div>
-               <div class="ibox-content">
-                  <div id="visitorPv" style="height: 482px;"></div>
-               </div>
-           </div>
-        </div>
-        <!--活跃用户统计-->
-        <div class="col-sm-8" ms-if="curIndex == 1">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="span-1">
-                        <b><i class="fa fa-fire"></i>&nbsp;活跃用户</b>
-                    </span>
-                    <div>
-                        <label>呈现方式：
-                            <input type="radio" name="isDefault" ms-duplex-number="isDefault" value="0" checked>按性别
-                            <input type="radio" name="isDefault" ms-duplex-number="isDefault" value="1">按年龄区间
-                        </label>&nbsp;
-                        <button class="search-btn" ms-click="queryActivePV">确定</button>
-                    </div>
-                </div>
-                <div class="ibox-content">
-                    <div id="activeUserPv" style="height: 482px;"></div>
-                </div>
-            </div>
-        </div>
-        <!--设备统计-->
-        <div class="col-sm-8" ms-if="curIndex == 2">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <span class="span-1">
-                        <b><i class="fa fa-newspaper-o"></i>&nbsp;设别统计</b>
-                    </span>
-                    <div>
-                        <label>年份：<select ms-duplex-number="curYear">
-                            <option ms-repeat="years" ms-attr-value="el">{{el}}</option>
-                        </select></label>&nbsp;
-                        <label>月份：<select ms-duplex="curMonth1">
-                            <option ms-repeat="month" ms-attr-value="$val">{{$key}}</option>
-                        </select></label>&nbsp;
-                        <button class="search-btn" ms-click="queryDevicePV">确定</button>
-                        <button class="search-btn" ms-click="clear">重置</button>
-                    </div>
-                </div>
-                <div class="ibox-content">
-                    <div id="devicePv" style="height: 482px;"></div>
                 </div>
             </div>
         </div>
@@ -434,4 +364,4 @@
 </div>
 
 <!--脚本区-->
-<script type="text/javascript" src="../../../js/bi/platform/list_new.js"></script>
+<script type="text/javascript" src="../../../js/bi/shop/list.js"></script>
